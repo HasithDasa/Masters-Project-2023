@@ -1,0 +1,15 @@
+https://stackoverflow.com/questions/3453085/what-is-double-colon-in-python-when-subscripting-sequences
+
+https://realpython.com/python-zip-function/
+
+https://numpy.org/doc/stable/reference/generated/numpy.reshape.html
+
+https://chowdera.com/2021/06/20210626042451078y.html
+
+https://help.hasty.ai/export-formats/hasty-json-v1-1
+
+https://kogs-www.informatik.uni-hamburg.de/~neumann/BV-WS-2007/BV-5-07.pdf
+
+https://www.youtube.com/watch?v=9N6a-VLBa2I&t=1051s
+
+https://www.youtube.com/watch?v=6x8oN6FtpLo&t=335s
