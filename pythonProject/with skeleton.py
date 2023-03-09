@@ -26,7 +26,7 @@ def rle_decode(mask_rle, shape):
 
 with open('training_done.json') as f:
     data = json.load(f)
-    data1 = data['images'][8]  # selecting the image
+    data1 = data['images'][16]  # selecting the image
     img_name = data1['image_name']
     img_name = img_name.replace('.png', '')
     img_width = data1['width']
@@ -54,6 +54,7 @@ with open('training_done.json') as f:
     eucli_dis = []
     slope_angles = []
     bbox_list = []
+    lg_bbox_list =[]
     co_with_ones = []
     bbox_ones_mask_list = []
     mask_list = []
@@ -94,6 +95,21 @@ with open('training_done.json') as f:
 
             # including mask in the main image, need to make it zero for everytime because of mask coincidence problem
             img_temp = np.zeros(img_temp_shape, dtype=np.uint8)
+
+        # considering large bounding boxes to eliminate unwanted intersections of small bounding boxes
+        if class_name == "Raw Cutting":
+            # where exactly the mask situated in main image
+            lg_row_start = bbox[1]
+            lg_row_end = bbox[3]
+
+            lg_col_start = bbox[0]
+            lg_col_end = bbox[2]
+
+            # collecting large bbox information
+            lg_bbox_list.append([lg_col_start, lg_col_end, lg_row_start, lg_row_end])
+
+    print("lg_bbox_list", lg_bbox_list)
+
 
 
     for j in range(len(list_of_keys)):
@@ -144,22 +160,97 @@ with open('training_done.json') as f:
 
                         # bbox_ones_mask_list1 = np.sort(np.array(bbox_ones_mask_list))
 
-    intersected_masks_list = np.sort(np.array(bbox_ones_mask_list))
-    intersected_masks_list = np.unique(intersected_masks_list, axis=0)
+    mask_inside_lg_bbox_list = []
+    for lg_bb_ind, lg_bb_ele in enumerate(lg_bbox_list):
 
-    # intersected_masks_list_python = intersected_masks_list.tolist()
-    # print('intersected_masks_list_python', intersected_masks_list_python)
+
+        for mask_index_2, mask_ele_2 in enumerate(co_with_ones):
+
+            ones_count = 0
+            for co_with_ones_ele2 in mask_ele_2:
+
+                # print("co_with_ones_ele2", co_with_ones_ele2)
+                if (lg_bb_ele[0] <= co_with_ones_ele2[1] < lg_bb_ele[1]) and (lg_bb_ele[2] <= co_with_ones_ele2[0] < lg_bb_ele[3]):
+
+                    ones_count += 1
+
+            # print("ones_count", ones_count)
+            # print("len_mask_ele_2", len(mask_ele_2))
+
+            if ones_count == len(mask_ele_2):
+                # print("mask is inside large bbox")
+                mask_inside_lg_bbox_list.append([lg_bb_ind, mask_index_2])
+
+    # print("mask_inside_lg_bbox_list", mask_inside_lg_bbox_list)
+
+    unique_sublists = set()
+
+    for sublist in bbox_ones_mask_list:
+        if sublist[0] < sublist[1]:
+            unique_sublists.add(tuple(sublist))
+        else:
+            unique_sublists.add(tuple(reversed(sublist)))
+
+    # Convert the set back to a list of lists
+    intersected_masks_list = [list(sublist) for sublist in unique_sublists]
+
+    # intersected_masks_list = np.sort(np.array(bbox_ones_mask_list))
+    # intersected_masks_list = np.unique(intersected_masks_list, axis=0)
+    # intersected_masks_list = intersected_masks_list.tolist()
+
+    # Group sublists by their first element
+    grouped_list = {}
+    for sublist in mask_inside_lg_bbox_list:
+        key = sublist[0]
+        if key not in grouped_list:
+            grouped_list[key] = []
+        grouped_list[key].append(sublist)
+
+    # Create new list with second elements of sublists in each group
+    intersected_bbox_in_bigbb_list = []
+    for group in grouped_list.values():
+        new_sublist = [sublist[1] for sublist in group]
+        intersected_bbox_in_bigbb_list.append(new_sublist)
+
+    # Create a set of all unique elements in intersected_bbox_in_bigbb_list
+    all_elements = set()
+    for sublist in intersected_bbox_in_bigbb_list:
+        all_elements.update(sublist)
+
+    intersected_masks_list_final = []
+
+    for mask in intersected_masks_list:
+        found = False
+        for bbox in intersected_bbox_in_bigbb_list:
+            if all(elem in bbox for elem in mask):
+                intersected_masks_list_final.append(mask)
+                found = True
+                break
+        if not found:
+            continue
+
+
+
+    print('intersected_bbox_in_bigbb_list', intersected_bbox_in_bigbb_list)
+    # print('intersected_masks_list_final', intersected_masks_list_final)
+    print("intersected_masks_list", intersected_masks_list)
+    print("intersected_masks_list_final", intersected_masks_list_final)
 
     # bbox_ones_mask_list1 = set(bbox_ones_mask_list)
     with open("intersected_masks_list.txt", "w") as output1:
         output1.write(str(intersected_masks_list))
+
+    # intersected_masks_list_2 = intersected_masks_list.tolist()
+
+
+
 
     # with open("intersected_comm_ones_list.txt", "w") as output1:
     #    output1.write(str(intersected_comm_ones_list))
 
     #going on one by one on intersected masks
 
-    for ele_ind, ele_int_list in enumerate(intersected_masks_list):
+    for ele_ind, ele_int_list in enumerate(intersected_masks_list_final):
 
         print("ele_int_list", ele_int_list)
 
@@ -284,7 +375,6 @@ with open('training_done.json') as f:
 
         clustering_list = []
         clustering_len_list = []
-        cluster_coor_list_2 = []
 
         clustering_needed = False
         clustering_type = "row"
@@ -333,91 +423,6 @@ with open('training_done.json') as f:
 
             if len(clustering_len_list) > 2: #Check if clustering_len_list has more than two elements
 
-                # if clustering_len_list[min_index_clus] in [1, 2]: # Check if the minimum element is 1 or 2
-                #     # # If it is, find the next smallest element
-                #     # next_min_clus = min(x for x in clustering_len_list if x not in [1, 2, 3]) # find the next minimum length after 1 or 2 or 3
-                #     #
-                #     # # elements of the next smallest element even if the two elements are same or neighbouring element
-                #     # next_min_clus_list = list(set([elem for elem in clustering_len_list if abs(next_min_clus - elem) < 3]))
-                #     #
-                #     # # next_min_clus_list = [x_ele for x_ele in next_min_clus_list if x_ele not in [1, 2]]
-                #     #
-                #     # duplicates = set([x_clus for x_clus in clustering_len_list if x_clus not in [1, 2] and clustering_len_list.count(x_clus) > 1])
-
-                    # check if there are duplicate elements
-                    # # if duplicates:
-                    #     print("Duplicate elements exist in the list:")
-
-                        # next_min_freq_list = [0] * len(next_min_clus_list)
-                        # freq_len_list = [0] * len(next_min_clus_list)
-                        #
-                        # # loop through elements in next_min_clus_list
-                        # for ind_nxt, ele_nxt in enumerate(next_min_clus_list):
-                        #     # count the frequency of each element in clustering_len_list
-                        #     count_freq = clustering_len_list.count(ele_nxt)
-                        #     # multiply the frequency by the corresponding element in next_min_clus_list
-                        #     next_min_freq_list[ind_nxt] = count_freq * ele_nxt
-                        #     freq_len_list[ind_nxt] = count_freq
-                        #
-                        # # next_min_clus_list = [x_2 for x_2 in next_min_clus_list if x_2 not in [1, 2]]# remove 1 and 2 out from the list
-                        #
-                        # print("next_min_clus_list: ", next_min_clus_list)
-                        # print("next_min_freq_list: ", next_min_freq_list)
-                        # print("freq_len_list: ", freq_len_list)
-                        #
-                        # cluster_coor_list_2 = []
-                        # min_clus_len_index_list_all = []
-                        #
-                        # for next_min_clus_ele in next_min_clus_list:
-                        #
-                        #     min_clus_len_index_list = [i_33 for i_33, x_33 in enumerate(clustering_len_list) if x_33 == next_min_clus_ele]
-                        #
-                        #     #Collecting all the elments in min_clus_len_index_lists
-                        #     for elem_min_clus_len_index_list in min_clus_len_index_list:
-                        #         min_clus_len_index_list_all.append(elem_min_clus_len_index_list)
-                        #
-                        #
-                        #     print("min_clus_len_index_list:", min_clus_len_index_list)
-                        #     print("min_clus_len_index_list_all:", min_clus_len_index_list_all)
-                        #
-                        #     for min_clus_len_index in min_clus_len_index_list:
-                        #
-                        #         # when min length cluster index is 1st one, last one or any other one
-                        #         min_clus_index = []
-                        #         if min_clus_len_index == 0:  # 1st one
-                        #             min_clus_index = [0, clustering_list[0]]
-                        #         elif min_clus_len_index == len(clustering_len_list) - 1:  # last one
-                        #             min_clus_index = [clustering_list[len(clustering_list) - 1] + 1, len(row_indexes) - 1]
-                        #         else:  # middle one
-                        #             min_clus_index = [clustering_list[min_clus_len_index - 1] + 1,
-                        #                               clustering_list[min_clus_len_index]]
-                        #
-                        #         print("min_clus_index", min_clus_index)
-                        #
-                        #         if clustering_type == "row":
-                        #
-                        #             for row_ind_sel, row_val_sel in enumerate(row_indexes):
-                        #                 # checking if row index within the selected clustering range, eg: index from range 0 to 9
-                        #                 if min_clus_index[0] <= row_ind_sel <= min_clus_index[1]:
-                        #                     cluster_coor_list_2.append((col_indexes[row_ind_sel], row_val_sel))
-                        #                 # checking if length of the line is only with one coordinate then taking the rest of the coordinates
-                        #                 elif ((min_clus_index[0] - min_clus_index[1]) == 0) and (min_clus_index[0] == row_ind_sel):
-                        #                     cluster_coor_list_2.append((col_indexes[row_ind_sel], row_val_sel))
-                        #
-                        #         elif clustering_type == "col":
-                        #
-                        #             for col_ind_sel, col_val_sel in enumerate(col_indexes):
-                        #                 # checking if row index within the selected clustering range, eg: index from range 0 to 9
-                        #                 if min_clus_index[0] <= col_ind_sel <= min_clus_index[1]:
-                        #                     cluster_coor_list_2.append((col_val_sel, row_indexes[col_ind_sel]))
-                        #                 # checking if length of the line is only with one coordinate then taking the rest of the coordinates
-                        #                 elif ((min_clus_index[0] - min_clus_index[1]) == 0) and (min_clus_index[0] == col_ind_sel):
-                        #                     cluster_coor_list_2.append((col_val_sel, row_indexes[col_ind_sel]))
-                        #
-                        #     print("cluster_coor_list_2", cluster_coor_list_2)
-
-                        # Find contours in the grayscale image
-                        # Set the distance threshold for points to be considered part of the same cluster
 
                 other_elements = [elem_2 for elem_2 in clustering_len_list if elem_2 != 1 and elem_2 != 2]
 
@@ -499,7 +504,7 @@ with open('training_done.json') as f:
                     # now select the one unit of the plant
 
 
-                    key_for_clus = intersected_masks_list[list_of_keys_t5_ind]
+                    key_for_clus = intersected_masks_list_final[list_of_keys_t5_ind]
 
                     print("key_for_clus[1]", key_for_clus[0])
 
@@ -790,16 +795,16 @@ with open('training_done.json') as f:
 
     for final_indx, final_elem in enumerate(final_completed_image_list):
 
-        new_name_1 = intersected_masks_list[final_indx][0]
-        new_name_2 = intersected_masks_list[final_indx][1]
+        new_name_1 = intersected_masks_list_final[final_indx][0]
+        new_name_2 = intersected_masks_list_final[final_indx][1]
         intersected_masks_name = "final_images/%s_%d_%d_%d.jpg" % (img_name, new_name_1, new_name_2, final_indx)
         print(intersected_masks_name)
         cv2.imwrite(intersected_masks_name, final_elem)
 
     for and_indx, and_elem in enumerate(and_list):
 
-        and_name_1 = intersected_masks_list[and_indx][0]
-        and_name_2 = intersected_masks_list[and_indx][1]
+        and_name_1 = intersected_masks_list_final[and_indx][0]
+        and_name_2 = intersected_masks_list_final[and_indx][1]
         intersected_line_masks_name = "final_images_lines/Intersected_line_mask_%d_%d_%d.jpg" % (and_name_1, and_name_2, and_indx)
         # print(intersected_masks_name)
         cv2.imwrite(intersected_line_masks_name, and_elem)

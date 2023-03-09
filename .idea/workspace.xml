@@ -1,14 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5de9661a-ff48-4cf2-90c7-3211cbaa6d8d" name="Changes" comment="unversioned" />
+    <list default="true" id="5de9661a-ff48-4cf2-90c7-3211cbaa6d8d" name="Changes" comment="unversioned">
+      <change afterPath="$PROJECT_DIR$/pythonProject/copy content.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/drawn_img_unit_7.png" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/drawn_img_unit_7.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_0_29_2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_0_2_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_0_3_1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_11_13_18.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_11_15_19.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_12_18_20.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_12_20_21.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_12_24_22.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_13_15_23.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_14_26_24.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_14_30_25.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_15_21_26.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_16_27_27.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_17_26_28.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_17_30_29.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_18_20_30.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_18_27_31.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_19_23_32.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_1_21_4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_1_6_3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_20_21_33.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_20_25_34.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_21_25_35.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_2_11_5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_2_25_6.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_3_22_7.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_3_28_8.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_4_18_9.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_4_30_10.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_5_13_11.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_7_10_12.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_7_15_13.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_7_17_14.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_7_23_15.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_9_24_17.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_2/clus_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_2/clus_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_2/clus_1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_2/clus_1.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_2/clus_2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_2/clus_2.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_3/immg_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_3/immg_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_3/immg_2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_3/immg_2.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_4/immg_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_4/immg_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_4/immg_2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_4/immg_2.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_0_29_2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_0_29_2.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_0_3_1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_0_3_1.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_11_13_18.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_11_13_18.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_11_15_19.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_11_15_19.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_12_18_20.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_12_18_20.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_12_20_21.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_12_20_21.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_1_21_4.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_1_21_4.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_1_6_3.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_1_6_3.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_2_11_5.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_2_11_5.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_2_25_6.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_2_25_6.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_3_22_7.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_3_22_7.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_3_28_8.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_3_28_8.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_4_18_9.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_4_18_9.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_4_30_10.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_4_30_10.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_5_13_11.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_5_13_11.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_7_10_12.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_7_10_12.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_7_15_13.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_7_15_13.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_7_23_15.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_7_23_15.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_9_24_17.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_9_24_17.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/intersected_masks_list.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/intersected_masks_list.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/substracted_img.png" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/substracted_img.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/with skeleton.py" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/with skeleton.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2MNqy3nPHIcaLEymLvqpsC6Q6Zm" />
   <component name="ProjectViewState">
@@ -20,9 +103,36 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false"
+  },
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "Python"
+    ]
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.with skeleton">
+    <configuration name="copy content" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Masters-Project-2023" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/pythonProject" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pythonProject/copy content.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="with skeleton" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Masters-Project-2023" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -48,6 +158,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.with skeleton" />
+        <item itemvalue="Python.copy content" />
       </list>
     </recent_temporary>
   </component>
@@ -59,7 +170,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1677618638461</updated>
-      <workItem from="1677618640347" duration="330000" />
+      <workItem from="1677618640347" duration="3602000" />
+      <workItem from="1677681972296" duration="18691000" />
+      <workItem from="1678214610842" duration="18852000" />
     </task>
     <task id="LOCAL-00001" summary="unversioned">
       <created>1677618862208</created>
@@ -79,7 +192,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -90,6 +215,7 @@
     <option name="LAST_COMMIT_MESSAGE" value="unversioned" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Masters_Project_2023$with_skeleton.coverage" NAME="with skeleton Coverage Results" MODIFIED="1677618798650" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
+    <SUITE FILE_PATH="coverage/Masters_Project_2023$with_skeleton.coverage" NAME="with skeleton Coverage Results" MODIFIED="1678320147712" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
+    <SUITE FILE_PATH="coverage/Masters_Project_2023$copy_content.coverage" NAME="copy content Coverage Results" MODIFIED="1678217175984" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
   </component>
 </project>
