@@ -26,7 +26,7 @@ def rle_decode(mask_rle, shape):
 
 with open('training_done.json') as f:
     data = json.load(f)
-    data1 = data['images'][16]  # selecting the image
+    data1 = data['images'][66]  # selecting the image
     img_name = data1['image_name']
     img_name = img_name.replace('.png', '')
     img_width = data1['width']
@@ -318,33 +318,6 @@ with open('training_done.json') as f:
         # # Apply dilation to the binary image
         # and_edges_t4_t5 = cv2.dilate(and_edges_t4_t5, kernel_2, iterations=1)
 
-
-# # Sobel Try
-#         if list_of_keys_t5_ind > 0:
-#             inverse_selected_list_t5 = cv2.bitwise_not(dic_for_selection_t5[list_of_keys_t5[list_of_keys_t5_ind - 1]])
-#             selected_list_t5 = (cv2.bitwise_and(selected_list_t5, inverse_selected_list_t5))
-#
-#             inverse_selected_list_t4 = cv2.bitwise_not(dic_for_selection_t4[list_of_keys_t5[list_of_keys_t5_ind - 1]])
-#             selected_list_t4 = (cv2.bitwise_and(selected_list_t4, inverse_selected_list_t4))
-#
-#         else:
-#             selected_list_t5 = selected_list_t5
-#             selected_list_t4 = selected_list_t4
-#
-#         # Apply Sobel operator t5
-#         sobelx_t5 = cv2.Sobel(selected_list_t5, cv2.CV_64F, 1, 0, ksize=7)
-#         sobely_t5 = cv2.Sobel(selected_list_t5, cv2.CV_64F, 0, 1, ksize=7)
-#         sobel_t5 = sobelx_t5 + sobely_t5
-#
-#         # Apply Sobel operator t4
-#         sobelx_t4 = cv2.Sobel(selected_list_t4, cv2.CV_64F, 1, 0, ksize=7)
-#         sobely_t4 = cv2.Sobel(selected_list_t4, cv2.CV_64F, 0, 1, ksize=7)
-#         sobel_t4 = sobelx_t4 + sobely_t4
-#
-#         and_edges_t4_t5 = cv2.bitwise_and(sobel_t5, sobel_t4)
-#         and_edges_t4_t5 = and_edges_t4_t5.astype(np.uint8) * 255
-
-
         #LoG
 
         # if list_of_keys_t5_ind > 0:
@@ -367,9 +340,68 @@ with open('training_done.json') as f:
         # and_edges_t4_t5 = cv2.bitwise_and(log_t5, log_t4)
         # and_edges_t4_t5 = and_edges_t4_t5.astype(np.uint8) * 255
 
-        and_list.append(and_edges_t4_t5)
+        row_indexes, col_indexes = np.nonzero(and_edges_t4_t5)
+
+        # Sobel Try
+
+        if len(row_indexes) == 0:
+
+            print("inside here sobel")
+
+            if list_of_keys_t5_ind > 0:
+                inverse_selected_list_t5 = cv2.bitwise_not(dic_for_selection_t5[list_of_keys_t5[list_of_keys_t5_ind - 1]])
+                selected_list_t5 = (cv2.bitwise_and(selected_list_t5, inverse_selected_list_t5))
+
+                inverse_selected_list_t4 = cv2.bitwise_not(dic_for_selection_t4[list_of_keys_t5[list_of_keys_t5_ind - 1]])
+                selected_list_t4 = (cv2.bitwise_and(selected_list_t4, inverse_selected_list_t4))
+
+            else:
+                selected_list_t5 = selected_list_t5
+                selected_list_t4 = selected_list_t4
+
+            # Apply Sobel operator t5
+            sobelx_t5 = cv2.Sobel(selected_list_t5, cv2.CV_8U, 1, 0, ksize=5)
+            sobely_t5 = cv2.Sobel(selected_list_t5, cv2.CV_8U, 0, 1, ksize=5)
+            sobel_t5 = sobelx_t5 + sobely_t5
+
+            # Apply Sobel operator t4
+            sobelx_t4 = cv2.Sobel(selected_list_t4, cv2.CV_8U, 1, 0, ksize=5)
+            sobely_t4 = cv2.Sobel(selected_list_t4, cv2.CV_8U, 0, 1, ksize=5)
+            sobel_t4 = sobelx_t4 + sobely_t4
+
+            and_edges_t4_t5 = cv2.bitwise_and(sobel_t5, sobel_t4)
 
         row_indexes, col_indexes = np.nonzero(and_edges_t4_t5)
+
+        # LoG
+
+        if len(row_indexes) == 0:
+
+            print("inside here LoG")
+
+            if list_of_keys_t5_ind > 0:
+                inverse_selected_list_t5 = cv2.bitwise_not(dic_for_selection_t5[list_of_keys_t5[list_of_keys_t5_ind - 1]])
+                selected_list_t5 = (cv2.bitwise_and(selected_list_t5, inverse_selected_list_t5))
+
+                inverse_selected_list_t4 = cv2.bitwise_not(dic_for_selection_t4[list_of_keys_t5[list_of_keys_t5_ind - 1]])
+                selected_list_t4 = (cv2.bitwise_and(selected_list_t4, inverse_selected_list_t4))
+
+            else:
+                selected_list_t5 = selected_list_t5
+                selected_list_t4 = selected_list_t4
+
+            gaussian_image_t5 = cv2.GaussianBlur(selected_list_t5, (3, 3), 0)
+            log_t5 = cv2.Laplacian(gaussian_image_t5, cv2.CV_8U)
+
+            gaussian_image_t4 = cv2.GaussianBlur(selected_list_t4, (3, 3), 0)
+            log_t4 = cv2.Laplacian(gaussian_image_t4, cv2.CV_8U)
+
+            and_edges_t4_t5 = cv2.bitwise_and(log_t5, log_t4)
+
+            row_indexes, col_indexes = np.nonzero(and_edges_t4_t5)
+
+
+        and_list.append(and_edges_t4_t5)
 
         print("row_indexes", row_indexes, "col_indexes", col_indexes)
 
@@ -426,10 +458,16 @@ with open('training_done.json') as f:
 
                 other_elements = [elem_2 for elem_2 in clustering_len_list if elem_2 != 1 and elem_2 != 2]
 
+                has_only_ones_and_twos = all(elem_3 in [1, 2] for elem_3 in clustering_len_list)
+
                 if other_elements:
                     min_value = min([x_clus_len_ele for x_clus_len_ele in clustering_len_list if x_clus_len_ele not in [1, 2]])  # find minimum except 1 and 2
                     has_duplicates = len(set([x2_clus_len_ele for x2_clus_len_ele in clustering_len_list if x2_clus_len_ele not in [1, 2]])) != len([x2_clus_len_ele for x2_clus_len_ele in clustering_len_list if x2_clus_len_ele not in [1, 2]])  # check if there are duplicates except 1 and 2
                     print("Minimum value except 1 and 2:", min_value)
+
+                elif has_only_ones_and_twos:
+                    print("has_only_ones_and_twos")
+                    min_value = max(clustering_len_list)
 
                 else:
                     print("any element more thn three times")
@@ -561,7 +599,7 @@ with open('training_done.json') as f:
 
 
 
-                    cv2.imwrite("substracted_img.png", substracted_img)
+                    # cv2.imwrite("substracted_img.png", substracted_img)
 
                     # Find contours
                     contours, hierarchy = cv2.findContours(substracted_img, cv2.RETR_LIST,
@@ -569,18 +607,22 @@ with open('training_done.json') as f:
 
                     single_contour = max(contours, key=cv2.contourArea)
 
-                    cv2.drawContours(substracted_img_2, [single_contour], -1, (255, 255, 255), 3)
 
-                    img_name_3 = "final_images_4/immg_%d.jpg" % list_of_keys_t5_ind
 
-                    cv2.imwrite(img_name_3, substracted_img_2)
-
-                    # Calculate the moments of the contour
+                    # Calculate the moments of the contour and centre point
                     moments = cv2.moments(single_contour)
 
                     # Calculate the center of mass of the contour
                     center_x = int(moments['m10'] / moments['m00'])
                     center_y = int(moments['m01'] / moments['m00'])
+
+                    # print("center_x", center_x)
+
+                    cv2.drawContours(substracted_img_2, [single_contour], -1, (255, 255, 255), 3)
+                    cv2.circle(substracted_img_2, (center_x, center_y), 2, (0, 0, 255), thickness=-1)
+
+                    img_name_3 = "final_images_4/immg_%d.jpg" % list_of_keys_t5_ind
+                    cv2.imwrite(img_name_3, substracted_img_2)
 
                     min_dis_lin_pix_to_contu_list = []
                     length_of_line_segment_list = []
@@ -592,11 +634,14 @@ with open('training_done.json') as f:
 
                             dis_lin_pix_to_contu_list = []
 
-                            if len(contours) > 1: # only taking when it has a contour
+                            # if len(contours) > 1: # only taking when it has a contour
 
-                                # for nozero_coord in nonzero_points:
-                                dis_lin_pix_to_contu = round(np.sqrt((center_y - cluster_coor_list_elem[1]) ** 2 + (center_x - cluster_coor_list_elem[0]) ** 2), 3)
-                                dis_lin_pix_to_contu_list.append(dis_lin_pix_to_contu)
+
+                            # for nozero_coord in nonzero_points:
+                            dis_lin_pix_to_contu = round(np.sqrt((center_y - cluster_coor_list_elem[1]) ** 2 + (center_x - cluster_coor_list_elem[0]) ** 2), 3)
+                            dis_lin_pix_to_contu_list.append(dis_lin_pix_to_contu)
+
+                        # print("dis_lin_pix_to_contu_list", dis_lin_pix_to_contu_list)
 
                         min_dis_lin_pix_to_contu_list.append(min(dis_lin_pix_to_contu_list))
                         length_of_line_segment_list.append(len(clus_elem))
@@ -631,12 +676,10 @@ with open('training_done.json') as f:
 
                     # Check if the next length value is less than 10
                     next_length_idx = min_length_idx + 1
-                    if next_length_idx < len(length_of_line_segment_list) and length_of_line_segment_list[
-                        next_length_idx] < 10:
+                    if next_length_idx < len(length_of_line_segment_list) and length_of_line_segment_list[next_length_idx] < 10:
                         final_idx = next_length_idx
                     else:
                         final_idx = min_length_idx
-
 
                     if len(length_of_line_segment_list) < 3:
                         print("min_dis_for_dupli", min_dis_for_dupli_ind)
@@ -745,7 +788,6 @@ with open('training_done.json') as f:
                         cluster_coor_list.append([col_indexes[0], row_indexes[0]])
 
 
-
                 elif clustering_type == "col":
                     cluster_coor_list = []
 
@@ -784,7 +826,7 @@ with open('training_done.json') as f:
 
         # color, thickness and isClosed
         color_cl = (0, 0, 255)
-        thickness_cl = 5
+        thickness_cl = 3
         isClosed_cl = False
 
         # drawPolyline
