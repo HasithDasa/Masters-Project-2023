@@ -1,195 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5de9661a-ff48-4cf2-90c7-3211cbaa6d8d" name="Changes" comment="Adding small BBoxs into big Bounding box">
-      <change afterPath="$PROJECT_DIR$/pythonProject/deleting_files.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg002_0_0323_rep_1_7_3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg002_0_0323_rep_2_7_0.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg002_0_0323_rep_2_8_6.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg002_0_0323_rep_3_6_4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg002_0_0323_rep_4_9_1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg002_0_0323_rep_5_7_2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg002_0_0323_rep_5_9_5.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_1_7_3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_2_4_0.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_2_7_0.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_2_8_6.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_3_6_4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_4_9_1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_5_10_6.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_5_7_2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_5_9_5.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_6_11_3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_9_14_10.jpg" afterDir="false" />
+    <list default="true" id="5de9661a-ff48-4cf2-90c7-3211cbaa6d8d" name="Changes" comment="fixing duplicates less than 3 eg: 1,2,1">
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_2/New folder/clus_0_t57.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_2/New folder/clus_1_t57.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_2/New folder/clus_2_t57.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_2/New folder/clus_3_t57.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_2/New folder/clus_4_t57.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_3/immg_4_t54.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_4/immg_4_t54.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/New folder/seg_1_t57.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/New folder/seg_2_t57.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/New folder/seg_3_t57.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/New folder/seg_4_t57.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/New folder/seg_5_t57.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/New folder/seg_6_t57.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/New folder/seg_7_t57.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/New folder/seg_8_t57.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/seg_1_t54.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/seg_2_t54.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/seg_3_t54.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/seg_4_t54.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/seg_5_t54.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/seg_6_t54.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/seg_7_t54.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pythonProject/co_with_ones.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/co_with_ones.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/deleting_files.py" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/deleting_files.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pythonProject/drawn_img_unit_7.png" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/drawn_img_unit_7.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg011_0_0030_uqe_0_4_0.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg011_0_0030_uqe_1_3_5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg011_0_0030_uqe_1_8_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg011_0_0030_uqe_2_5_4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg011_0_0030_uqe_3_6_3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg011_0_0030_uqe_7_9_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_0_29_9.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_0_2_3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_11_13_15.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_12_24_11.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_14_26_20.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_14_30_12.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_16_27_18.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_17_26_13.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_18_20_0.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_18_27_19.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_19_23_14.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_1_21_8.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_1_6_6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_21_25_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_3_22_4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_3_28_5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_4_30_7.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_5_13_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_7_10_10.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_7_15_17.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_8_26_16.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg070_0_0013_uqe_9_24_21.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_2/clus_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_2/clus_0.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_2/clus_1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_2/clus_1.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_2/clus_2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_2/clus_2.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_2/clus_3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_2/clus_4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_3/immg_0.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_3/immg_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_3/immg_13.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_3/immg_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_3/immg_3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_3/immg_4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_3/immg_5.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_3/immg_5.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_4/immg_0.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_4/immg_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_4/immg_13.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_4/immg_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_4/immg_3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_4/immg_4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_4/immg_5.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_4/immg_5.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_0_13_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_0_16_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_0_1_0.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_0_29_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_0_29_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_0_29_9.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_0_2_0.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_0_2_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_0_2_3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_0_3_0.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_0_3_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_0_4_0.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_0_8_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_10_14_14.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_11_13_12.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_11_13_15.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_11_13_18.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_11_15_19.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_12_13_15.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_12_18_20.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_12_20_21.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_12_24_11.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_12_24_13.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_12_24_22.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_13_14_10.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_13_15_23.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_14_26_14.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_14_26_20.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_14_26_24.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_14_30_12.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_14_30_15.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_14_30_25.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_15_21_26.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_16_27_16.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_16_27_18.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_16_27_27.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_17_26_13.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_17_26_17.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_17_26_28.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_17_30_29.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_18_20_0.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_18_20_18.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_18_20_30.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_18_27_19.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_18_27_31.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_19_23_14.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_19_23_20.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_19_23_32.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_1_13_3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_1_21_3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_1_21_4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_1_21_8.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_1_2_3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_1_3_5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_1_4_0.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_1_6_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_1_6_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_1_6_3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_1_6_6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_1_8_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_1_8_4.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_1_8_4.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_1_9_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_20_21_33.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_20_25_34.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_21_25_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_21_25_21.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_21_25_35.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_2_11_5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_2_12_4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_2_25_6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_2_3_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_2_4_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_2_5_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_2_5_4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_3_17_6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_3_22_4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_3_22_7.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_3_28_5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_3_28_8.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_3_4_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_3_5_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_3_5_5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_3_6_3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_3_6_5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_3_6_6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_4_10_7.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_4_11_8.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_4_15_9.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_4_18_9.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_4_30_10.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_4_30_6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_4_30_7.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_4_5_3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_4_7_7.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_4_8_8.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_5_12_10.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_5_13_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_5_13_11.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_5_13_7.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_7_10_10.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_7_10_12.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_7_10_8.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_7_15_13.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_7_15_17.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_7_15_9.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_7_17_14.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_7_23_15.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_7_9_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_8_10_11.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_8_12_9.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_8_26_10.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_8_26_16.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_9_11_12.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_9_16_13.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_9_24_11.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_9_24_17.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_9_24_21.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg002_0_0323_rep_1_7_3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg002_0_0323_rep_2_7_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg002_0_0323_rep_2_8_6.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg002_0_0323_rep_3_6_4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg002_0_0323_rep_4_9_1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg002_0_0323_rep_5_7_2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg002_0_0323_rep_5_9_5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_2/clus_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_2/clus_1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_2/clus_2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_3/immg_5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_4/immg_5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_1_7_3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_1_8_4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_2_4_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_2_7_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_2_8_6.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_3_6_4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_4_9_1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_5_10_6.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_5_7_2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_5_9_5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_6_11_3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_9_14_10.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pythonProject/intersected_masks_list.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/intersected_masks_list.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/substracted_img.png" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/substracted_img.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pythonProject/with skeleton.py" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/with skeleton.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -322,7 +185,7 @@
       <workItem from="1677618640347" duration="3602000" />
       <workItem from="1677681972296" duration="18691000" />
       <workItem from="1678214610842" duration="30219000" />
-      <workItem from="1679661205040" duration="44897000" />
+      <workItem from="1679661205040" duration="100653000" />
     </task>
     <task id="LOCAL-00001" summary="unversioned">
       <created>1677618862208</created>
@@ -345,7 +208,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678360879378</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="fixing duplicates less than 3 eg: 1,2,1">
+      <created>1680197915956</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1680197915956</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -378,11 +248,12 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="unversioned" />
     <MESSAGE value="Adding small BBoxs into big Bounding box" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding small BBoxs into big Bounding box" />
+    <MESSAGE value="fixing duplicates less than 3 eg: 1,2,1" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixing duplicates less than 3 eg: 1,2,1" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Masters_Project_2023$with_skeleton.coverage" NAME="with skeleton Coverage Results" MODIFIED="1680197581138" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
+    <SUITE FILE_PATH="coverage/Masters_Project_2023$with_skeleton.coverage" NAME="with skeleton Coverage Results" MODIFIED="1680657811438" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
     <SUITE FILE_PATH="coverage/Masters_Project_2023$copy_content.coverage" NAME="copy content Coverage Results" MODIFIED="1678217175984" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
-    <SUITE FILE_PATH="coverage/Masters_Project_2023$deleting_files.coverage" NAME="deleting_files Coverage Results" MODIFIED="1679964253252" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
+    <SUITE FILE_PATH="coverage/Masters_Project_2023$deleting_files.coverage" NAME="deleting_files Coverage Results" MODIFIED="1680436269032" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
   </component>
 </project>

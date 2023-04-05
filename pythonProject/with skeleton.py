@@ -1,6 +1,29 @@
 import json
 import numpy as np
 import cv2
+import math
+
+import os
+
+
+
+parent_dir = "D:/Academic/MSc/Masters Project 2023/Masters-Project-2023/pythonProject"
+folder_names = ["final_images_lines", "final_images", "final_images_2", "final_images_3", "final_images_4", "final_images_5"]
+
+for folder_name in folder_names:
+    folder_path = os.path.join(parent_dir, folder_name)
+    if os.path.isdir(folder_path):
+        for filename in os.listdir(folder_path):
+            file_path = os.path.join(folder_path, filename)
+            try:
+                if os.path.isdir(file_path):
+                    # delete subdirectory and its contents recursively
+                    os.removedirs(file_path)
+                else:
+                    # delete file
+                    os.remove(file_path)
+            except Exception as e:
+                print(f"Error deleting {file_path}: {e}")
 
 
 
@@ -26,7 +49,7 @@ def rle_decode(mask_rle, shape):
 
 with open('training_done.json') as f:
     data = json.load(f)
-    data1 = data['images'][66]  # selecting the image
+    data1 = data['images'][58]  # selecting the image
     img_name = data1['image_name']
     img_name = img_name.replace('.png', '')
     img_width = data1['width']
@@ -242,12 +265,6 @@ with open('training_done.json') as f:
 
     # intersected_masks_list_2 = intersected_masks_list.tolist()
 
-
-
-
-    # with open("intersected_comm_ones_list.txt", "w") as output1:
-    #    output1.write(str(intersected_comm_ones_list))
-
     #going on one by one on intersected masks
 
     for ele_ind, ele_int_list in enumerate(intersected_masks_list_final):
@@ -311,34 +328,6 @@ with open('training_done.json') as f:
 
         and_edges_t4_t5 = cv2.bitwise_and(edges_canny_temp_5, edges_canny_temp_4)
 
-
-        # # Define the kernel size for dilation
-        # kernel_2 = np.ones((2, 2), np.uint8)
-        #
-        # # Apply dilation to the binary image
-        # and_edges_t4_t5 = cv2.dilate(and_edges_t4_t5, kernel_2, iterations=1)
-
-        #LoG
-
-        # if list_of_keys_t5_ind > 0:
-        #     inverse_selected_list_t5 = cv2.bitwise_not(dic_for_selection_t5[list_of_keys_t5[list_of_keys_t5_ind - 1]])
-        #     selected_list_t5 = (cv2.bitwise_and(selected_list_t5, inverse_selected_list_t5))
-        #
-        #     inverse_selected_list_t4 = cv2.bitwise_not(dic_for_selection_t4[list_of_keys_t5[list_of_keys_t5_ind - 1]])
-        #     selected_list_t4 = (cv2.bitwise_and(selected_list_t4, inverse_selected_list_t4))
-        #
-        # else:
-        #     selected_list_t5 = selected_list_t5
-        #     selected_list_t4 = selected_list_t4
-        #
-        # gaussian_image_t5 = cv2.GaussianBlur(selected_list_t5, (3, 3), 0)
-        # log_t5 = cv2.Laplacian(gaussian_image_t5, cv2.CV_64F)
-        #
-        # gaussian_image_t4 = cv2.GaussianBlur(selected_list_t4, (3, 3), 0)
-        # log_t4 = cv2.Laplacian(gaussian_image_t4, cv2.CV_64F)
-        #
-        # and_edges_t4_t5 = cv2.bitwise_and(log_t5, log_t4)
-        # and_edges_t4_t5 = and_edges_t4_t5.astype(np.uint8) * 255
 
         row_indexes, col_indexes = np.nonzero(and_edges_t4_t5)
 
@@ -409,6 +398,7 @@ with open('training_done.json') as f:
         clustering_len_list = []
 
         clustering_needed = False
+        check_difference_in_btwn_clus_lst = False
         clustering_type = "row"
 
         for row_ind, row_val in enumerate(row_indexes):
@@ -418,7 +408,20 @@ with open('training_done.json') as f:
                     clustering_type = "row"
                     print("clustering_type", clustering_type)
 
-        if len(clustering_list) == 0:
+        if len(clustering_list) > 0:
+
+            for clustering_list_elem in range(1, len(clustering_list)): # starting from one
+                distance_btwn_clus_lst = clustering_list[clustering_list_elem] - clustering_list[clustering_list_elem - 1] if clustering_list_elem < len(clustering_list) - 1 else len(row_indexes) - clustering_list[clustering_list_elem]
+                if distance_btwn_clus_lst > 10 :
+                    check_difference_in_btwn_clus_lst = True
+
+            if clustering_list[0] > 10: # include 0th element  > 10
+                check_difference_in_btwn_clus_lst = True
+
+
+        if len(clustering_list) == 0 or check_difference_in_btwn_clus_lst == True:
+
+            clustering_list = []
 
             for col_ind, col_val in enumerate(col_indexes):
                 if col_ind < (len(col_indexes) - 1):
@@ -446,6 +449,8 @@ with open('training_done.json') as f:
             if len(clustering_list) > 0: # last element of the clustering len list
                 clustering_len_list.append(len(row_indexes) - (clustering_list[len(clustering_list)-1] + 1))
 
+            clustering_len_list = [abs(clustering_len_list_elem) for clustering_len_list_elem in clustering_len_list]
+
             print("clustering_len_list", clustering_len_list)
             # checking the min index of the clustering len index, please add the code based on the length value, if length ==2 then ignore, then go to the next length
             # min_clus_len_index = np.argmin(clustering_len_list)
@@ -458,12 +463,15 @@ with open('training_done.json') as f:
 
                 other_elements = [elem_2 for elem_2 in clustering_len_list if elem_2 != 1 and elem_2 != 2]
 
-                has_only_ones_and_twos = all(elem_3 in [1, 2] for elem_3 in clustering_len_list)
+                has_only_ones_and_twos = all(elem_3 in [1, 2] for elem_3 in clustering_len_list) and 1 in clustering_len_list and 2 in clustering_len_list
 
                 if other_elements:
                     min_value = min([x_clus_len_ele for x_clus_len_ele in clustering_len_list if x_clus_len_ele not in [1, 2]])  # find minimum except 1 and 2
                     has_duplicates = len(set([x2_clus_len_ele for x2_clus_len_ele in clustering_len_list if x2_clus_len_ele not in [1, 2]])) != len([x2_clus_len_ele for x2_clus_len_ele in clustering_len_list if x2_clus_len_ele not in [1, 2]])  # check if there are duplicates except 1 and 2
                     print("Minimum value except 1 and 2:", min_value)
+
+                elif clustering_len_list == [1, 1, 1] or clustering_len_list == [2, 2, 2]:
+                    has_duplicates = True
 
                 elif has_only_ones_and_twos:
                     print("has_only_ones_and_twos")
@@ -478,7 +486,7 @@ with open('training_done.json') as f:
                 if has_duplicates:
                     print("There are duplicates except 1 and 2")
 
-                    distance_threshold = 50
+                    distance_threshold = 30
 
                     # Initialize an array to keep track of the cluster assignments
                     # -1 indicates that the point is noise (not part of any cluster)
@@ -489,6 +497,8 @@ with open('training_done.json') as f:
                     current_cluster_id = 0
                     clusters_found = 0
                     clusters = []
+
+                    clusters_3_list = []
 
                     # For each point
                     for i_ele in range(len(col_indexes)):
@@ -521,19 +531,71 @@ with open('training_done.json') as f:
 
 
                     and_edges_t4_t5_2 = and_edges_t4_t5 * 0
-                    cv2.cvtColor(and_edges_t4_t5_2, cv2.COLOR_GRAY2BGR)
 
-                    for i_ell, cluster in enumerate(clusters):
+                    and_edges_t4_t5_3 = and_edges_t4_t5 * 0
 
-                        clus_name = "final_images_2/clus_%d.jpg" % i_ell
+                    # Find contours
+                    contours_3, hierarchy_3 = cv2.findContours(and_edges_t4_t5, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
 
-                        points_3 = np.array(cluster, np.int32)
-                        points_3 = points_3.reshape((-1, 1, 2))
+                    cv2.cvtColor(and_edges_t4_t5_3, cv2.COLOR_GRAY2BGR)
+                    # Iterate through contours and check if they are closed
+                    contour_3_ID = 0
+                    for contour_3 in contours_3:
+                        contour_3_ID = contour_3_ID+1
+                        if not cv2.isContourConvex(contour_3):
+                            # Contour is not closed, do something with it
+                            # For example, draw it on the image
+                            cv2.drawContours(and_edges_t4_t5_3, [contour_3], 0, (255, 255, 255), 2)
+                            clus_name_3 = "final_images_5/seg_%d_%s.jpg" % (contour_3_ID, class_name_from_list_of_keys_t5)
+                            cv2.imwrite(clus_name_3, and_edges_t4_t5_3)
+                            and_edges_t4_t5_3.fill(0)
+                            clusters_3_coordinates = contour_3.squeeze().tolist()
 
-                        cv2.polylines(and_edges_t4_t5_2, [points_3], True, (255, 255, 255), thickness=2)
-                        # Display the image with the current cluster drawn on it
-                        cv2.imwrite(clus_name, and_edges_t4_t5_2)
-                        and_edges_t4_t5_2.fill(0)
+                            if len(clusters_3_coordinates) == 2:
+                                clusters_3_coordinates = [clusters_3_coordinates]
+
+                            clusters_3_list.append(clusters_3_coordinates)
+
+
+                    clusters = clusters_3_list
+
+                    print("testin clusters", clusters)
+
+                    # cv2.cvtColor(and_edges_t4_t5_2, cv2.COLOR_GRAY2BGR)
+                    # for i_ell, cluster in enumerate(clusters):
+                    #     clus_name = "final_images_2/clus_%d_%s.jpg" % (i_ell, class_name_from_list_of_keys_t5)
+                    #
+                    #     points_3 = np.array(cluster, np.int32)
+                    #     points_3 = points_3.reshape((-1, 1, 2))
+                    #
+                    #     cv2.polylines(and_edges_t4_t5_2, [points_3], True, (255, 255, 255), thickness=2)
+                    #
+                    #     # Display the image with the current cluster drawn on it
+                    #     cv2.imwrite(clus_name, and_edges_t4_t5_2)
+                    #     and_edges_t4_t5_2.fill(0)
+
+
+                    # for i_ell, cluster in enumerate(clusters):
+                    #
+                    #     clus_name = "final_images_2/clus_%d_%s.jpg" % (i_ell, class_name_from_list_of_keys_t5)
+                    #
+                    #     points_3 = np.array(cluster, np.int32)
+                    #     points_3 = points_3.reshape((-1, 1, 2))
+                    #
+                    #     cv2.polylines(and_edges_t4_t5_2, [points_3], True, (255, 255, 255), thickness=2)
+                    #
+                    #     # Define the kernel for dilation
+                    #     kernel_5 = np.ones((3, 3), np.uint8)
+                    #
+                    #     # Dilate the image to expand the segments
+                    #     dilated_5 = cv2.dilate(and_edges_t4_t5_2, kernel_5)
+                    #
+                    #     # Subtract the original image from the dilated image to get the neighboring zero pixels
+                    #     neighboring_zero_pixels = dilated_5 - and_edges_t4_t5_2
+                    #
+                    #     # Display the image with the current cluster drawn on it
+                    #     cv2.imwrite(clus_name, neighboring_zero_pixels)
+                    #     and_edges_t4_t5_2.fill(0)
 
 
 
@@ -559,7 +621,7 @@ with open('training_done.json') as f:
 
                     # img_for_cv_temp_7 = selected_list_t7
 
-                    img_name_2 = "final_images_3/immg_%d.jpg" % list_of_keys_t5_ind
+                    img_name_2 = "final_images_3/immg_%d_%s.jpg" % (list_of_keys_t5_ind, class_name_from_list_of_keys_t5)
 
                     cv2.imwrite(img_name_2, img_for_cv_temp_7)
 
@@ -591,7 +653,12 @@ with open('training_done.json') as f:
 
                     substracted_img = drawn_img_unit_7_dil - drawn_img_unit_7
 
-                    substracted_img = cv2.medianBlur(substracted_img, 5)
+                    substracted_img = cv2.medianBlur(substracted_img, 7)
+
+                    kernel_sub = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 5)) # dilation has done to connect pieces of stem
+
+                    substracted_img = cv2.morphologyEx(substracted_img, cv2.MORPH_DILATE, kernel, iterations=3)
+
 
                     substracted_img = cv2.cvtColor(substracted_img, cv2.COLOR_BGR2GRAY)
 
@@ -608,7 +675,6 @@ with open('training_done.json') as f:
                     single_contour = max(contours, key=cv2.contourArea)
 
 
-
                     # Calculate the moments of the contour and centre point
                     moments = cv2.moments(single_contour)
 
@@ -616,87 +682,110 @@ with open('training_done.json') as f:
                     center_x = int(moments['m10'] / moments['m00'])
                     center_y = int(moments['m01'] / moments['m00'])
 
+                    # x_cen, y_cen, w_cen, h_cen = cv2.boundingRect(single_contour)
+                    #
+                    # # Calculate the center but upper corner of the contour
+                    # center_x = center_x
+                    # center_y = center_y - h_cen / 2
+
+
                     # print("center_x", center_x)
 
                     cv2.drawContours(substracted_img_2, [single_contour], -1, (255, 255, 255), 3)
-                    cv2.circle(substracted_img_2, (center_x, center_y), 2, (0, 0, 255), thickness=-1)
+                    cv2.circle(substracted_img_2, (center_x, center_y), 2, (255, 255, 255), thickness=-1)
 
-                    img_name_3 = "final_images_4/immg_%d.jpg" % list_of_keys_t5_ind
+                    img_name_3 = "final_images_4/immg_%d_%s.jpg" % (list_of_keys_t5_ind, class_name_from_list_of_keys_t5)
                     cv2.imwrite(img_name_3, substracted_img_2)
 
                     min_dis_lin_pix_to_contu_list = []
+                    min_pix_to_contu_ang_list =[]
                     length_of_line_segment_list = []
                     diff_list = []
 
                     for clus_elem in clusters:
 
+                        print("clus_elem", clus_elem)
+
                         for cluster_coor_list_elem in clus_elem:
 
+                            print("cluster_coor_list_elem", cluster_coor_list_elem)
+
                             dis_lin_pix_to_contu_list = []
+                            pix_to_contu_ang_list = []
 
                             # if len(contours) > 1: # only taking when it has a contour
 
 
                             # for nozero_coord in nonzero_points:
-                            dis_lin_pix_to_contu = round(np.sqrt((center_y - cluster_coor_list_elem[1]) ** 2 + (center_x - cluster_coor_list_elem[0]) ** 2), 3)
+                            dis_lin_pix_to_contu = round(np.sqrt((center_y - int(cluster_coor_list_elem[1])) ** 2 + (center_x - int(cluster_coor_list_elem[0])) ** 2), 3)
+                            # pix_to_contu_ang = math.degrees(math.atan2((center_y - cluster_coor_list_elem[1]), (center_x - cluster_coor_list_elem[0])))
+
                             dis_lin_pix_to_contu_list.append(dis_lin_pix_to_contu)
+                            # pix_to_contu_ang_list.append(pix_to_contu_ang)
 
                         # print("dis_lin_pix_to_contu_list", dis_lin_pix_to_contu_list)
 
                         min_dis_lin_pix_to_contu_list.append(min(dis_lin_pix_to_contu_list))
+                        # min_pix_to_contu_ang_list.append(min(pix_to_contu_ang_list))
+
                         length_of_line_segment_list.append(len(clus_elem))
 
                     min_dis_for_dupli_ind = min_dis_lin_pix_to_contu_list.index(min(min_dis_lin_pix_to_contu_list))
 
+                    cluster_coor_list = clusters[min_dis_for_dupli_ind]
 
-                    # Calculate differences from minimum distance
-                    min_distance = min(min_dis_lin_pix_to_contu_list)
-                    diff_list = [d - min_distance for d in min_dis_lin_pix_to_contu_list]
-                    print("diff_list", diff_list)
+                    print("minimum index:", min_dis_for_dupli_ind)
 
-                    # Find the minimum length less than 100
-                    min_length_idx = None
-                    for i, length in enumerate(length_of_line_segment_list):
-                        if length < 100:
-                            if min_length_idx is None or length < length_of_line_segment_list[min_length_idx]:
-                                min_length_idx = i
-
-                    # Check if the corresponding difference value is not the smallest value greater than 0
-                    diff_val = diff_list[min_length_idx]
-                    smallest_diff_val = None
-                    smallest_diff_idx = None
-                    for i, diff in enumerate(diff_list):
-                        if diff > 0:
-                            if smallest_diff_val is None or diff < smallest_diff_val:
-                                smallest_diff_val = diff
-                                smallest_diff_idx = i
-
-                    if diff_val != smallest_diff_val and smallest_diff_idx is not None:
-                        min_length_idx = smallest_diff_idx
-
-                    # Check if the next length value is less than 10
-                    next_length_idx = min_length_idx + 1
-                    if next_length_idx < len(length_of_line_segment_list) and length_of_line_segment_list[next_length_idx] < 10:
-                        final_idx = next_length_idx
-                    else:
-                        final_idx = min_length_idx
-
-                    if len(length_of_line_segment_list) < 3:
-                        print("min_dis_for_dupli", min_dis_for_dupli_ind)
-
-                        cluster_coor_list = clusters[min_dis_for_dupli_ind]
-                        print("cluster_coor_list", cluster_coor_list)
-
-                    else:
-                        print("Final index:", final_idx)
-                        cluster_coor_list = clusters[final_idx]
-                        print("cluster_coor_list", cluster_coor_list)
-
-
-
-                    print("length_of_line_segment_list", length_of_line_segment_list)
-                    print("min_dis_lin_pix_to_contu_list", min_dis_lin_pix_to_contu_list)
-
+                    # This content needs to be double checked
+                    # # Calculate differences from minimum distance
+                    # min_distance = min(min_dis_lin_pix_to_contu_list)
+                    # diff_list = [d - min_distance for d in min_dis_lin_pix_to_contu_list]
+                    #
+                    #
+                    # # Find the minimum length less than 100
+                    # min_length_idx = None
+                    # for i, length in enumerate(length_of_line_segment_list):
+                    #     if length < 100:
+                    #         if min_length_idx is None or length < length_of_line_segment_list[min_length_idx]:
+                    #             min_length_idx = i
+                    #
+                    # # Check if the corresponding difference value is not the smallest value greater than 0
+                    # diff_val = diff_list[min_length_idx]
+                    # smallest_diff_val = None
+                    # smallest_diff_idx = None
+                    # for i, diff in enumerate(diff_list):
+                    #     if diff > 0:
+                    #         if smallest_diff_val is None or diff < smallest_diff_val:
+                    #             smallest_diff_val = diff
+                    #             smallest_diff_idx = i
+                    #
+                    # if diff_val != smallest_diff_val and smallest_diff_idx is not None:
+                    #     min_length_idx = smallest_diff_idx
+                    #
+                    # # Check if the next length value is less than 10
+                    # next_length_idx = min_length_idx + 1
+                    # if next_length_idx < len(length_of_line_segment_list) and length_of_line_segment_list[next_length_idx] < 10:
+                    #     final_idx = next_length_idx
+                    # else:
+                    #     final_idx = min_length_idx
+                    #
+                    # if len(length_of_line_segment_list) < 4:
+                    #     print("min_dis_for_dupli", min_dis_for_dupli_ind)
+                    #
+                    #     cluster_coor_list = clusters[min_dis_for_dupli_ind]
+                    #     print("cluster_coor_list", cluster_coor_list)
+                    #
+                    # else:
+                    #     print("Final index:", final_idx)
+                    #     cluster_coor_list = clusters[final_idx]
+                    #     print("cluster_coor_list", cluster_coor_list)
+                    #
+                    #
+                    #
+                    # print("length_of_line_segment_list", length_of_line_segment_list)
+                    # print("min_dis_lin_pix_to_contu_list", min_dis_lin_pix_to_contu_list)
+                    # print("min_pix_to_contu_ang_list", min_pix_to_contu_ang_list)
+                    # print("diff_list", diff_list)
 
                     img_temp_8 = np.zeros(img_temp_shape, dtype=np.uint8)
 
