@@ -49,7 +49,7 @@ def rle_decode(mask_rle, shape):
 
 with open('training_done.json') as f:
     data = json.load(f)
-    data1 = data['images'][58]  # selecting the image
+    data1 = data['images'][90]  # selecting the image
     img_name = data1['image_name']
     img_name = img_name.replace('.png', '')
     img_width = data1['width']
@@ -497,8 +497,8 @@ with open('training_done.json') as f:
                     current_cluster_id = 0
                     clusters_found = 0
                     clusters = []
-
                     clusters_3_list = []
+
 
                     # For each point
                     for i_ele in range(len(col_indexes)):
@@ -523,7 +523,7 @@ with open('training_done.json') as f:
                             # If the current cluster has more than one member
                             if len(cluster) > 1:
                                 # Print the current cluster
-                                print("Cluster", current_cluster_id, ":", cluster)
+                                # print("Cluster", current_cluster_id, ":", cluster)
                                 # Add the current cluster to the list of clusters found
                                 clusters.append(cluster)
                                 # Increment the current cluster id
@@ -532,7 +532,7 @@ with open('training_done.json') as f:
 
                     and_edges_t4_t5_2 = and_edges_t4_t5 * 0
 
-                    and_edges_t4_t5_3 = and_edges_t4_t5 * 0
+                    and_edges_t4_t5_3 = and_edges_t4_t5
 
                     # Find contours
                     contours_3, hierarchy_3 = cv2.findContours(and_edges_t4_t5, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
@@ -540,26 +540,28 @@ with open('training_done.json') as f:
                     cv2.cvtColor(and_edges_t4_t5_3, cv2.COLOR_GRAY2BGR)
                     # Iterate through contours and check if they are closed
                     contour_3_ID = 0
+
                     for contour_3 in contours_3:
-                        contour_3_ID = contour_3_ID+1
+
                         if not cv2.isContourConvex(contour_3):
                             # Contour is not closed, do something with it
                             # For example, draw it on the image
-                            cv2.drawContours(and_edges_t4_t5_3, [contour_3], 0, (255, 255, 255), 2)
+                            cv2.drawContours(and_edges_t4_t5_3, [contour_3], 0, (255, 255, 255), 5)
                             clus_name_3 = "final_images_5/seg_%d_%s.jpg" % (contour_3_ID, class_name_from_list_of_keys_t5)
                             cv2.imwrite(clus_name_3, and_edges_t4_t5_3)
-                            and_edges_t4_t5_3.fill(0)
-                            clusters_3_coordinates = contour_3.squeeze().tolist()
+                            # and_edges_t4_t5_3.fill(0)
 
-                            if len(clusters_3_coordinates) == 2:
-                                clusters_3_coordinates = [clusters_3_coordinates]
+                            # clusters_coord_3_list = contour_3.squeeze().tolist()
+                            # if len(contour_3.tolist()) > 1:
+                            print("Cluster_ID", contour_3_ID, ":", contour_3.tolist())
+                            clusters_3_list.append(contour_3.tolist())
 
-                            clusters_3_list.append(clusters_3_coordinates)
-
+                        contour_3_ID = contour_3_ID + 1
 
                     clusters = clusters_3_list
 
-                    print("testin clusters", clusters)
+
+                    # print("testin clusters", clusters)
 
                     # cv2.cvtColor(and_edges_t4_t5_2, cv2.COLOR_GRAY2BGR)
                     # for i_ell, cluster in enumerate(clusters):
@@ -606,9 +608,9 @@ with open('training_done.json') as f:
 
                     key_for_clus = intersected_masks_list_final[list_of_keys_t5_ind]
 
-                    print("key_for_clus[1]", key_for_clus[0])
+                    print("Part of the plant", key_for_clus[1])
 
-                    class_name_from_list_8 = list_of_keys[key_for_clus[0]]  # change unit
+                    class_name_from_list_8 = list_of_keys[key_for_clus[1]]  # change unit
                     selected_list_8 = dic_for_selection[class_name_from_list_8]
 
                     result_with_one_8 = np.where(selected_list_8 == 1)
@@ -685,14 +687,14 @@ with open('training_done.json') as f:
                     # x_cen, y_cen, w_cen, h_cen = cv2.boundingRect(single_contour)
                     #
                     # # Calculate the center but upper corner of the contour
-                    # center_x = center_x
+                    # center_x = center_x + w_cen / 2
                     # center_y = center_y - h_cen / 2
 
 
                     # print("center_x", center_x)
 
                     cv2.drawContours(substracted_img_2, [single_contour], -1, (255, 255, 255), 3)
-                    cv2.circle(substracted_img_2, (center_x, center_y), 2, (255, 255, 255), thickness=-1)
+                    cv2.circle(substracted_img_2, (int(center_x), int(center_y)), 2, (255, 255, 255), thickness=-1)
 
                     img_name_3 = "final_images_4/immg_%d_%s.jpg" % (list_of_keys_t5_ind, class_name_from_list_of_keys_t5)
                     cv2.imwrite(img_name_3, substracted_img_2)
@@ -704,11 +706,11 @@ with open('training_done.json') as f:
 
                     for clus_elem in clusters:
 
-                        print("clus_elem", clus_elem)
+                        # print("clus_elem", clus_elem)
 
                         for cluster_coor_list_elem in clus_elem:
 
-                            print("cluster_coor_list_elem", cluster_coor_list_elem)
+                            # print("cluster_coor_list_elem", cluster_coor_list_elem)
 
                             dis_lin_pix_to_contu_list = []
                             pix_to_contu_ang_list = []
@@ -717,7 +719,8 @@ with open('training_done.json') as f:
 
 
                             # for nozero_coord in nonzero_points:
-                            dis_lin_pix_to_contu = round(np.sqrt((center_y - int(cluster_coor_list_elem[1])) ** 2 + (center_x - int(cluster_coor_list_elem[0])) ** 2), 3)
+                            # dis_lin_pix_to_contu = round(np.sqrt((center_y - cluster_coor_list_elem[0][1]) ** 2 + (center_x - cluster_coor_list_elem[0][0]) ** 2), 3)
+                            dis_lin_pix_to_contu = abs(center_x - cluster_coor_list_elem[0][0])
                             # pix_to_contu_ang = math.degrees(math.atan2((center_y - cluster_coor_list_elem[1]), (center_x - cluster_coor_list_elem[0])))
 
                             dis_lin_pix_to_contu_list.append(dis_lin_pix_to_contu)
@@ -732,9 +735,20 @@ with open('training_done.json') as f:
 
                     min_dis_for_dupli_ind = min_dis_lin_pix_to_contu_list.index(min(min_dis_lin_pix_to_contu_list))
 
-                    cluster_coor_list = clusters[min_dis_for_dupli_ind]
+                    temp_clus_coord_list =[]
 
+                    for elem_clus in clusters[min_dis_for_dupli_ind]:
+                        temp_clus_coord_list.append(elem_clus[0])
+
+
+                    cluster_coor_list = temp_clus_coord_list
+
+                    # print("tetsing_cluster_coor_list", cluster_coor_list)
+
+
+                    print("min_dis_lin_pix_to_contu_list", min_dis_lin_pix_to_contu_list)
                     print("minimum index:", min_dis_for_dupli_ind)
+                    print("cluster_coor_list", cluster_coor_list)
 
                     # This content needs to be double checked
                     # # Calculate differences from minimum distance
@@ -783,7 +797,7 @@ with open('training_done.json') as f:
                     #
                     #
                     # print("length_of_line_segment_list", length_of_line_segment_list)
-                    # print("min_dis_lin_pix_to_contu_list", min_dis_lin_pix_to_contu_list)
+
                     # print("min_pix_to_contu_ang_list", min_pix_to_contu_ang_list)
                     # print("diff_list", diff_list)
 
