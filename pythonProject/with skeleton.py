@@ -49,7 +49,7 @@ def rle_decode(mask_rle, shape):
 
 with open('training_done.json') as f:
     data = json.load(f)
-    data1 = data['images'][90]  # selecting the image
+    data1 = data['images'][220]  # selecting the image
     img_name = data1['image_name']
     img_name = img_name.replace('.png', '')
     img_width = data1['width']
@@ -415,7 +415,7 @@ with open('training_done.json') as f:
                 if distance_btwn_clus_lst > 10 :
                     check_difference_in_btwn_clus_lst = True
 
-            if clustering_list[0] > 10: # include 0th element  > 10
+            if clustering_list[0] > 50: # include 0th element  > 10
                 check_difference_in_btwn_clus_lst = True
 
 
@@ -476,6 +476,7 @@ with open('training_done.json') as f:
                 elif has_only_ones_and_twos:
                     print("has_only_ones_and_twos")
                     min_value = max(clustering_len_list)
+                    has_duplicates = False # just because we are not going to clustering
 
                 else:
                     print("any element more thn three times")
@@ -498,6 +499,7 @@ with open('training_done.json') as f:
                     clusters_found = 0
                     clusters = []
                     clusters_3_list = []
+                    clusters_3_size_list = []
 
 
                     # For each point
@@ -553,12 +555,15 @@ with open('training_done.json') as f:
 
                             # clusters_coord_3_list = contour_3.squeeze().tolist()
                             # if len(contour_3.tolist()) > 1:
+                            length_3 = cv2.arcLength(contour_3, closed=False)
                             print("Cluster_ID", contour_3_ID, ":", contour_3.tolist())
                             clusters_3_list.append(contour_3.tolist())
+                            clusters_3_size_list.append(length_3)
 
                         contour_3_ID = contour_3_ID + 1
 
                     clusters = clusters_3_list
+                    print("clusters_3_size_list", clusters_3_size_list)
 
 
                     # print("testin clusters", clusters)
@@ -733,7 +738,25 @@ with open('training_done.json') as f:
 
                         length_of_line_segment_list.append(len(clus_elem))
 
-                    min_dis_for_dupli_ind = min_dis_lin_pix_to_contu_list.index(min(min_dis_lin_pix_to_contu_list))
+                    # considering the size of the contour then considering the distance
+
+                    #if list has zero then ignore it
+
+                    temp_list_without_zero = [temp_elem for temp_elem in clusters_3_size_list if temp_elem != 0 and temp_elem != 1]
+                    min_val_except_zero = min(temp_list_without_zero)
+
+                    print("min_val_except_zero", min_val_except_zero)
+
+
+                    if 7 <= min_val_except_zero < 21:
+                        print("minimum index from length")
+                        min_siz_clus_3_list_ind = clusters_3_size_list.index(min(temp_list_without_zero))
+                        min_dis_for_dupli_ind = min_siz_clus_3_list_ind
+
+                    else:
+                        print("minimum index from distance")
+                        min_dis_for_dupli_ind = min_dis_lin_pix_to_contu_list.index(min(min_dis_lin_pix_to_contu_list))
+
 
                     temp_clus_coord_list =[]
 
