@@ -1,54 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5de9661a-ff48-4cf2-90c7-3211cbaa6d8d" name="Changes" comment="Changing clustering method to contour method, dilation to extend the stem">
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/New folder/seg_0_t57.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/New folder/seg_1_t57.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/New folder/seg_2_t57.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/New folder/seg_3_t57.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/New folder/seg_4_t57.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/New folder/seg_5_t57.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/New folder/seg_6_t57.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_3_8_0.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_5_10_7.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_9_13_2.jpg" afterDir="false" />
+    <list default="true" id="5de9661a-ff48-4cf2-90c7-3211cbaa6d8d" name="Changes" comment="checking distance specially and length after clustering contours">
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/New folder (2)/seg_0_t54.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/New folder (2)/seg_1_t54.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/New folder (2)/seg_2_t54.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/New folder (2)/seg_3_t54.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/New folder (2)/seg_4_t54.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/New folder (2)/seg_5_t54.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/New folder (2)/seg_6_t54.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/New folder (2)/seg_7_t54.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pythonProject/co_with_ones.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/co_with_ones.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pythonProject/drawn_img_unit_7.png" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/drawn_img_unit_7.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg069_0_0495_rep_0_6_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg069_0_0495_rep_1_3_4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg069_0_0495_rep_1_4_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg069_0_0495_rep_2_5_3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg069_0_0495_rep_5_7_0.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_3/immg_1_t51.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_3/immg_3_t53.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_4/immg_1_t51.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_4/immg_3_t53.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/New folder/seg_0_t53.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/New folder/seg_1_t53.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_0_t51.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_0_t53.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_10_t53.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_11_t53.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_12_t53.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_1_t51.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_1_t53.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_2_t51.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_2_t53.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_3_t51.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_3_t53.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_4_t51.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_4_t53.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_5_t53.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_6_t53.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_7_t53.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_8_t53.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_9_t53.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_0_6_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_1_3_4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_1_4_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_2_5_3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_5_7_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_3_4_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_4_6_2.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pythonProject/intersected_masks_list.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/intersected_masks_list.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pythonProject/with skeleton.py" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/with skeleton.py" afterDir="false" />
     </list>
@@ -221,7 +187,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680658309346</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="checking distance specially and length after clustering contours">
+      <created>1680959055795</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1680959055795</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -256,10 +229,11 @@
     <MESSAGE value="Adding small BBoxs into big Bounding box" />
     <MESSAGE value="fixing duplicates less than 3 eg: 1,2,1" />
     <MESSAGE value="Changing clustering method to contour method, dilation to extend the stem" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changing clustering method to contour method, dilation to extend the stem" />
+    <MESSAGE value="checking distance specially and length after clustering contours" />
+    <option name="LAST_COMMIT_MESSAGE" value="checking distance specially and length after clustering contours" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Masters_Project_2023$with_skeleton.coverage" NAME="with skeleton Coverage Results" MODIFIED="1680958927946" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
+    <SUITE FILE_PATH="coverage/Masters_Project_2023$with_skeleton.coverage" NAME="with skeleton Coverage Results" MODIFIED="1681138757252" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
     <SUITE FILE_PATH="coverage/Masters_Project_2023$copy_content.coverage" NAME="copy content Coverage Results" MODIFIED="1678217175984" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
     <SUITE FILE_PATH="coverage/Masters_Project_2023$deleting_files.coverage" NAME="deleting_files Coverage Results" MODIFIED="1680436269032" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
   </component>

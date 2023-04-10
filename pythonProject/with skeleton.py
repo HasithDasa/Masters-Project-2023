@@ -49,7 +49,7 @@ def rle_decode(mask_rle, shape):
 
 with open('training_done.json') as f:
     data = json.load(f)
-    data1 = data['images'][220]  # selecting the image
+    data1 = data['images'][320]  # selecting the image
     img_name = data1['image_name']
     img_name = img_name.replace('.png', '')
     img_width = data1['width']
@@ -740,15 +740,23 @@ with open('training_done.json') as f:
 
                     # considering the size of the contour then considering the distance
 
-                    #if list has zero then ignore it
+                    if (1 in clusters_3_size_list and 0 in clusters_3_size_list) or clusters_3_size_list.count(1) > 1: #if list has zero and one both then ignore it or 1 used more than 2 times then ignore it
 
-                    temp_list_without_zero = [temp_elem for temp_elem in clusters_3_size_list if temp_elem != 0 and temp_elem != 1]
-                    min_val_except_zero = min(temp_list_without_zero)
+                        temp_list_without_zero = [temp_elem for temp_elem in clusters_3_size_list if temp_elem != 0 and temp_elem != 1]
+                        min_val_except_zero = min(temp_list_without_zero)
+
+
+                    else: #if list has zero then ignore it
+                        temp_list_without_zero = [temp_elem for temp_elem in clusters_3_size_list if temp_elem != 0]
+                        min_val_except_zero = min(temp_list_without_zero)
+
+
+
 
                     print("min_val_except_zero", min_val_except_zero)
 
 
-                    if 7 <= min_val_except_zero < 21:
+                    if 1 <= min_val_except_zero < 21:
                         print("minimum index from length")
                         min_siz_clus_3_list_ind = clusters_3_size_list.index(min(temp_list_without_zero))
                         min_dis_for_dupli_ind = min_siz_clus_3_list_ind
