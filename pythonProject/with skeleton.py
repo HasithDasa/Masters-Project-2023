@@ -49,7 +49,7 @@ def rle_decode(mask_rle, shape):
 
 with open('training_done.json') as f:
     data = json.load(f)
-    data1 = data['images'][320]  # selecting the image
+    data1 = data['images'][125]  # selecting the image
     img_name = data1['image_name']
     img_name = img_name.replace('.png', '')
     img_width = data1['width']
@@ -458,7 +458,7 @@ with open('training_done.json') as f:
             # index of the minimum element of clustering_len_list
             min_index_clus = clustering_len_list.index(min(clustering_len_list))
 
-            if len(clustering_len_list) > 2: #Check if clustering_len_list has more than two elements
+            if len(clustering_len_list) > 0: #Check if clustering_len_list has more than zero elements
 
 
                 other_elements = [elem_2 for elem_2 in clustering_len_list if elem_2 != 1 and elem_2 != 2]
@@ -487,52 +487,12 @@ with open('training_done.json') as f:
                 if has_duplicates:
                     print("There are duplicates except 1 and 2")
 
-                    distance_threshold = 30
-
-                    # Initialize an array to keep track of the cluster assignments
-                    # -1 indicates that the point is noise (not part of any cluster)
-                    # 0 indicates that the point hasn't been assigned to a cluster yet
-                    cluster_assignments = [-1] * len(col_indexes)
-
                     # Initialize the current cluster id
                     current_cluster_id = 0
                     clusters_found = 0
                     clusters = []
                     clusters_3_list = []
                     clusters_3_size_list = []
-
-
-                    # For each point
-                    for i_ele in range(len(col_indexes)):
-                        # If the point hasn't been assigned to a cluster yet
-                        if cluster_assignments[i_ele] == -1:
-                            # Create a new cluster with the current point as the first member
-                            cluster = [[col_indexes[i_ele], row_indexes[i_ele]]]
-                            # Assign the current point to the new cluster
-                            cluster_assignments[i_ele] = current_cluster_id
-                            # For each remaining point
-                            for j_ele in range(i_ele + 1, len(col_indexes)):
-                                # If the point hasn't been assigned to a cluster yet
-                                if cluster_assignments[j_ele] == -1:
-                                    # Compute the distance between the current point and the remaining point
-                                    distance = ((col_indexes[i_ele] - col_indexes[j_ele]) ** 2 + (row_indexes[i_ele] - row_indexes[j_ele]) ** 2) ** 0.5
-                                    # If the remaining point is within the distance threshold
-                                    if distance <= distance_threshold:
-                                        # Add the remaining point to the current cluster
-                                        cluster.append([col_indexes[j_ele], row_indexes[j_ele]])
-                                        # Assign the remaining point to the current cluster
-                                        cluster_assignments[j_ele] = current_cluster_id
-                            # If the current cluster has more than one member
-                            if len(cluster) > 1:
-                                # Print the current cluster
-                                # print("Cluster", current_cluster_id, ":", cluster)
-                                # Add the current cluster to the list of clusters found
-                                clusters.append(cluster)
-                                # Increment the current cluster id
-                                current_cluster_id += 1
-
-
-                    and_edges_t4_t5_2 = and_edges_t4_t5 * 0
 
                     and_edges_t4_t5_3 = and_edges_t4_t5
 
@@ -564,45 +524,6 @@ with open('training_done.json') as f:
 
                     clusters = clusters_3_list
                     print("clusters_3_size_list", clusters_3_size_list)
-
-
-                    # print("testin clusters", clusters)
-
-                    # cv2.cvtColor(and_edges_t4_t5_2, cv2.COLOR_GRAY2BGR)
-                    # for i_ell, cluster in enumerate(clusters):
-                    #     clus_name = "final_images_2/clus_%d_%s.jpg" % (i_ell, class_name_from_list_of_keys_t5)
-                    #
-                    #     points_3 = np.array(cluster, np.int32)
-                    #     points_3 = points_3.reshape((-1, 1, 2))
-                    #
-                    #     cv2.polylines(and_edges_t4_t5_2, [points_3], True, (255, 255, 255), thickness=2)
-                    #
-                    #     # Display the image with the current cluster drawn on it
-                    #     cv2.imwrite(clus_name, and_edges_t4_t5_2)
-                    #     and_edges_t4_t5_2.fill(0)
-
-
-                    # for i_ell, cluster in enumerate(clusters):
-                    #
-                    #     clus_name = "final_images_2/clus_%d_%s.jpg" % (i_ell, class_name_from_list_of_keys_t5)
-                    #
-                    #     points_3 = np.array(cluster, np.int32)
-                    #     points_3 = points_3.reshape((-1, 1, 2))
-                    #
-                    #     cv2.polylines(and_edges_t4_t5_2, [points_3], True, (255, 255, 255), thickness=2)
-                    #
-                    #     # Define the kernel for dilation
-                    #     kernel_5 = np.ones((3, 3), np.uint8)
-                    #
-                    #     # Dilate the image to expand the segments
-                    #     dilated_5 = cv2.dilate(and_edges_t4_t5_2, kernel_5)
-                    #
-                    #     # Subtract the original image from the dilated image to get the neighboring zero pixels
-                    #     neighboring_zero_pixels = dilated_5 - and_edges_t4_t5_2
-                    #
-                    #     # Display the image with the current cluster drawn on it
-                    #     cv2.imwrite(clus_name, neighboring_zero_pixels)
-                    #     and_edges_t4_t5_2.fill(0)
 
 
 
@@ -641,7 +562,7 @@ with open('training_done.json') as f:
 
                     drawn_img_unit_7 = lsd_unit_1.drawSegments(copy_selected_list_units_7, lines_unit_1)
 
-                    cv2.imwrite("drawn_img_unit_7.png", drawn_img_unit_7)
+                    # cv2.imwrite("drawn_img_unit_7.png", drawn_img_unit_7)
 
                     # Create the kernel
                     kernel = np.ones((7, 7), np.uint8)
@@ -745,6 +666,8 @@ with open('training_done.json') as f:
                         temp_list_without_zero = [temp_elem for temp_elem in clusters_3_size_list if temp_elem != 0 and temp_elem != 1]
                         min_val_except_zero = min(temp_list_without_zero)
 
+                    elif len(set(clusters_3_size_list)) == 1:
+                        min_val_except_zero = clusters_3_size_list[0]
 
                     else: #if list has zero then ignore it
                         temp_list_without_zero = [temp_elem for temp_elem in clusters_3_size_list if temp_elem != 0]
@@ -781,160 +704,70 @@ with open('training_done.json') as f:
                     print("minimum index:", min_dis_for_dupli_ind)
                     print("cluster_coor_list", cluster_coor_list)
 
-                    # This content needs to be double checked
-                    # # Calculate differences from minimum distance
-                    # min_distance = min(min_dis_lin_pix_to_contu_list)
-                    # diff_list = [d - min_distance for d in min_dis_lin_pix_to_contu_list]
-                    #
-                    #
-                    # # Find the minimum length less than 100
-                    # min_length_idx = None
-                    # for i, length in enumerate(length_of_line_segment_list):
-                    #     if length < 100:
-                    #         if min_length_idx is None or length < length_of_line_segment_list[min_length_idx]:
-                    #             min_length_idx = i
-                    #
-                    # # Check if the corresponding difference value is not the smallest value greater than 0
-                    # diff_val = diff_list[min_length_idx]
-                    # smallest_diff_val = None
-                    # smallest_diff_idx = None
-                    # for i, diff in enumerate(diff_list):
-                    #     if diff > 0:
-                    #         if smallest_diff_val is None or diff < smallest_diff_val:
-                    #             smallest_diff_val = diff
-                    #             smallest_diff_idx = i
-                    #
-                    # if diff_val != smallest_diff_val and smallest_diff_idx is not None:
-                    #     min_length_idx = smallest_diff_idx
-                    #
-                    # # Check if the next length value is less than 10
-                    # next_length_idx = min_length_idx + 1
-                    # if next_length_idx < len(length_of_line_segment_list) and length_of_line_segment_list[next_length_idx] < 10:
-                    #     final_idx = next_length_idx
-                    # else:
-                    #     final_idx = min_length_idx
-                    #
-                    # if len(length_of_line_segment_list) < 4:
-                    #     print("min_dis_for_dupli", min_dis_for_dupli_ind)
-                    #
-                    #     cluster_coor_list = clusters[min_dis_for_dupli_ind]
-                    #     print("cluster_coor_list", cluster_coor_list)
-                    #
-                    # else:
-                    #     print("Final index:", final_idx)
-                    #     cluster_coor_list = clusters[final_idx]
-                    #     print("cluster_coor_list", cluster_coor_list)
-                    #
-                    #
-                    #
-                    # print("length_of_line_segment_list", length_of_line_segment_list)
-
-                    # print("min_pix_to_contu_ang_list", min_pix_to_contu_ang_list)
-                    # print("diff_list", diff_list)
-
                     img_temp_8 = np.zeros(img_temp_shape, dtype=np.uint8)
 
                 else:
                     print("There are no duplicates except 1 and 2")
-                    min_clus_len_index = clustering_len_list.index(min_value)
 
-                    min_clus_index = []
-                    if min_clus_len_index == 0:  # 1st one
-                        min_clus_index = [0, clustering_list[0]]
-                    elif min_clus_len_index == len(clustering_len_list) - 1:  # last one
-                        min_clus_index = [clustering_list[len(clustering_list) - 1] + 1, len(row_indexes) - 1]
-                    else:  # middle one
-                        min_clus_index = [clustering_list[min_clus_len_index - 1] + 1,
-                                          clustering_list[min_clus_len_index]]
+                    # Find contours
+                    contours_4, hierarchy_4 = cv2.findContours(and_edges_t4_t5, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
 
-                    print("min_clus_index", min_clus_index)
+                    clusters_4_list = []
+                    clusters_4_size_list = []
 
-                    cluster_coor_list = []
-                    if clustering_type == "row":
+                    for contour_4 in contours_4:
 
-                        for row_ind_sel, row_val_sel in enumerate(row_indexes):
-                            # checking if row index within the selected clustering range, eg: index from range 0 to 9
-                            if min_clus_index[0] <= row_ind_sel <= min_clus_index[1]:
-                                cluster_coor_list.append([col_indexes[row_ind_sel], row_val_sel])
-                            # checking if length of the line is only with one coordinate then taking the rest of the coordinates
-                        if (min_clus_index[0] == 0 and min_clus_index[1] == 0):
-                            cluster_coor_list.append([col_indexes[0], row_indexes[0]])
+                        if not cv2.isContourConvex(contour_4):
+
+                            length_4 = cv2.arcLength(contour_4, closed=False)
+                            clusters_4_list.append(contour_4.tolist())
+                            clusters_4_size_list.append(length_4)
+
+                    # considering the size of the contour
+
+                    if (1 in clusters_4_size_list and 0 in clusters_4_size_list) or clusters_4_size_list.count(1) > 1 :  # if list has zero and one both then ignore it or 1 used more than 2 times then ignore it
+
+                        temp_list_without_zero_4 = [temp_elem_4 for temp_elem_4 in clusters_4_size_list if temp_elem_4 != 0 and temp_elem_4 != 1]
+
+                        if len(temp_list_without_zero_4) > 1:
+                            min_val_except_zero_4 = min(temp_list_without_zero_4)
+                        else:
+                            min_val_except_zero_4 = 1
+
+                    elif len(set(clusters_4_size_list)) == 1:# whole list with same value
+                        min_val_except_zero_4 = clusters_4_size_list[0]
+                        temp_list_without_zero_4 = clusters_4_size_list
+
+                    elif len(clusters_4_size_list) == 1:
+                        min_val_except_zero_4 = clusters_4_size_list[0]
+
+                    else:  # if list has zero then ignore it
+                        temp_list_without_zero_4 = [temp_elem_4 for temp_elem_4 in clusters_4_size_list if temp_elem_4 != 0]
+                        min_val_except_zero_4 = min(temp_list_without_zero_4)
+
+                    print("clusters_4_size_list", clusters_4_size_list)
+                    print("min_val_except_zero_4", min_val_except_zero_4)
+
+                    if min_val_except_zero_4 > 21:
+                        min_siz_clus_4_list_ind = clusters_4_size_list.index(min(clusters_4_size_list))
+                        min_dis_for_dupli_ind_4 = min_siz_clus_4_list_ind
+
+                    elif min_val_except_zero_4 == 1:
+                        min_dis_for_dupli_ind_4 = clusters_4_size_list.index(1)
+                    else:
+                        min_siz_clus_4_list_ind = clusters_4_size_list.index(min(temp_list_without_zero_4))
+                        min_dis_for_dupli_ind_4 = min_siz_clus_4_list_ind
 
 
+                    temp_clus_coord_list_4 = []
 
+                    for elem_clus_4 in clusters_4_list[min_dis_for_dupli_ind_4]:
+                        temp_clus_coord_list_4.append(elem_clus_4[0])
 
-                    elif clustering_type == "col":
-
-                        for col_ind_sel, col_val_sel in enumerate(col_indexes):
-                            # checking if row index within the selected clustering range, eg: index from range 0 to 9
-                            if min_clus_index[0] <= col_ind_sel <= min_clus_index[1]:
-                                cluster_coor_list.append([col_val_sel, row_indexes[col_ind_sel]])
-                            # checking if length of the line is only with one coordinate then taking the rest of the coordinates
-                        if (min_clus_index[0] == 0 and min_clus_index[1] == 0):
-                            cluster_coor_list.append([col_indexes[0], row_indexes[0]])
+                    cluster_coor_list = temp_clus_coord_list_4
 
                     print("cluster_coor_list", cluster_coor_list)
 
-
-            else: #Check if clustering_len_list has less than two elements
-                if clustering_len_list[min_index_clus] == 1:
-
-                    if (clustering_len_list[0]==1 and clustering_len_list[1]==1): # if clustering_len_list [1, 1] then
-                        min_clus_len_index = 0
-
-                    elif (abs(clustering_len_list[0] - clustering_len_list[1])>10):
-                        min_clus_len_index = clustering_len_list.index(min(clustering_len_list))
-
-                    else:
-                        next_min_clus = min(x for x in clustering_len_list if x != 1) # If it is, find the next smallest element
-                        # index of the next smallest element
-                        min_clus_len_index = clustering_len_list.index(next_min_clus)
-
-                else:
-                    min_clus_len_index = min_index_clus
-
-
-
-
-                print("min_clus_len_index:", min_clus_len_index)
-
-                # when min length cluster index is 1st one, last one or any other one
-                min_clus_index = []
-                if min_clus_len_index == 0: #1st one
-                    min_clus_index = [0, clustering_list[0]]
-                elif min_clus_len_index == len(clustering_len_list) - 1: #last one
-                    min_clus_index = [clustering_list[len(clustering_list)-1]+1, len(row_indexes)-1]
-                else:# middle one
-                    min_clus_index = [clustering_list[min_clus_len_index -1]+1, clustering_list[min_clus_len_index]]
-
-                print("min_clus_index", min_clus_index)
-
-                # cluster_coor_list = []
-                if clustering_type == "row":
-                    cluster_coor_list = []
-
-                    for row_ind_sel, row_val_sel in enumerate(row_indexes):
-                        # checking if row index within the selected clustering range, eg: index from range 0 to 9
-                        if min_clus_index[0] <= row_ind_sel <= min_clus_index[1]:
-                            cluster_coor_list.append([col_indexes[row_ind_sel], row_val_sel])
-                        # checking if length of the line is only with one coordinate then taking the rest of the coordinates
-                    if(min_clus_index[0] == 0 and min_clus_index[1] == 0):
-                        cluster_coor_list.append([col_indexes[0], row_indexes[0]])
-
-
-                elif clustering_type == "col":
-                    cluster_coor_list = []
-
-                    for col_ind_sel, col_val_sel in enumerate(col_indexes):
-                        # checking if row index within the selected clustering range, eg: index from range 0 to 9
-                        if min_clus_index[0] <= col_ind_sel <= min_clus_index[1]:
-                            cluster_coor_list.append([col_val_sel, row_indexes[col_ind_sel]])
-                        # checking if length of the line is only with one coordinate then taking the rest of the coordinates
-                    if (min_clus_index[0] == 0 and min_clus_index[1] == 0):
-                        cluster_coor_list.append([col_indexes[0], row_indexes[0]])
-
-
-                print("cluster_coor_list", cluster_coor_list)
 
         else:
             cluster_coor_list = []
