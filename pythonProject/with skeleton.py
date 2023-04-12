@@ -49,7 +49,7 @@ def rle_decode(mask_rle, shape):
 
 with open('training_done.json') as f:
     data = json.load(f)
-    data1 = data['images'][125]  # selecting the image
+    data1 = data['images'][313]  # selecting the image
     img_name = data1['image_name']
     img_name = img_name.replace('.png', '')
     img_width = data1['width']
@@ -412,7 +412,7 @@ with open('training_done.json') as f:
 
             for clustering_list_elem in range(1, len(clustering_list)): # starting from one
                 distance_btwn_clus_lst = clustering_list[clustering_list_elem] - clustering_list[clustering_list_elem - 1] if clustering_list_elem < len(clustering_list) - 1 else len(row_indexes) - clustering_list[clustering_list_elem]
-                if distance_btwn_clus_lst > 10 :
+                if distance_btwn_clus_lst > 50 :
                     check_difference_in_btwn_clus_lst = True
 
             if clustering_list[0] > 50: # include 0th element  > 10
@@ -725,6 +725,8 @@ with open('training_done.json') as f:
 
                     # considering the size of the contour
 
+                    all_same_val = False
+
                     if (1 in clusters_4_size_list and 0 in clusters_4_size_list) or clusters_4_size_list.count(1) > 1 :  # if list has zero and one both then ignore it or 1 used more than 2 times then ignore it
 
                         temp_list_without_zero_4 = [temp_elem_4 for temp_elem_4 in clusters_4_size_list if temp_elem_4 != 0 and temp_elem_4 != 1]
@@ -737,6 +739,7 @@ with open('training_done.json') as f:
                     elif len(set(clusters_4_size_list)) == 1:# whole list with same value
                         min_val_except_zero_4 = clusters_4_size_list[0]
                         temp_list_without_zero_4 = clusters_4_size_list
+                        all_same_val = True
 
                     elif len(clusters_4_size_list) == 1:
                         min_val_except_zero_4 = clusters_4_size_list[0]
@@ -749,7 +752,7 @@ with open('training_done.json') as f:
                     print("min_val_except_zero_4", min_val_except_zero_4)
 
                     if min_val_except_zero_4 > 21:
-                        min_siz_clus_4_list_ind = clusters_4_size_list.index(min(clusters_4_size_list))
+                        min_siz_clus_4_list_ind = clusters_4_size_list.index(min(temp_list_without_zero_4))
                         min_dis_for_dupli_ind_4 = min_siz_clus_4_list_ind
 
                     elif min_val_except_zero_4 == 1:
@@ -764,7 +767,15 @@ with open('training_done.json') as f:
                     for elem_clus_4 in clusters_4_list[min_dis_for_dupli_ind_4]:
                         temp_clus_coord_list_4.append(elem_clus_4[0])
 
-                    cluster_coor_list = temp_clus_coord_list_4
+                    if all_same_val and len(clusters_4_size_list) > 1: # if the list has same value and length of the list is higher than 1 then use all the coordinates
+                        cluster_coor_list = []
+                        for row_ind_sel, row_val_sel in enumerate(row_indexes):
+                            cluster_coor_list.append([col_indexes[row_ind_sel], row_val_sel])
+
+                    else:
+                        cluster_coor_list = temp_clus_coord_list_4
+
+
 
                     print("cluster_coor_list", cluster_coor_list)
 
@@ -772,17 +783,17 @@ with open('training_done.json') as f:
         else:
             cluster_coor_list = []
 
-            if clustering_type == "row":
-                for row_ind_sel, row_val_sel in enumerate(row_indexes):
-                    cluster_coor_list.append([col_indexes[row_ind_sel], row_val_sel])
+            # if clustering_type == "row":
+            for row_ind_sel, row_val_sel in enumerate(row_indexes):
+                cluster_coor_list.append([col_indexes[row_ind_sel], row_val_sel])
 
-                print("cluster_coor_list_not_needed", cluster_coor_list)
+            print("cluster_coor_list_not_needed", cluster_coor_list)
 
-            elif clustering_type == "col":
-                for col_ind_sel, col_val_sel in enumerate(col_indexes):
-                    cluster_coor_list.append([col_val_sel, row_indexes[col_ind_sel]])
-
-                print("cluster_coor_list_not_needed", cluster_coor_list)
+            # elif clustering_type == "col":
+            #     for col_ind_sel, col_val_sel in enumerate(col_indexes):
+            #         cluster_coor_list.append([col_val_sel, row_indexes[col_ind_sel]])
+            #
+            #     print("cluster_coor_list_not_needed", cluster_coor_list)
 
         cluster_coor_list = np.array(cluster_coor_list)
         cluster_coor_list = cluster_coor_list.reshape((-1, 1, 2))
