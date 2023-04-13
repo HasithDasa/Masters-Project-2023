@@ -45,7 +45,7 @@ def rle_decode(mask_rle, shape):
 
 with open('training_done.json') as f:
     data = json.load(f)
-    data1 = data['images'][265]  # selecting the image
+    data1 = data['images'][313]  # selecting the image
     img_name = data1['image_name']
     img_name = img_name.replace('.png', '')
     img_width = data1['width']
@@ -380,6 +380,8 @@ with open('training_done.json') as f:
         clustering_needed = False
         check_difference_in_btwn_clus_lst = False
         clustering_type = "row"
+        has_duplicates = False
+        only_ones_zeroes = False
 
         for row_ind, row_val in enumerate(row_indexes):
             if row_ind < (len(row_indexes)-1):
@@ -447,37 +449,18 @@ with open('training_done.json') as f:
             # index of the minimum element of clustering_len_list
             min_index_clus = clustering_len_list.index(min(clustering_len_list))
 
+
+
             if len(clustering_len_list) > 0: #Check if clustering_len_list has more than zero elements
 
-
-                other_elements = [elem_2 for elem_2 in clustering_len_list if elem_2 != 1 and elem_2 != 2]
-
-                has_only_ones_and_twos = all(elem_3 in [1, 2] for elem_3 in clustering_len_list) and 1 in clustering_len_list and 2 in clustering_len_list
-
-                if other_elements:
-                    # min_value = min([x_clus_len_ele for x_clus_len_ele in clustering_len_list if x_clus_len_ele not in [1, 2]])  # find minimum except 1 and 2
-                    has_duplicates = len(set([x2_clus_len_ele for x2_clus_len_ele in clustering_len_list if x2_clus_len_ele not in [1, 2]])) != len([x2_clus_len_ele for x2_clus_len_ele in clustering_len_list if x2_clus_len_ele not in [1, 2]])  # check if there are duplicates except 1 and 2
-                    # print("Minimum value except 1 and 2:", min_value)
-
-                elif clustering_len_list == [1, 1, 1] or clustering_len_list == [2, 2, 2]:
+                if len(clustering_len_list) != len(set(clustering_len_list)):
                     has_duplicates = True
-
-                elif has_only_ones_and_twos:
-                    print("has_only_ones_and_twos")
-                    # min_value = max(clustering_len_list)
-                    has_duplicates = False # just because we are not going to clustering
-
-                else:
-                    print("any element more thn three times")
-                    result_list = list(set([x_check for x_check in clustering_len_list if clustering_len_list.count(x_check) >= 3])) # any element more thn three times
-                    has_duplicates = bool(result_list)
 
 
                 if has_duplicates:
                     print("There are duplicates except 1 and 2")
 
                     # Initialize the current cluster id
-
 
                     clusters = []
                     clusters_3_list = []
@@ -511,7 +494,6 @@ with open('training_done.json') as f:
 
                     clusters = clusters_3_list
                     print("clusters_3_size_list", clusters_3_size_list)
-
 
 
                     dis_lin_pix_to_contu_list = []
@@ -590,14 +572,6 @@ with open('training_done.json') as f:
                     center_x = int(moments['m10'] / moments['m00'])
                     center_y = int(moments['m01'] / moments['m00'])
 
-                    # x_cen, y_cen, w_cen, h_cen = cv2.boundingRect(single_contour)
-                    #
-                    # # Calculate the center but upper corner of the contour
-                    # center_x = center_x + w_cen / 2
-                    # center_y = center_y - h_cen / 2
-
-
-                    # print("center_x", center_x)
 
                     cv2.drawContours(substracted_img_2, [single_contour], -1, (255, 255, 255), 3)
                     cv2.circle(substracted_img_2, (int(center_x), int(center_y)), 2, (255, 255, 255), thickness=-1)
@@ -616,8 +590,6 @@ with open('training_done.json') as f:
                             dis_lin_pix_to_contu_list = []
                             pix_to_contu_ang_list = []
 
-
-                            # for nozero_coord in nonzero_points:
                             dis_lin_pix_to_contu = round(np.sqrt((center_y - cluster_coor_list_elem[0][1]) ** 2 + (center_x - cluster_coor_list_elem[0][0]) ** 2), 3)
                             # dis_lin_pix_to_contu = abs(center_x - cluster_coor_list_elem[0][0])
                             # pix_to_contu_ang = math.degrees(math.atan2((center_y - cluster_coor_list_elem[1]), (center_x - cluster_coor_list_elem[0])))
@@ -625,17 +597,22 @@ with open('training_done.json') as f:
                             dis_lin_pix_to_contu_list.append(dis_lin_pix_to_contu)
                             # pix_to_contu_ang_list.append(pix_to_contu_ang)
 
-                        # print("dis_lin_pix_to_contu_list", dis_lin_pix_to_contu_list)
-
                         min_dis_lin_pix_to_contu_list.append(min(dis_lin_pix_to_contu_list))
 
 
                     # considering the size of the contour then considering the distance
 
+                    only_ones_zeroes = all(clus_3_ele == 0 or clus_3_ele == 1 for clus_3_ele in clusters_3_size_list) #list has only ones and zeroes nothing else
+
                     if (1 in clusters_3_size_list and 0 in clusters_3_size_list) or clusters_3_size_list.count(1) > 1: #if list has zero and one both then ignore it or 1 used more than 2 times then ignore it
 
-                        temp_list_without_zero = [temp_elem for temp_elem in clusters_3_size_list if temp_elem != 0 and temp_elem != 1]
-                        min_val_except_zero = min(temp_list_without_zero)
+                        if only_ones_zeroes==False:
+
+                            temp_list_without_zero = [temp_elem for temp_elem in clusters_3_size_list if temp_elem != 0 and temp_elem != 1]
+                            min_val_except_zero = min(temp_list_without_zero)
+                        else:
+                            temp_list_without_zero = [temp_elem for temp_elem in clusters_3_size_list if temp_elem != 0]
+                            min_val_except_zero = min(temp_list_without_zero)
 
                     elif len(set(clusters_3_size_list)) == 1:
                         min_val_except_zero = clusters_3_size_list[0]
@@ -664,9 +641,6 @@ with open('training_done.json') as f:
 
 
                     cluster_coor_list = temp_clus_coord_list
-
-                    # print("tetsing_cluster_coor_list", cluster_coor_list)
-
 
                     print("min_dis_lin_pix_to_contu_list", min_dis_lin_pix_to_contu_list)
                     print("minimum index:", min_dis_for_dupli_ind)
@@ -757,6 +731,7 @@ with open('training_done.json') as f:
 
             print("cluster_coor_list_not_needed", cluster_coor_list)
 
+# function => representation of line segments (def repre_lin_seg)
 
         cluster_coor_list = np.array(cluster_coor_list)
         cluster_coor_list = cluster_coor_list.reshape((-1, 1, 2))

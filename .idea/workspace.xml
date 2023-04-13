@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5de9661a-ff48-4cf2-90c7-3211cbaa6d8d" name="Changes" comment="finalized code after cleaning unwanted comments and all">
+    <list default="true" id="5de9661a-ff48-4cf2-90c7-3211cbaa6d8d" name="Changes" comment="fixing col and row issue when col rejected it will not give all the coordinates">
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_3/immg_5_t55.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_4/immg_5_t55.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/seg_0_t55.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_5/seg_1_t55.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg004_0_1103_rep_0_5_3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg004_0_1103_rep_0_8_5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg004_0_1103_rep_1_2_1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg004_0_1103_rep_2_4_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg004_0_1103_rep_3_6_4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg004_0_1103_rep_6_7_2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_0_5_3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_0_8_5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_1_2_1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_2_4_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_3_6_4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_6_7_2.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pythonProject/with skeleton.py" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/with skeleton.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -20,7 +36,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="For_Time_Analysis" />
+        <entry key="$PROJECT_DIR$" value="Trial_1" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -36,19 +52,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Hasith Dasanayake/Desktop"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
-      &quot;Python&quot;
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "Python"
     ]
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Hasith Dasanayake\Desktop" />
+    </key>
+  </component>
   <component name="RunManager" selected="Python.with skeleton">
     <configuration name="copy content" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Masters-Project-2023" />
@@ -230,7 +252,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681384710092</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="fixing col and row issue when col rejected it will not give all the coordinates">
+      <created>1681400924857</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1681400924857</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -270,10 +299,11 @@
     <MESSAGE value="completely changing pixel based counting method to contour size based analysis" />
     <MESSAGE value="fixing problem in size of the line bigger than 21 and list hasmore zeros" />
     <MESSAGE value="finalized code after cleaning unwanted comments and all" />
-    <option name="LAST_COMMIT_MESSAGE" value="finalized code after cleaning unwanted comments and all" />
+    <MESSAGE value="fixing col and row issue when col rejected it will not give all the coordinates" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixing col and row issue when col rejected it will not give all the coordinates" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Masters_Project_2023$with_skeleton.coverage" NAME="with skeleton Coverage Results" MODIFIED="1681399279111" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
+    <SUITE FILE_PATH="coverage/Masters_Project_2023$with_skeleton.coverage" NAME="with skeleton Coverage Results" MODIFIED="1681411478950" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
     <SUITE FILE_PATH="coverage/Masters_Project_2023$copy_content.coverage" NAME="copy content Coverage Results" MODIFIED="1678217175984" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
     <SUITE FILE_PATH="coverage/Masters_Project_2023$deleting_files.coverage" NAME="deleting_files Coverage Results" MODIFIED="1680436269032" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
   </component>
