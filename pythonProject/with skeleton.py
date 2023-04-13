@@ -79,6 +79,8 @@ with open('training_done.json') as f:
 
     # slope_angles_for_classification= []
 
+# function => converting to opencv format (def opencv_format)
+
     for i in range(len(data2)):
         data3 = data2[i]  # selecting the class label
         mask_rle = data3['mask']
@@ -142,12 +144,9 @@ with open('training_done.json') as f:
         for cord in listOfCoordinates:
             img_temp_3[cord] = 1
 
-
     img_for_cv = img_temp_3.astype(np.uint8) * 255
 
-
-    with open("co_with_ones.txt", "w") as output2:
-        output2.write(str(co_with_ones))
+# function => acquiring Bounding Boxes (def acq_bbox)
 
     for bbox_index in range(len(bbox_list)):
         cv2.rectangle(img_for_cv, (bbox_list[bbox_index][0], bbox_list[bbox_index][2]),
@@ -177,7 +176,6 @@ with open('training_done.json') as f:
     mask_inside_lg_bbox_list = []
     for lg_bb_ind, lg_bb_ele in enumerate(lg_bbox_list):
 
-
         for mask_index_2, mask_ele_2 in enumerate(co_with_ones):
 
             ones_count = 0
@@ -187,9 +185,6 @@ with open('training_done.json') as f:
                 if (lg_bb_ele[0] <= co_with_ones_ele2[1] < lg_bb_ele[1]) and (lg_bb_ele[2] <= co_with_ones_ele2[0] < lg_bb_ele[3]):
 
                     ones_count += 1
-
-            # print("ones_count", ones_count)
-            # print("len_mask_ele_2", len(mask_ele_2))
 
             if ones_count == len(mask_ele_2):
                 # print("mask is inside large bbox")
@@ -247,11 +242,7 @@ with open('training_done.json') as f:
     print("intersected_masks_list", intersected_masks_list)
     print("intersected_masks_list_final", intersected_masks_list_final)
 
-    # bbox_ones_mask_list1 = set(bbox_ones_mask_list)
-    with open("intersected_masks_list.txt", "w") as output1:
-        output1.write(str(intersected_masks_list))
-
-    # intersected_masks_list_2 = intersected_masks_list.tolist()
+# function => releasing image unit (def rel_img_unit)
 
     #going on one by one on intersected masks
 
@@ -287,10 +278,9 @@ with open('training_done.json') as f:
     final_completed_image_list = []
     and_list = []
 
-
+# function => seperation of line segments from the image(def acq_line_seg)
 
     for list_of_keys_t5_ind in range(len(list_of_keys_t5)):
-
 
         class_name_from_list_of_keys_t5 = list_of_keys_t5[list_of_keys_t5_ind]
         selected_list_t5 = dic_for_selection_t5[class_name_from_list_of_keys_t5]
@@ -382,6 +372,8 @@ with open('training_done.json') as f:
 
         print("row_indexes", row_indexes, "col_indexes", col_indexes)
 
+# function => checking for clustering (def check_clust)
+
         clustering_list = []
         clustering_len_list = []
 
@@ -395,6 +387,8 @@ with open('training_done.json') as f:
                     clustering_list.append(row_ind)
                     clustering_type = "row"
                     print("clustering_type", clustering_type)
+
+        clustering_list_row = clustering_list
 
         if len(clustering_list) > 0:
 
@@ -418,15 +412,23 @@ with open('training_done.json') as f:
                         clustering_type = "col"
                         print("clustering_type", clustering_type)
 
+            clustering_list_col = clustering_list
 
         print("clustering_list", clustering_list)
 
-        if len(clustering_list) > 0:
+# function => checking the which clustering it belongs to (def wh_clust)
+
+        if len(clustering_list_col) > 0 or len(clustering_list_row) > 0:
             clustering_needed = True
         else:
             clustering_needed = False
 
         if clustering_needed:
+
+            if len(clustering_list_col) == 0:
+                clustering_list = clustering_list_row
+                print("no col clustering therefore, once again changing to row clustering list")
+
             # clustering based on the neighbouring pixels locations based on distance
             clustering_len_list = [clustering_list[0] + 1] # 1st element of the clustering len list
 
@@ -453,16 +455,16 @@ with open('training_done.json') as f:
                 has_only_ones_and_twos = all(elem_3 in [1, 2] for elem_3 in clustering_len_list) and 1 in clustering_len_list and 2 in clustering_len_list
 
                 if other_elements:
-                    min_value = min([x_clus_len_ele for x_clus_len_ele in clustering_len_list if x_clus_len_ele not in [1, 2]])  # find minimum except 1 and 2
+                    # min_value = min([x_clus_len_ele for x_clus_len_ele in clustering_len_list if x_clus_len_ele not in [1, 2]])  # find minimum except 1 and 2
                     has_duplicates = len(set([x2_clus_len_ele for x2_clus_len_ele in clustering_len_list if x2_clus_len_ele not in [1, 2]])) != len([x2_clus_len_ele for x2_clus_len_ele in clustering_len_list if x2_clus_len_ele not in [1, 2]])  # check if there are duplicates except 1 and 2
-                    print("Minimum value except 1 and 2:", min_value)
+                    # print("Minimum value except 1 and 2:", min_value)
 
                 elif clustering_len_list == [1, 1, 1] or clustering_len_list == [2, 2, 2]:
                     has_duplicates = True
 
                 elif has_only_ones_and_twos:
                     print("has_only_ones_and_twos")
-                    min_value = max(clustering_len_list)
+                    # min_value = max(clustering_len_list)
                     has_duplicates = False # just because we are not going to clustering
 
                 else:
