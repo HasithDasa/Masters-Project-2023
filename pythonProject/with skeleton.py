@@ -1,7 +1,6 @@
 import json
 import numpy as np
 import cv2
-import math
 
 import os
 
@@ -26,8 +25,6 @@ for folder_name in folder_names:
                 print(f"Error deleting {file_path}: {e}")
 
 
-
-
 def rle_decode(mask_rle, shape):
     """
     mask_rle: run-length as string formatted (start length)
@@ -46,10 +43,9 @@ def rle_decode(mask_rle, shape):
     return img.reshape(shape)
 
 
-
 with open('training_done.json') as f:
     data = json.load(f)
-    data1 = data['images'][313]  # selecting the image
+    data1 = data['images'][265]  # selecting the image
     img_name = data1['image_name']
     img_name = img_name.replace('.png', '')
     img_width = data1['width']
@@ -70,8 +66,6 @@ with open('training_done.json') as f:
     dic_for_selection = {}
     dic_for_selection_t4 = {}
     dic_for_selection_t5 = {}
-
-
 
 
     bbox_list = []
