@@ -715,8 +715,6 @@ with open('training_done.json') as f:
                     else:
                         cluster_coor_list = temp_clus_coord_list_4
 
-
-
                     print("cluster_coor_list", cluster_coor_list)
 
 
