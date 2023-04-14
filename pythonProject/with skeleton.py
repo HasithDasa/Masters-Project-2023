@@ -1,7 +1,6 @@
 import json
 import numpy as np
 import cv2
-
 import os
 
 
@@ -61,7 +60,6 @@ with open('training_done.json') as f:
 
 
     list_of_keys = []
-    list_of_keys_t4 = []
     list_of_keys_t5 = []
     dic_for_selection = {}
     dic_for_selection_t4 = {}
