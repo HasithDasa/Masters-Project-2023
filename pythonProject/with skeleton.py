@@ -1,28 +1,9 @@
 import json
 import numpy as np
 import cv2
-
-import os
-
+from multiprocessing import Pool
 
 
-parent_dir = "D:/Academic/MSc/Masters Project 2023/Masters-Project-2023/pythonProject"
-folder_names = ["final_images_lines", "final_images", "final_images_2", "final_images_3", "final_images_4", "final_images_5"]
-
-for folder_name in folder_names:
-    folder_path = os.path.join(parent_dir, folder_name)
-    if os.path.isdir(folder_path):
-        for filename in os.listdir(folder_path):
-            file_path = os.path.join(folder_path, filename)
-            try:
-                if os.path.isdir(file_path):
-                    # delete subdirectory and its contents recursively
-                    os.removedirs(file_path)
-                else:
-                    # delete file
-                    os.remove(file_path)
-            except Exception as e:
-                print(f"Error deleting {file_path}: {e}")
 
 
 def rle_decode(mask_rle, shape):
@@ -145,14 +126,6 @@ def acq_bbox(img_for_cv, bbox_list, lg_bbox_list, co_with_ones):
 
     bbox_ones_mask_list = []
     intersected_comm_ones_list = []
-
-    for bbox_index in range(len(bbox_list)):
-        cv2.rectangle(img_for_cv, (bbox_list[bbox_index][0], bbox_list[bbox_index][2]),
-                      (bbox_list[bbox_index][1], bbox_list[bbox_index][3]),
-                      (255, 0, 0), 2)
-        cv2.putText(img=img_for_cv, text=str(bbox_index), org=(bbox_list[bbox_index][0], bbox_list[bbox_index][2]),
-                    fontFace=cv2.FONT_HERSHEY_TRIPLEX, fontScale=2,
-                    color=(255, 255, 255), thickness=3)
 
     for mask_index in range(len(bbox_list)):
         # print("mask index", mask_index)
@@ -508,9 +481,6 @@ def wh_clust(clustering_list, clustering_list_col, clustering_list_row, row_inde
                     if not cv2.isContourConvex(contour_3):
                         # Contour is not closed, do something with it
                         # For example, draw it on the image
-                        cv2.drawContours(and_edges_t4_t5_3, [contour_3], 0, (255, 255, 255), 5)
-                        clus_name_3 = "final_images_5/seg_%d_%s.jpg" % (contour_3_ID, class_name_from_list_of_keys_t5)
-                        cv2.imwrite(clus_name_3, and_edges_t4_t5_3)
                         # and_edges_t4_t5_3.fill(0)
 
                         length_3 = cv2.arcLength(contour_3, closed=False)
@@ -544,9 +514,6 @@ def wh_clust(clustering_list, clustering_list_col, clustering_list_row, row_inde
 
                 img_for_cv_temp_7 = img_temp_8.astype(np.uint8) * 255
 
-                img_name_2 = "final_images_3/immg_%d_%s.jpg" % (list_of_keys_t5_ind, class_name_from_list_of_keys_t5)
-
-                cv2.imwrite(img_name_2, img_for_cv_temp_7)
 
                 lsd_unit_1 = cv2.createLineSegmentDetector(refine=1, scale=0.5, sigma_scale=0.6, quant=0.5,
                                                            ang_th=5.5, log_eps=0, density_th=0.1)
@@ -601,11 +568,7 @@ def wh_clust(clustering_list, clustering_list_col, clustering_list_row, row_inde
                 center_y = int(moments['m01'] / moments['m00'])
 
 
-                cv2.drawContours(substracted_img_2, [single_contour], -1, (255, 255, 255), 3)
-                cv2.circle(substracted_img_2, (int(center_x), int(center_y)), 2, (255, 255, 255), thickness=-1)
 
-                img_name_3 = "final_images_4/immg_%d_%s.jpg" % (list_of_keys_t5_ind, class_name_from_list_of_keys_t5)
-                cv2.imwrite(img_name_3, substracted_img_2)
 
                 min_dis_lin_pix_to_contu_list = []
 
@@ -759,47 +722,9 @@ def wh_clust(clustering_list, clustering_list_col, clustering_list_row, row_inde
 
         print("cluster_coor_list_not_needed", cluster_coor_list)
 
-    return cluster_coor_list
 
 # function => representation of line segments (def repre_lin_seg)
 
-def repre_lin_seg(cluster_coor_list, img_for_cv, intersected_masks_list_final, and_list):
-
-    final_completed_image_list = []
-
-    cluster_coor_list = np.array(cluster_coor_list)
-    cluster_coor_list = cluster_coor_list.reshape((-1, 1, 2))
-
-    saving_image_ori = img_for_cv
-
-    saving_image_ori_rgb = cv2.cvtColor(saving_image_ori, cv2.COLOR_GRAY2RGB)
-
-    # color, thickness and isClosed
-    color_cl = (0, 0, 255)
-    thickness_cl = 3
-    isClosed_cl = False
-
-    # drawPolyline
-    cv2.polylines(saving_image_ori_rgb, [cluster_coor_list], isClosed_cl, color_cl,
-                                             thickness_cl)
-
-    final_completed_image_list.append(saving_image_ori_rgb)
-
-    for final_indx, final_elem in enumerate(final_completed_image_list):
-
-        new_name_1 = intersected_masks_list_final[final_indx][0]
-        new_name_2 = intersected_masks_list_final[final_indx][1]
-        intersected_masks_name = "final_images/%s_%d_%d_%d.jpg" % (img_name, new_name_1, new_name_2, final_indx)
-        print(intersected_masks_name)
-        cv2.imwrite(intersected_masks_name, final_elem)
-
-    for and_indx, and_elem in enumerate(and_list):
-
-        and_name_1 = intersected_masks_list_final[and_indx][0]
-        and_name_2 = intersected_masks_list_final[and_indx][1]
-        intersected_line_masks_name = "final_images_lines/Intersected_line_mask_%d_%d_%d.jpg" % (and_name_1, and_name_2, and_indx)
-        # print(intersected_masks_name)
-        cv2.imwrite(intersected_line_masks_name, and_elem)
 
 if __name__ == "__main__":
 
@@ -808,24 +733,11 @@ if __name__ == "__main__":
     list_of_keys_t5, dic_for_selection_t5, dic_for_selection_t4 = rel_img_unit(intersected_masks_list_final, intersected_comm_ones_list)
     and_edges_t4_t5, row_indexes, col_indexes, and_list, class_name_from_list_of_keys_t5, list_of_keys_t5_ind  = acq_line_seg(list_of_keys_t5, dic_for_selection_t5, dic_for_selection_t4)
     clustering_list, clustering_list_col, clustering_list_row = check_clust(row_indexes, col_indexes)
-    cluster_coor_list = wh_clust(clustering_list, clustering_list_col, clustering_list_row, row_indexes, col_indexes, and_edges_t4_t5, class_name_from_list_of_keys_t5, intersected_masks_list_final, list_of_keys_t5_ind, list_of_keys, dic_for_selection)
 
-    repre_lin_seg(cluster_coor_list, img_for_cv, intersected_masks_list_final, and_list)
-
+    wh_clust(clustering_list, clustering_list_col, clustering_list_row, row_indexes, col_indexes, and_edges_t4_t5, class_name_from_list_of_keys_t5, intersected_masks_list_final, list_of_keys_t5_ind, list_of_keys, dic_for_selection)
 
 
 
-# scale_percent = 50  # percent of original size
-# width = int(img_width * scale_percent / 100)
-# height = int(img_height * scale_percent / 100)
-# dim = (width, height)
-#
-#
-# # Resized images for display
-# image_ori_rgb = cv2.cvtColor(img_for_cv, cv2.COLOR_GRAY2RGB)
-# resized_image_ori_rgb = cv2.resize(image_ori_rgb, dim, interpolation=cv2.INTER_AREA)
-#
-# cv2.imshow('original', resized_image_ori_rgb)
-# cv2.waitKey(0)
-# cv2.destroyWindow('i')
+
+
 
