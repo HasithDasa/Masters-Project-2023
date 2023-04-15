@@ -1,32 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5de9661a-ff48-4cf2-90c7-3211cbaa6d8d" name="Changes" comment="remove unwanted variables">
+    <list default="true" id="5de9661a-ff48-4cf2-90c7-3211cbaa6d8d" name="Changes" comment="edit excel">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_3/immg_0_t50.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_3/immg_10_t510.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_3/immg_11_t511.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_3/immg_12_t512.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_3/immg_5_t55.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_4/immg_0_t50.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_4/immg_10_t510.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_4/immg_11_t511.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_4/immg_12_t512.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_4/immg_5_t55.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_0_t50.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_0_t510.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_0_t511.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_0_t512.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_0_t55.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_1_t50.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_1_t510.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_1_t511.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_1_t512.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_1_t55.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_2_t510.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_2_t512.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_3_t510.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_4_t510.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pythonProject/with skeleton.py" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/with skeleton.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -63,6 +39,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Git.Branch.Popup.ShowAllRemotes": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
@@ -275,7 +252,21 @@
       <option name="project" value="LOCAL" />
       <updated>1681506121920</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="removing all the saving part and display">
+      <created>1681592352302</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1681592352302</updated>
+    </task>
+    <task id="LOCAL-00017" summary="edit excel">
+      <created>1681592389597</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1681592389597</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -317,10 +308,12 @@
     <MESSAGE value="finalized code after cleaning unwanted comments and all" />
     <MESSAGE value="fixing col and row issue when col rejected it will not give all the coordinates" />
     <MESSAGE value="remove unwanted variables" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove unwanted variables" />
+    <MESSAGE value="removing all the saving part and display" />
+    <MESSAGE value="edit excel" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit excel" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Masters_Project_2023$with_skeleton.coverage" NAME="with skeleton Coverage Results" MODIFIED="1681591047621" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
+    <SUITE FILE_PATH="coverage/Masters_Project_2023$with_skeleton.coverage" NAME="with skeleton Coverage Results" MODIFIED="1681597350426" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
     <SUITE FILE_PATH="coverage/Masters_Project_2023$copy_content.coverage" NAME="copy content Coverage Results" MODIFIED="1678217175984" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
     <SUITE FILE_PATH="coverage/Masters_Project_2023$deleting_files.coverage" NAME="deleting_files Coverage Results" MODIFIED="1680436269032" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
   </component>
