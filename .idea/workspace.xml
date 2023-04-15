@@ -1,8 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5de9661a-ff48-4cf2-90c7-3211cbaa6d8d" name="Changes" comment="fixing col and row issue when col rejected it will not give all the coordinates">
+    <list default="true" id="5de9661a-ff48-4cf2-90c7-3211cbaa6d8d" name="Changes" comment="remove unwanted variables">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_3/immg_0_t50.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_3/immg_10_t510.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_3/immg_11_t511.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_3/immg_12_t512.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_3/immg_5_t55.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_4/immg_0_t50.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_4/immg_10_t510.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_4/immg_11_t511.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_4/immg_12_t512.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_4/immg_5_t55.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_0_t50.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_0_t510.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_0_t511.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_0_t512.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_0_t55.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_1_t50.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_1_t510.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_1_t511.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_1_t512.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_1_t55.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_2_t510.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_2_t512.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_3_t510.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/final_images_5/seg_4_t510.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pythonProject/with skeleton.py" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/with skeleton.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -20,7 +44,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Trial_1" />
+        <entry key="$PROJECT_DIR$" value="complete_new_code" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -36,20 +60,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Hasith Dasanayake/Desktop&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Hasith Dasanayake/Desktop",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
-      &quot;Python&quot;
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "Python"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Hasith Dasanayake\Desktop" />
@@ -243,7 +268,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681400924857</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="remove unwanted variables">
+      <created>1681506121920</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1681506121920</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -284,10 +316,11 @@
     <MESSAGE value="fixing problem in size of the line bigger than 21 and list hasmore zeros" />
     <MESSAGE value="finalized code after cleaning unwanted comments and all" />
     <MESSAGE value="fixing col and row issue when col rejected it will not give all the coordinates" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixing col and row issue when col rejected it will not give all the coordinates" />
+    <MESSAGE value="remove unwanted variables" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove unwanted variables" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Masters_Project_2023$with_skeleton.coverage" NAME="with skeleton Coverage Results" MODIFIED="1681455110707" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
+    <SUITE FILE_PATH="coverage/Masters_Project_2023$with_skeleton.coverage" NAME="with skeleton Coverage Results" MODIFIED="1681591047621" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
     <SUITE FILE_PATH="coverage/Masters_Project_2023$copy_content.coverage" NAME="copy content Coverage Results" MODIFIED="1678217175984" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
     <SUITE FILE_PATH="coverage/Masters_Project_2023$deleting_files.coverage" NAME="deleting_files Coverage Results" MODIFIED="1680436269032" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
   </component>

@@ -1,41 +1,21 @@
-import json
-import numpy as np
+from json import load
+# import numpy as np
+from numpy import asarray, zeros, uint8, where, nonzero, ones, sqrt, array
 import cv2
-import os
+# import os
+from timeit import default_timer as timer
 
 
 
-parent_dir = "D:/Academic/MSc/Masters Project 2023/Masters-Project-2023/pythonProject"
-folder_names = ["final_images_lines", "final_images", "final_images_2", "final_images_3", "final_images_4", "final_images_5"]
-
-for folder_name in folder_names:
-    folder_path = os.path.join(parent_dir, folder_name)
-    if os.path.isdir(folder_path):
-        for filename in os.listdir(folder_path):
-            file_path = os.path.join(folder_path, filename)
-            try:
-                if os.path.isdir(file_path):
-                    # delete subdirectory and its contents recursively
-                    os.removedirs(file_path)
-                else:
-                    # delete file
-                    os.remove(file_path)
-            except Exception as e:
-                print(f"Error deleting {file_path}: {e}")
-
+start_time_prep = timer()
 
 def rle_decode(mask_rle, shape):
-    """
-    mask_rle: run-length as string formatted (start length)
-    shape: (width, height) of array to return
-    Returns numpy array, 1 - mask, 0 - background
-    """
     s = mask_rle
-    starts, lengths = [np.asarray(x, dtype=int) for x in (s[0:][::2], s[1:][::2])]
+    starts, lengths = [asarray(x, dtype=int) for x in (s[0:][::2], s[1:][::2])]
     starts -= 1
     ends = starts + lengths
     shape = shape[1], shape[0]
-    img = np.zeros(shape[0] * shape[1], dtype=np.uint8)
+    img = zeros(shape[0] * shape[1], dtype=uint8)
     # print(img)
     for lo, hi in zip(starts, ends):
         img[lo:hi] = 1
@@ -43,19 +23,19 @@ def rle_decode(mask_rle, shape):
 
 
 with open('training_done.json') as f:
-    data = json.load(f)
-    data1 = data['images'][313]  # selecting the image
+    data = load(f)
+    data1 = data['images'][300]  # selecting the image
     img_name = data1['image_name']
     img_name = img_name.replace('.png', '')
     img_width = data1['width']
     img_height = data1['height']
     img_temp_shape = (img_height, img_width)
     print("img_temp_shape", img_temp_shape)
-    img_temp = np.zeros(img_temp_shape, dtype=np.uint8)
-    img_temp_3 = np.zeros(img_temp_shape, dtype=np.uint8)
-    img_temp_5 = np.zeros(img_temp_shape, dtype=np.uint8)
-    img_temp_4 = np.zeros(img_temp_shape, dtype=np.uint8)
-    img_temp_8 = np.zeros(img_temp_shape, dtype=np.uint8)
+    img_temp = zeros(img_temp_shape, dtype=uint8)
+    img_temp_3 = zeros(img_temp_shape, dtype=uint8)
+    img_temp_5 = zeros(img_temp_shape, dtype=uint8)
+    img_temp_4 = zeros(img_temp_shape, dtype=uint8)
+    img_temp_8 = zeros(img_temp_shape, dtype=uint8)
     data2 = data1['labels']  # selecting the label key
 
 
@@ -108,7 +88,7 @@ with open('training_done.json') as f:
             dic_for_selection[key] = img_temp
 
             # including mask in the main image, need to make it zero for everytime because of mask coincidence problem
-            img_temp = np.zeros(img_temp_shape, dtype=np.uint8)
+            img_temp = zeros(img_temp_shape, dtype=uint8)
 
         # considering large bounding boxes to eliminate unwanted intersections of small bounding boxes
         if class_name == "Raw Cutting":
@@ -134,7 +114,7 @@ with open('training_done.json') as f:
         mask_list.append(selected_list)
         # co_with_ones.append(selected_list)
 
-        result_with_one = np.where(selected_list == 1)
+        result_with_one = where(selected_list == 1)
         listOfCoordinates = list(zip(result_with_one[0], result_with_one[1]))
 
         co_with_ones.append(listOfCoordinates)
@@ -142,67 +122,42 @@ with open('training_done.json') as f:
         for cord in listOfCoordinates:
             img_temp_3[cord] = 1
 
-    img_for_cv = img_temp_3.astype(np.uint8) * 255
+    img_for_cv = img_temp_3.astype(uint8) * 255
 
-# function => acquiring Bounding Boxes (def acq_bbox)
+    n_bbox_list = len(bbox_list)
+    n_co_with_ones = len(co_with_ones)
 
-    for bbox_index in range(len(bbox_list)):
-        cv2.rectangle(img_for_cv, (bbox_list[bbox_index][0], bbox_list[bbox_index][2]),
-                      (bbox_list[bbox_index][1], bbox_list[bbox_index][3]),
-                      (255, 0, 0), 2)
-        cv2.putText(img=img_for_cv, text=str(bbox_index), org=(bbox_list[bbox_index][0], bbox_list[bbox_index][2]),
-                    fontFace=cv2.FONT_HERSHEY_TRIPLEX, fontScale=2,
-                    color=(255, 255, 255), thickness=3)
-
-    for mask_index in range(len(bbox_list)):
-        # print("mask index", mask_index)
-
-        for mask_index_checked in range(len(co_with_ones)):
-
+    # Find intersecting masks
+    bbox_ones_mask_list = []
+    intersected_comm_ones_list = []
+    for mask_index in range(n_bbox_list):
+        bbox = bbox_list[mask_index]
+        for mask_index_checked in range(n_co_with_ones):
             for ones_index in range(len(co_with_ones[mask_index_checked])):
-                # print("mask index", co_with_ones[mask_index][ones_index])
-                if (bbox_list[mask_index][0] <= co_with_ones[mask_index_checked][ones_index][1] < bbox_list[mask_index][1]) and (bbox_list[mask_index][2] <= co_with_ones[mask_index_checked][ones_index][0] < bbox_list[mask_index][3]):
-
+                ones = co_with_ones[mask_index_checked][ones_index]
+                if (bbox[0] <= ones[1] < bbox[1]) and (bbox[2] <= ones[0] < bbox[3]):
                     if mask_index != mask_index_checked:
-                        bbox_ones_mask_list.append([mask_index, mask_index_checked])
-                        # print("mask_index_checked", mask_index_checked)
+                        bbox_ones_mask_list.append(sorted([mask_index, mask_index_checked]))
+                        intersected_comm_ones_list.append([(ones[0], ones[1]), mask_index, mask_index_checked])
 
-                        intersected_comm_ones_list.append([(co_with_ones[mask_index_checked][ones_index][0], co_with_ones[mask_index_checked][ones_index][1]), mask_index, mask_index_checked])
-
-                        # bbox_ones_mask_list1 = np.sort(np.array(bbox_ones_mask_list))
-
+    # Find masks inside large bbox
     mask_inside_lg_bbox_list = []
     for lg_bb_ind, lg_bb_ele in enumerate(lg_bbox_list):
-
+        ones_count = 0
         for mask_index_2, mask_ele_2 in enumerate(co_with_ones):
-
-            ones_count = 0
             for co_with_ones_ele2 in mask_ele_2:
-
-                # print("co_with_ones_ele2", co_with_ones_ele2)
-                if (lg_bb_ele[0] <= co_with_ones_ele2[1] < lg_bb_ele[1]) and (lg_bb_ele[2] <= co_with_ones_ele2[0] < lg_bb_ele[3]):
-
+                if (lg_bb_ele[0] <= co_with_ones_ele2[1] < lg_bb_ele[1]) and (
+                        lg_bb_ele[2] <= co_with_ones_ele2[0] < lg_bb_ele[3]):
                     ones_count += 1
-
             if ones_count == len(mask_ele_2):
-                # print("mask is inside large bbox")
                 mask_inside_lg_bbox_list.append([lg_bb_ind, mask_index_2])
+                ones_count = 0
 
-    # print("mask_inside_lg_bbox_list", mask_inside_lg_bbox_list)
-
-    unique_sublists = set()
-
-    for sublist in bbox_ones_mask_list:
-        if sublist[0] < sublist[1]:
-            unique_sublists.add(tuple(sublist))
-        else:
-            unique_sublists.add(tuple(reversed(sublist)))
-
-    # Convert the set back to a list of lists
+    # Find unique intersecting masks
+    unique_sublists = {tuple(sorted(sublist)) for sublist in bbox_ones_mask_list}
     intersected_masks_list = [list(sublist) for sublist in unique_sublists]
 
-
-    # Group sublists by their first element
+    # Find intersecting masks inside large bbox
     grouped_list = {}
     for sublist in mask_inside_lg_bbox_list:
         key = sublist[0]
@@ -210,35 +165,21 @@ with open('training_done.json') as f:
             grouped_list[key] = []
         grouped_list[key].append(sublist)
 
-    # Create new list with second elements of sublists in each group
-    intersected_bbox_in_bigbb_list = []
-    for group in grouped_list.values():
-        new_sublist = [sublist[1] for sublist in group]
-        intersected_bbox_in_bigbb_list.append(new_sublist)
+    intersected_bbox_in_bigbb_list = [[sublist[1] for sublist in group] for group in grouped_list.values()]
 
-    # Create a set of all unique elements in intersected_bbox_in_bigbb_list
-    all_elements = set()
-    for sublist in intersected_bbox_in_bigbb_list:
-        all_elements.update(sublist)
+    # Find final intersecting masks
+    all_elements = set().union(*intersected_bbox_in_bigbb_list)
+    intersected_masks_list_final = [mask for mask in intersected_masks_list if set(mask).issubset(all_elements)]
 
-    intersected_masks_list_final = []
-
-    for mask in intersected_masks_list:
-        found = False
-        for bbox in intersected_bbox_in_bigbb_list:
-            if all(elem in bbox for elem in mask):
-                intersected_masks_list_final.append(mask)
-                found = True
-                break
-        if not found:
-            continue
-
+    end_time_prep = timer()
+    elapsed_time_prep = (end_time_prep - start_time_prep)
+    print("elapsed_time_prep", elapsed_time_prep)
 
 
     print('intersected_bbox_in_bigbb_list', intersected_bbox_in_bigbb_list)
-    # print('intersected_masks_list_final', intersected_masks_list_final)
     print("intersected_masks_list", intersected_masks_list)
     print("intersected_masks_list_final", intersected_masks_list_final)
+
 
 # function => releasing image unit (def rel_img_unit)
 
@@ -270,11 +211,8 @@ with open('training_done.json') as f:
         dic_for_selection_t4[key_t5] = img_temp_4
 
         # making image masks zero after iteration
-        img_temp_5 = np.zeros(img_temp_shape, dtype=np.uint8)
-        img_temp_4 = np.zeros(img_temp_shape, dtype=np.uint8)
-
-    final_completed_image_list = []
-    and_list = []
+        img_temp_5 = zeros(img_temp_shape, dtype=uint8)
+        img_temp_4 = zeros(img_temp_shape, dtype=uint8)
 
 # function => seperation of line segments from the image(def acq_line_seg)
 
@@ -288,14 +226,14 @@ with open('training_done.json') as f:
 #  Canny Try
         if list_of_keys_t5_ind > 0:
             inverse_selected_list_t5 = cv2.bitwise_not(dic_for_selection_t5[list_of_keys_t5[list_of_keys_t5_ind - 1]])
-            selected_list_t5 = (cv2.bitwise_and(selected_list_t5, inverse_selected_list_t5)).astype(np.uint8) * 255
+            selected_list_t5 = (cv2.bitwise_and(selected_list_t5, inverse_selected_list_t5)).astype(uint8) * 255
 
             inverse_selected_list_t4 = cv2.bitwise_not(dic_for_selection_t4[list_of_keys_t5[list_of_keys_t5_ind - 1]])
-            selected_list_t4 = (cv2.bitwise_and(selected_list_t4, inverse_selected_list_t4)).astype(np.uint8) * 255
+            selected_list_t4 = (cv2.bitwise_and(selected_list_t4, inverse_selected_list_t4)).astype(uint8) * 255
 
         else:
-            selected_list_t5 = selected_list_t5.astype(np.uint8) * 255
-            selected_list_t4 = selected_list_t4.astype(np.uint8) * 255
+            selected_list_t5 = selected_list_t5.astype(uint8) * 255
+            selected_list_t4 = selected_list_t4.astype(uint8) * 255
 
 
         ## canny try
@@ -305,7 +243,7 @@ with open('training_done.json') as f:
         and_edges_t4_t5 = cv2.bitwise_and(edges_canny_temp_5, edges_canny_temp_4)
 
 
-        row_indexes, col_indexes = np.nonzero(and_edges_t4_t5)
+        row_indexes, col_indexes = nonzero(and_edges_t4_t5)
 
         # Sobel Try
 
@@ -336,7 +274,7 @@ with open('training_done.json') as f:
 
             and_edges_t4_t5 = cv2.bitwise_and(sobel_t5, sobel_t4)
 
-        row_indexes, col_indexes = np.nonzero(and_edges_t4_t5)
+        row_indexes, col_indexes = nonzero(and_edges_t4_t5)
 
         # LoG
 
@@ -363,14 +301,13 @@ with open('training_done.json') as f:
 
             and_edges_t4_t5 = cv2.bitwise_and(log_t5, log_t4)
 
-            row_indexes, col_indexes = np.nonzero(and_edges_t4_t5)
+            row_indexes, col_indexes = nonzero(and_edges_t4_t5)
 
-
-        and_list.append(and_edges_t4_t5)
 
         print("row_indexes", row_indexes, "col_indexes", col_indexes)
 
 # function => checking for clustering (def check_clust)
+        start_time_sing_line = timer()
 
         clustering_list = []
         clustering_len_list = []
@@ -476,13 +413,6 @@ with open('training_done.json') as f:
                     for contour_3 in contours_3:
 
                         if not cv2.isContourConvex(contour_3):
-                            # Contour is not closed, do something with it
-                            # For example, draw it on the image
-                            cv2.drawContours(and_edges_t4_t5_3, [contour_3], 0, (255, 255, 255), 5)
-                            clus_name_3 = "final_images_5/seg_%d_%s.jpg" % (contour_3_ID, class_name_from_list_of_keys_t5)
-                            cv2.imwrite(clus_name_3, and_edges_t4_t5_3)
-                            # and_edges_t4_t5_3.fill(0)
-
                             length_3 = cv2.arcLength(contour_3, closed=False)
                             print("Cluster_ID", contour_3_ID, ":", contour_3.tolist())
                             clusters_3_list.append(contour_3.tolist())
@@ -506,17 +436,13 @@ with open('training_done.json') as f:
                     class_name_from_list_8 = list_of_keys[key_for_clus[1]]  # change unit
                     selected_list_8 = dic_for_selection[class_name_from_list_8]
 
-                    result_with_one_8 = np.where(selected_list_8 == 1)
+                    result_with_one_8 = where(selected_list_8 == 1)
                     listOfCoordinates_8 = list(zip(result_with_one_8[0], result_with_one_8[1]))
 
                     for cord_8 in listOfCoordinates_8:
                         img_temp_8[cord_8] = 1
 
-                    img_for_cv_temp_7 = img_temp_8.astype(np.uint8) * 255
-
-                    img_name_2 = "final_images_3/immg_%d_%s.jpg" % (list_of_keys_t5_ind, class_name_from_list_of_keys_t5)
-
-                    cv2.imwrite(img_name_2, img_for_cv_temp_7)
+                    img_for_cv_temp_7 = img_temp_8.astype(uint8) * 255
 
                     lsd_unit_1 = cv2.createLineSegmentDetector(refine=1, scale=0.5, sigma_scale=0.6, quant=0.5,
                                                                ang_th=5.5, log_eps=0, density_th=0.1)
@@ -528,7 +454,7 @@ with open('training_done.json') as f:
                     drawn_img_unit_7 = lsd_unit_1.drawSegments(copy_selected_list_units_7, lines_unit_1)
 
                     # Create the kernel
-                    kernel = np.ones((7, 7), np.uint8)
+                    kernel = ones((7, 7), uint8)
 
                     # Perform dilation
                     drawn_img_unit_7_dil = cv2.dilate(drawn_img_unit_7, kernel, iterations=2)
@@ -553,7 +479,7 @@ with open('training_done.json') as f:
 
                     substracted_img = cv2.cvtColor(substracted_img, cv2.COLOR_BGR2GRAY)
 
-                    substracted_img_2 = substracted_img
+                    # substracted_img_2 = substracted_img
 
 
                     # Find contours
@@ -570,13 +496,6 @@ with open('training_done.json') as f:
                     center_x = int(moments['m10'] / moments['m00'])
                     center_y = int(moments['m01'] / moments['m00'])
 
-
-                    cv2.drawContours(substracted_img_2, [single_contour], -1, (255, 255, 255), 3)
-                    cv2.circle(substracted_img_2, (int(center_x), int(center_y)), 2, (255, 255, 255), thickness=-1)
-
-                    img_name_3 = "final_images_4/immg_%d_%s.jpg" % (list_of_keys_t5_ind, class_name_from_list_of_keys_t5)
-                    cv2.imwrite(img_name_3, substracted_img_2)
-
                     min_dis_lin_pix_to_contu_list = []
 
                     for clus_elem in clusters:
@@ -588,9 +507,7 @@ with open('training_done.json') as f:
                             dis_lin_pix_to_contu_list = []
                             pix_to_contu_ang_list = []
 
-                            dis_lin_pix_to_contu = round(np.sqrt((center_y - cluster_coor_list_elem[0][1]) ** 2 + (center_x - cluster_coor_list_elem[0][0]) ** 2), 3)
-                            # dis_lin_pix_to_contu = abs(center_x - cluster_coor_list_elem[0][0])
-                            # pix_to_contu_ang = math.degrees(math.atan2((center_y - cluster_coor_list_elem[1]), (center_x - cluster_coor_list_elem[0])))
+                            dis_lin_pix_to_contu = round(sqrt((center_y - cluster_coor_list_elem[0][1]) ** 2 + (center_x - cluster_coor_list_elem[0][0]) ** 2), 3)
 
                             dis_lin_pix_to_contu_list.append(dis_lin_pix_to_contu)
                             # pix_to_contu_ang_list.append(pix_to_contu_ang)
@@ -644,7 +561,7 @@ with open('training_done.json') as f:
                     print("minimum index:", min_dis_for_dupli_ind)
                     print("cluster_coor_list", cluster_coor_list)
 
-                    img_temp_8 = np.zeros(img_temp_shape, dtype=np.uint8)
+                    img_temp_8 = zeros(img_temp_shape, dtype=uint8)
 
                 else:
                     print("There are no duplicates except 1 and 2")
@@ -719,63 +636,67 @@ with open('training_done.json') as f:
 
 
         else:
+
             cluster_coor_list = []
 
             # if clustering_type == "row":
             for row_ind_sel, row_val_sel in enumerate(row_indexes):
                 cluster_coor_list.append([col_indexes[row_ind_sel], row_val_sel])
 
+
             print("cluster_coor_list_not_needed", cluster_coor_list)
 
-# function => representation of line segments (def repre_lin_seg)
-
-        cluster_coor_list = np.array(cluster_coor_list)
-        cluster_coor_list = cluster_coor_list.reshape((-1, 1, 2))
-
-        saving_image_ori = img_for_cv
-
-        saving_image_ori_rgb = cv2.cvtColor(saving_image_ori, cv2.COLOR_GRAY2RGB)
-
-        # color, thickness and isClosed
-        color_cl = (0, 0, 255)
-        thickness_cl = 3
-        isClosed_cl = False
-
-        # drawPolyline
-        cv2.polylines(saving_image_ori_rgb, [cluster_coor_list], isClosed_cl, color_cl,
-                                                 thickness_cl)
-
-        final_completed_image_list.append(saving_image_ori_rgb)
-
-    for final_indx, final_elem in enumerate(final_completed_image_list):
-
-        new_name_1 = intersected_masks_list_final[final_indx][0]
-        new_name_2 = intersected_masks_list_final[final_indx][1]
-        intersected_masks_name = "final_images/%s_%d_%d_%d.jpg" % (img_name, new_name_1, new_name_2, final_indx)
-        print(intersected_masks_name)
-        cv2.imwrite(intersected_masks_name, final_elem)
-
-    for and_indx, and_elem in enumerate(and_list):
-
-        and_name_1 = intersected_masks_list_final[and_indx][0]
-        and_name_2 = intersected_masks_list_final[and_indx][1]
-        intersected_line_masks_name = "final_images_lines/Intersected_line_mask_%d_%d_%d.jpg" % (and_name_1, and_name_2, and_indx)
-        # print(intersected_masks_name)
-        cv2.imwrite(intersected_line_masks_name, and_elem)
+# # function => representation of line segments (def repre_lin_seg)
+#
+#         cluster_coor_list = array(cluster_coor_list)
+#         cluster_coor_list = cluster_coor_list.reshape((-1, 1, 2))
+#
+#         saving_image_ori = img_for_cv
+#
+#         saving_image_ori_rgb = cv2.cvtColor(saving_image_ori, cv2.COLOR_GRAY2RGB)
+#
+#         # color, thickness and isClosed
+#         color_cl = (0, 0, 255)
+#         thickness_cl = 3
+#         isClosed_cl = False
+#
+#         # drawPolyline
+#         cv2.polylines(saving_image_ori_rgb, [cluster_coor_list], isClosed_cl, color_cl,
+#                                                  thickness_cl)
+#
+#         final_completed_image_list.append(saving_image_ori_rgb)
+#
 
 
-
-    scale_percent = 50  # percent of original size
-    width = int(img_width * scale_percent / 100)
-    height = int(img_height * scale_percent / 100)
-    dim = (width, height)
-
-
-    # Resized images for display
-    image_ori_rgb = cv2.cvtColor(img_for_cv, cv2.COLOR_GRAY2RGB)
-    resized_image_ori_rgb = cv2.resize(image_ori_rgb, dim, interpolation=cv2.INTER_AREA)
-
-    cv2.imshow('original', resized_image_ori_rgb)
-    cv2.waitKey(0)
-    cv2.destroyWindow('i')
-
+    # for final_indx, final_elem in enumerate(final_completed_image_list):
+    #
+    #     new_name_1 = intersected_masks_list_final[final_indx][0]
+    #     new_name_2 = intersected_masks_list_final[final_indx][1]
+    #     intersected_masks_name = "final_images/%s_%d_%d_%d.jpg" % (img_name, new_name_1, new_name_2, final_indx)
+    #     print(intersected_masks_name)
+    #     cv2.imwrite(intersected_masks_name, final_elem)
+    #
+    # for and_indx, and_elem in enumerate(and_list):
+    #
+    #     and_name_1 = intersected_masks_list_final[and_indx][0]
+    #     and_name_2 = intersected_masks_list_final[and_indx][1]
+    #     intersected_line_masks_name = "final_images_lines/Intersected_line_mask_%d_%d_%d.jpg" % (and_name_1, and_name_2, and_indx)
+    #     # print(intersected_masks_name)
+    #     cv2.imwrite(intersected_line_masks_name, and_elem)
+    #
+    #
+    #
+    # scale_percent = 50  # percent of original size
+    # width = int(img_width * scale_percent / 100)
+    # height = int(img_height * scale_percent / 100)
+    # dim = (width, height)
+    #
+    #
+    # # Resized images for display
+    # image_ori_rgb = cv2.cvtColor(img_for_cv, cv2.COLOR_GRAY2RGB)
+    # resized_image_ori_rgb = cv2.resize(image_ori_rgb, dim, interpolation=cv2.INTER_AREA)
+    #
+    # cv2.imshow('original', resized_image_ori_rgb)
+    # cv2.waitKey(0)
+    # cv2.destroyWindow('i')
+    #
