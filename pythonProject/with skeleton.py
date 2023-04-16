@@ -1,9 +1,9 @@
 from json import load
-# import numpy as np
 import numpy as np
 import cv2
 # import os
 from timeit import default_timer as timer
+import concurrent.futures
 
 
 
@@ -123,35 +123,67 @@ with open('training_done.json') as f:
 
     img_for_cv = img_temp_3.astype(np.uint8) * 255
 
-    for mask_index in range(len(bbox_list)):
 
-        for mask_index_checked in range(len(co_with_ones)):
+    def my_function(bbox_list, co_with_ones, lg_bbox_list):
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            # Submit the first for loop as a task
+            task1 = executor.submit(process_first_for_loop, bbox_list, co_with_ones)
 
-            for ones_index in range(len(co_with_ones[mask_index_checked])):
-                if (bbox_list[mask_index][0] <= co_with_ones[mask_index_checked][ones_index][1] < bbox_list[mask_index][
-                    1]) and (bbox_list[mask_index][2] <= co_with_ones[mask_index_checked][ones_index][0] <
-                             bbox_list[mask_index][3]):
+            # Submit the second for loop as a task
+            task2 = executor.submit(process_second_for_loop, lg_bbox_list, co_with_ones)
 
-                    if mask_index != mask_index_checked:
-                        bbox_ones_mask_list.append([mask_index, mask_index_checked])
-                        intersected_comm_ones_list.append([(co_with_ones[mask_index_checked][ones_index][0],
-                                                            co_with_ones[mask_index_checked][ones_index][1]),
-                                                           mask_index, mask_index_checked])
+            # Wait for both tasks to complete
+            results = [task1.result(), task2.result()]
 
-    mask_inside_lg_bbox_list = []
-    for lg_bb_ind, lg_bb_ele in enumerate(lg_bbox_list):
+        # Combine the results from both tasks and return them
+        return results
 
-        for mask_index_2, mask_ele_2 in enumerate(co_with_ones):
 
-            ones_count = 0
-            for co_with_ones_ele2 in mask_ele_2:
-                if (lg_bb_ele[0] <= co_with_ones_ele2[1] < lg_bb_ele[1]) and (
-                        lg_bb_ele[2] <= co_with_ones_ele2[0] < lg_bb_ele[3]):
-                    ones_count += 1
+    def process_first_for_loop(bbox_list, co_with_ones):
+        bbox_ones_mask_list = []
+        intersected_comm_ones_list = []
 
-            if ones_count == len(mask_ele_2):
-                # print("mask is inside large bbox")
-                mask_inside_lg_bbox_list.append([lg_bb_ind, mask_index_2])
+
+        for mask_index in range(len(bbox_list)):
+            for mask_index_checked in range(len(co_with_ones)):
+                for ones_index in range(len(co_with_ones[mask_index_checked])):
+                    if (bbox_list[mask_index][0] <= co_with_ones[mask_index_checked][ones_index][1] <
+                        bbox_list[mask_index][1]) and (
+                            bbox_list[mask_index][2] <= co_with_ones[mask_index_checked][ones_index][0] <
+                            bbox_list[mask_index][3]):
+                        if mask_index != mask_index_checked:
+                            bbox_ones_mask_list.append([mask_index, mask_index_checked])
+                            intersected_comm_ones_list.append([(co_with_ones[mask_index_checked][ones_index][0],
+                                                                co_with_ones[mask_index_checked][ones_index][1]),
+                                                               mask_index, mask_index_checked])
+        return (bbox_ones_mask_list, intersected_comm_ones_list) # remove brackets for non parallel
+
+
+    def process_second_for_loop(lg_bbox_list, co_with_ones):
+
+        mask_inside_lg_bbox_list = []
+        for lg_bb_ind, lg_bb_ele in enumerate(lg_bbox_list):
+            for mask_index_2, mask_ele_2 in enumerate(co_with_ones):
+                ones_count = 0
+                for co_with_ones_ele2 in mask_ele_2:
+                    if (lg_bb_ele[0] <= co_with_ones_ele2[1] < lg_bb_ele[1]) and (
+                            lg_bb_ele[2] <= co_with_ones_ele2[0] < lg_bb_ele[3]):
+                        ones_count += 1
+                if ones_count == len(mask_ele_2):
+                    mask_inside_lg_bbox_list.append([lg_bb_ind, mask_index_2])
+        return mask_inside_lg_bbox_list
+
+
+    results = my_function(bbox_list, co_with_ones, lg_bbox_list)
+
+    bbox_ones_mask_list = results[0][0]
+    intersected_comm_ones_list = results[0][1]
+    mask_inside_lg_bbox_list = results[1]
+
+    # mask_inside_lg_bbox_list = process_second_for_loop(lg_bbox_list, co_with_ones)
+    # bbox_ones_mask_list, intersected_comm_ones_list = process_first_for_loop(bbox_list, co_with_ones)
+
+
 
     unique_sublists = set()
 
@@ -166,6 +198,8 @@ with open('training_done.json') as f:
 
     # Group sublists by their first element
     grouped_list = {}
+
+
     for sublist in mask_inside_lg_bbox_list:
         key = sublist[0]
         if key not in grouped_list:
