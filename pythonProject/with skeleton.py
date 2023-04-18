@@ -24,7 +24,7 @@ def rle_decode(mask_rle, shape):
 
 with open('training_done.json') as f:
     data = load(f)
-    data1 = data['images'][96]  # selecting the image
+    data1 = data['images'][8]  # selecting the image
     img_name = data1['image_name']
     img_name = img_name.replace('.png', '')
     img_width = data1['width']
@@ -47,7 +47,7 @@ with open('training_done.json') as f:
 
     bbox_list = []
     lg_bbox_list =[]
-    co_with_ones = []
+    # co_with_ones = []
     bbox_ones_mask_list = []
     mask_list = []
     intersected_comm_ones_list = []
@@ -103,10 +103,12 @@ with open('training_done.json') as f:
 
     print("lg_bbox_list", lg_bbox_list)
 
-
+    edge_only_list =[]
 
     for j in range(len(list_of_keys)):
         # print(list_of_keys)
+
+        # img_temp_3 = np.zeros(img_temp_shape, dtype=np.uint8)
 
         class_name_from_list = list_of_keys[j]
         selected_list = dic_for_selection[class_name_from_list]
@@ -116,21 +118,40 @@ with open('training_done.json') as f:
         result_with_one = np.where(selected_list == 1)
         listOfCoordinates = list(zip(result_with_one[0], result_with_one[1]))
 
-        co_with_ones.append(listOfCoordinates)
+        # co_with_ones.append(listOfCoordinates)
 
         for cord in listOfCoordinates:
             img_temp_3[cord] = 1
 
-    img_for_cv = img_temp_3.astype(np.uint8) * 255
+        #img_contour_only = img_temp_3.astype(np.uint8) * 255
 
 
-    def my_function(bbox_list, co_with_ones, lg_bbox_list):
+        contours_bb, hierarchy_bb = cv2.findContours(img_temp_3, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+        co_with_ones_only_edge_elem_coord = []
+
+
+        for co_with_ones_only_edge_elem in contours_bb:
+
+            for point in co_with_ones_only_edge_elem:
+                y, x = point[0]
+                co_with_ones_only_edge_elem_coord.append((x, y))
+            # co_with_ones_only_edge.append(co_with_ones_only_edge_elem_coord)
+
+
+
+        edge_only_list.append(co_with_ones_only_edge_elem_coord)
+
+        img_temp_3 = np.zeros(img_temp_shape, dtype=np.uint8)
+
+
+    def my_function(bbox_list, lg_bbox_list, edge_only_list):
         with concurrent.futures.ThreadPoolExecutor() as executor:
             # Submit the first for loop as a task
-            task1 = executor.submit(process_first_for_loop, bbox_list, co_with_ones)
+            task1 = executor.submit(process_first_for_loop, bbox_list, edge_only_list)
 
             # Submit the second for loop as a task
-            task2 = executor.submit(process_second_for_loop, lg_bbox_list, co_with_ones)
+            task2 = executor.submit(process_second_for_loop, lg_bbox_list, edge_only_list)
 
             # Wait for both tasks to complete
             results = [task1.result(), task2.result()]
@@ -139,31 +160,28 @@ with open('training_done.json') as f:
         return results
 
 
-    def process_first_for_loop(bbox_list, co_with_ones):
+    def process_first_for_loop(bbox_list, edge_only_list):
         bbox_ones_mask_list = []
         intersected_comm_ones_list = []
 
 
         for mask_index in range(len(bbox_list)):
-            for mask_index_checked in range(len(co_with_ones)):
-                for ones_index in range(len(co_with_ones[mask_index_checked])):
-                    if (bbox_list[mask_index][0] <= co_with_ones[mask_index_checked][ones_index][1] <
-                        bbox_list[mask_index][1]) and (
-                            bbox_list[mask_index][2] <= co_with_ones[mask_index_checked][ones_index][0] <
-                            bbox_list[mask_index][3]):
+            for mask_index_checked in range(len(edge_only_list)):
+                for ones_index in range(len(edge_only_list[mask_index_checked])):
+                    if (bbox_list[mask_index][0] <= edge_only_list[mask_index_checked][ones_index][1] < bbox_list[mask_index][1]) and (bbox_list[mask_index][2] <= edge_only_list[mask_index_checked][ones_index][0] < bbox_list[mask_index][3]):
                         if mask_index != mask_index_checked:
                             bbox_ones_mask_list.append([mask_index, mask_index_checked])
-                            intersected_comm_ones_list.append([(co_with_ones[mask_index_checked][ones_index][0],
-                                                                co_with_ones[mask_index_checked][ones_index][1]),
+                            intersected_comm_ones_list.append([(edge_only_list[mask_index_checked][ones_index][0],
+                                                                edge_only_list[mask_index_checked][ones_index][1]),
                                                                mask_index, mask_index_checked])
         return (bbox_ones_mask_list, intersected_comm_ones_list) # remove brackets for non parallel
 
 
-    def process_second_for_loop(lg_bbox_list, co_with_ones):
+    def process_second_for_loop(lg_bbox_list, edge_only_list):
 
         mask_inside_lg_bbox_list = []
         for lg_bb_ind, lg_bb_ele in enumerate(lg_bbox_list):
-            for mask_index_2, mask_ele_2 in enumerate(co_with_ones):
+            for mask_index_2, mask_ele_2 in enumerate(edge_only_list):
                 ones_count = 0
                 for co_with_ones_ele2 in mask_ele_2:
                     if (lg_bb_ele[0] <= co_with_ones_ele2[1] < lg_bb_ele[1]) and (
@@ -174,7 +192,7 @@ with open('training_done.json') as f:
         return mask_inside_lg_bbox_list
 
 
-    results = my_function(bbox_list, co_with_ones, lg_bbox_list)
+    results = my_function(bbox_list, lg_bbox_list, edge_only_list)
 
     bbox_ones_mask_list = results[0][0]
     intersected_comm_ones_list = results[0][1]
