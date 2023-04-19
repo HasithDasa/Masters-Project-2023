@@ -252,7 +252,6 @@ with open('training_done.json') as f:
     print("intersected_masks_list", intersected_masks_list)
     print("intersected_masks_list_final", intersected_masks_list_final)
 
-
 # function => releasing image unit (def rel_img_unit)
 
     #going on one by one on intersected masks
@@ -378,6 +377,10 @@ with open('training_done.json') as f:
 
         print("row_indexes", row_indexes, "col_indexes", col_indexes)
 
+        end_time_prep = timer()
+        elapsed_time_prep = (end_time_prep - start_time_prep)*1000
+        print("elapsed_time_prep", elapsed_time_prep)
+
 # function => checking for clustering (def check_clust)
         start_time_sing_line = timer()
 
@@ -415,7 +418,6 @@ with open('training_done.json') as f:
         if len(clustering_list) == 0 or check_difference_in_btwn_clus_lst == True:
 
             clustering_list = []
-
 
             for col_ind, col_val in enumerate(col_indexes):
                 if col_ind < (len(col_indexes) - 1):
@@ -619,9 +621,19 @@ with open('training_done.json') as f:
                         min_siz_clus_3_list_ind = clusters_3_size_list.index(min_val_except_zero)
                         min_dis_for_dupli_ind = min_siz_clus_3_list_ind
 
+                        end_time_size = timer()
+                        elapsed_time_size = (end_time_size - start_time_sing_line)*1000
+                        print("elapsed_time_size", elapsed_time_size)
+
                     else:
                         print("minimum index from distance")
                         min_dis_for_dupli_ind = min_dis_lin_pix_to_contu_list.index(min(min_dis_lin_pix_to_contu_list))
+
+                        end_time_dis = timer()
+                        elapsed_time_dis = (end_time_dis - start_time_sing_line)*1000
+                        print("elapsed_time_dis", elapsed_time_dis)
+
+
 
 
                     temp_clus_coord_list =[]
@@ -709,6 +721,10 @@ with open('training_done.json') as f:
 
                     print("cluster_coor_list", cluster_coor_list)
 
+                    end_time_size = timer()
+                    elapsed_time_size = (end_time_size - start_time_sing_line)*1000
+                    print("elapsed_time_size", elapsed_time_size )
+
 
         else:
 
@@ -721,8 +737,9 @@ with open('training_done.json') as f:
 
             print("cluster_coor_list_not_needed", cluster_coor_list)
 
+            end_time_sing_line = timer()
+            elapsed_time_sing_lin = (end_time_sing_line - start_time_sing_line)*1000
+            print("elapsed_time_sing_lin", elapsed_time_sing_lin)
 
 
-    end_time_prep = timer()
-    elapsed_time_prep = (end_time_prep - start_time_prep)
-    print("elapsed_time_prep", elapsed_time_prep)
+
