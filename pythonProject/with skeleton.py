@@ -24,7 +24,8 @@ def rle_decode(mask_rle, shape):
 
 with open('training_done.json') as f:
     data = load(f)
-    data1 = data['images'][8]  # selecting the image
+    img_no = 172
+    data1 = data['images'][img_no]  # selecting the image
     img_name = data1['image_name']
     img_name = img_name.replace('.png', '')
     img_width = data1['width']
@@ -101,7 +102,7 @@ with open('training_done.json') as f:
             # collecting large bbox information
             lg_bbox_list.append([lg_col_start, lg_col_end, lg_row_start, lg_row_end])
 
-    print("lg_bbox_list", lg_bbox_list)
+    # print("lg_bbox_list", lg_bbox_list)
 
     edge_only_list =[]
 
@@ -248,9 +249,9 @@ with open('training_done.json') as f:
             continue
 
 
-    print('intersected_bbox_in_bigbb_list', intersected_bbox_in_bigbb_list)
-    print("intersected_masks_list", intersected_masks_list)
-    print("intersected_masks_list_final", intersected_masks_list_final)
+    # print('intersected_bbox_in_bigbb_list', intersected_bbox_in_bigbb_list)
+    # print("intersected_masks_list", intersected_masks_list)
+    # print("intersected_masks_list_final", intersected_masks_list_final)
 
 # function => releasing image unit (def rel_img_unit)
 
@@ -258,7 +259,7 @@ with open('training_done.json') as f:
 
     for ele_ind, ele_int_list in enumerate(intersected_masks_list_final):
 
-        print("ele_int_list", ele_int_list)
+        # print("ele_int_list", ele_int_list)
 
         for save_comm in intersected_comm_ones_list:
             # print("save_comm", save_comm[1], save_comm[2])
@@ -287,12 +288,14 @@ with open('training_done.json') as f:
 
 # function => seperation of line segments from the image(def acq_line_seg)
 
+    to_time_excel = []
+
     for list_of_keys_t5_ind in range(len(list_of_keys_t5)):
 
         class_name_from_list_of_keys_t5 = list_of_keys_t5[list_of_keys_t5_ind]
         selected_list_t5 = dic_for_selection_t5[class_name_from_list_of_keys_t5]
         selected_list_t4 = dic_for_selection_t4[class_name_from_list_of_keys_t5]
-        print("image sequence ID:", class_name_from_list_of_keys_t5)
+        print("image sequence ID:", list_of_keys_t5_ind)
 
 #  Canny Try
         if list_of_keys_t5_ind > 0:
@@ -320,7 +323,7 @@ with open('training_done.json') as f:
 
         if len(row_indexes) == 0:
 
-            print("inside here sobel")
+            # print("inside here sobel")
 
             if list_of_keys_t5_ind > 0:
                 inverse_selected_list_t5 = cv2.bitwise_not(dic_for_selection_t5[list_of_keys_t5[list_of_keys_t5_ind - 1]])
@@ -351,7 +354,7 @@ with open('training_done.json') as f:
 
         if len(row_indexes) == 0:
 
-            print("inside here LoG")
+            # print("inside here LoG")
 
             if list_of_keys_t5_ind > 0:
                 inverse_selected_list_t5 = cv2.bitwise_not(dic_for_selection_t5[list_of_keys_t5[list_of_keys_t5_ind - 1]])
@@ -375,7 +378,7 @@ with open('training_done.json') as f:
             row_indexes, col_indexes = np.nonzero(and_edges_t4_t5)
 
 
-        print("row_indexes", row_indexes, "col_indexes", col_indexes)
+        # print("row_indexes", row_indexes, "col_indexes", col_indexes)
 
         end_time_prep = timer()
         elapsed_time_prep = (end_time_prep - start_time_prep)*1000
@@ -400,7 +403,7 @@ with open('training_done.json') as f:
                 if abs(row_val-row_indexes[row_ind+1]) > 3: # checking the distance between two neighbouring pixels are higher than 3
                     clustering_list.append(row_ind)
                     clustering_type = "row"
-                    print("clustering_type", clustering_type)
+                    # print("clustering_type", clustering_type)
 
         clustering_list_row = clustering_list
 
@@ -424,11 +427,11 @@ with open('training_done.json') as f:
                     if abs(col_val-col_indexes[col_ind+1]) > 3:
                         clustering_list.append(col_ind)
                         clustering_type = "col"
-                        print("clustering_type", clustering_type)
+                        # print("clustering_type", clustering_type)
 
             clustering_list_col = clustering_list
 
-        print("clustering_list", clustering_list)
+        # print("clustering_list", clustering_list)
 
 # function => checking the which clustering it belongs to (def wh_clust)
 
@@ -441,7 +444,7 @@ with open('training_done.json') as f:
 
             if len(clustering_list_col) == 0:
                 clustering_list = clustering_list_row
-                print("no col clustering therefore, once again changing to row clustering list")
+                # print("no col clustering therefore, once again changing to row clustering list")
 
             # clustering based on the neighbouring pixels locations based on distance
             clustering_len_list = [clustering_list[0] + 1] # 1st element of the clustering len list
@@ -455,7 +458,7 @@ with open('training_done.json') as f:
 
             clustering_len_list = [abs(clustering_len_list_elem) for clustering_len_list_elem in clustering_len_list]
 
-            print("clustering_len_list", clustering_len_list)
+            # print("clustering_len_list", clustering_len_list)
             # checking the min index of the clustering len index, please add the code based on the length value, if length ==2 then ignore, then go to the next length
 
             # index of the minimum element of clustering_len_list
@@ -470,7 +473,7 @@ with open('training_done.json') as f:
 
 
                 if has_duplicates:
-                    print("There are duplicates except 1 and 2")
+                    # print("There are duplicates except 1 and 2")
 
                     # Initialize the current cluster id
 
@@ -491,14 +494,14 @@ with open('training_done.json') as f:
 
                         if not cv2.isContourConvex(contour_3):
                             length_3 = cv2.arcLength(contour_3, closed=False)
-                            print("Cluster_ID", contour_3_ID, ":", contour_3.tolist())
+                            # print("Cluster_ID", contour_3_ID, ":", contour_3.tolist())
                             clusters_3_list.append(contour_3.tolist())
                             clusters_3_size_list.append(length_3)
 
                         contour_3_ID = contour_3_ID + 1
 
                     clusters = clusters_3_list
-                    print("clusters_3_size_list", clusters_3_size_list)
+                    # print("clusters_3_size_list", clusters_3_size_list)
 
 
                     dis_lin_pix_to_contu_list = []
@@ -508,9 +511,9 @@ with open('training_done.json') as f:
 
                     key_for_clus = intersected_masks_list_final[list_of_keys_t5_ind]
 
-                    print("Part of the plant", key_for_clus[1])
+                    # print("Part of the plant", key_for_clus[1])
 
-                    class_name_from_list_8 = list_of_keys[key_for_clus[1]]  # change unit
+                    class_name_from_list_8 = list_of_keys[key_for_clus[0]]  # change unit
                     selected_list_8 = dic_for_selection[class_name_from_list_8]
 
                     result_with_one_8 = np.where(selected_list_8 == 1)
@@ -614,23 +617,27 @@ with open('training_done.json') as f:
                         min_val_except_zero = min(temp_list_without_zero)
 
 
-                    print("min_val_except_zero", min_val_except_zero)
+                    # print("min_val_except_zero", min_val_except_zero)
 
                     if 1 <= min_val_except_zero < 21:
-                        print("minimum index from length")
+                        # print("minimum index from length")
                         min_siz_clus_3_list_ind = clusters_3_size_list.index(min_val_except_zero)
                         min_dis_for_dupli_ind = min_siz_clus_3_list_ind
 
                         end_time_size = timer()
                         elapsed_time_size = (end_time_size - start_time_sing_line)*1000
                         print("elapsed_time_size", elapsed_time_size)
+                        line_type = "Using Size"
+                        time_val = elapsed_time_size
 
                     else:
-                        print("minimum index from distance")
+                        # print("minimum index from distance")
                         min_dis_for_dupli_ind = min_dis_lin_pix_to_contu_list.index(min(min_dis_lin_pix_to_contu_list))
 
                         end_time_dis = timer()
                         elapsed_time_dis = (end_time_dis - start_time_sing_line)*1000
+                        line_type = "Using Distance"
+                        time_val = elapsed_time_dis
                         print("elapsed_time_dis", elapsed_time_dis)
 
 
@@ -644,14 +651,14 @@ with open('training_done.json') as f:
 
                     cluster_coor_list = temp_clus_coord_list
 
-                    print("min_dis_lin_pix_to_contu_list", min_dis_lin_pix_to_contu_list)
-                    print("minimum index:", min_dis_for_dupli_ind)
-                    print("cluster_coor_list", cluster_coor_list)
+                    # print("min_dis_lin_pix_to_contu_list", min_dis_lin_pix_to_contu_list)
+                    # print("minimum index:", min_dis_for_dupli_ind)
+                    # print("cluster_coor_list", cluster_coor_list)
 
                     img_temp_8 = np.zeros(img_temp_shape, dtype=np.uint8)
 
                 else:
-                    print("There are no duplicates except 1 and 2")
+                    # print("There are no duplicates except 1 and 2")
 
                     # Find contours
                     contours_4, hierarchy_4 = cv2.findContours(and_edges_t4_t5, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
@@ -692,8 +699,8 @@ with open('training_done.json') as f:
                         temp_list_without_zero_4 = [temp_elem_4 for temp_elem_4 in clusters_4_size_list if temp_elem_4 != 0]
                         min_val_except_zero_4 = min(temp_list_without_zero_4)
 
-                    print("clusters_4_size_list", clusters_4_size_list)
-                    print("min_val_except_zero_4", min_val_except_zero_4)
+                    # print("clusters_4_size_list", clusters_4_size_list)
+                    # print("min_val_except_zero_4", min_val_except_zero_4)
 
                     if min_val_except_zero_4 > 21:
                         min_siz_clus_4_list_ind = clusters_4_size_list.index(min(temp_list_without_zero_4))
@@ -719,11 +726,14 @@ with open('training_done.json') as f:
                     else:
                         cluster_coor_list = temp_clus_coord_list_4
 
-                    print("cluster_coor_list", cluster_coor_list)
+                    # print("cluster_coor_list", cluster_coor_list)
 
                     end_time_size = timer()
                     elapsed_time_size = (end_time_size - start_time_sing_line)*1000
                     print("elapsed_time_size", elapsed_time_size )
+                    line_type = "Using Size"
+                    time_val = elapsed_time_size
+
 
 
         else:
@@ -735,11 +745,64 @@ with open('training_done.json') as f:
                 cluster_coor_list.append([col_indexes[row_ind_sel], row_val_sel])
 
 
-            print("cluster_coor_list_not_needed", cluster_coor_list)
+            # print("cluster_coor_list_not_needed", cluster_coor_list)
 
             end_time_sing_line = timer()
             elapsed_time_sing_lin = (end_time_sing_line - start_time_sing_line)*1000
             print("elapsed_time_sing_lin", elapsed_time_sing_lin)
+            line_type = "Only Single Line"
+            time_val = elapsed_time_sing_lin
 
 
+        to_time_excel.append([img_no, list_of_keys_t5_ind, elapsed_time_prep, line_type, time_val])
 
+
+end_time_final = timer()
+elapsed_time_final = (end_time_final - start_time_prep)*1000
+print("elapsed_time_final", elapsed_time_final)
+print("to_time_excel", to_time_excel)
+
+
+from openpyxl import load_workbook
+
+# Load the Excel workbook
+workbook = load_workbook('D:/Academic/MSc/Masters Project 2023/Masters-Project-2023/pythonProject/Results_2/time_results.xlsx')
+sheet = workbook.active
+
+# Define the columns in the sheet
+columns = {
+    'No.': 1,
+    'ID': 2,
+    'Initial Preparation Time': 3,
+    'Only Single Line': 4,
+    'Using Size': 5,
+    'Using Distance': 6
+}
+
+# Find the next available row to insert the new data
+row_num = sheet.max_row + 1
+
+# Loop through each row of data in the list and insert it into the sheet
+for row in to_time_excel:
+    # Insert the values into the correct columns based on the line type
+    if row[3] == 'Only Single Line':
+        sheet.cell(row=row_num, column=columns['No.']).value = row[0]
+        sheet.cell(row=row_num, column=columns['ID']).value = row[1]
+        sheet.cell(row=row_num, column=columns['Initial Preparation Time']).value = row[2]
+        sheet.cell(row=row_num, column=columns['Only Single Line']).value = row[4]
+    elif row[3] == 'Using Size':
+        sheet.cell(row=row_num, column=columns['No.']).value = row[0]
+        sheet.cell(row=row_num, column=columns['ID']).value = row[1]
+        sheet.cell(row=row_num, column=columns['Initial Preparation Time']).value = row[2]
+        sheet.cell(row=row_num, column=columns['Using Size']).value = row[4]
+    elif row[3] == 'Using Distance':
+        sheet.cell(row=row_num, column=columns['No.']).value = row[0]
+        sheet.cell(row=row_num, column=columns['ID']).value = row[1]
+        sheet.cell(row=row_num, column=columns['Initial Preparation Time']).value = row[2]
+        sheet.cell(row=row_num, column=columns['Using Distance']).value = row[4]
+
+    # Increment the row number
+    row_num += 1
+
+# Save the changes to the workbook
+workbook.save('D:/Academic/MSc/Masters Project 2023/Masters-Project-2023/pythonProject/Results_2/time_results.xlsx')
