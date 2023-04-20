@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5de9661a-ff48-4cf2-90c7-3211cbaa6d8d" name="Changes" comment="changing elapsed time for prep">
+    <list default="true" id="5de9661a-ff48-4cf2-90c7-3211cbaa6d8d" name="Changes" comment="changing length calculation position">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/Results_2/time_results.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/Results_2/time_results.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/Results_2/time_results_2.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/Results_2/time_results_2.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pythonProject/with skeleton.py" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/with skeleton.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -147,6 +147,7 @@
       <workItem from="1677681972296" duration="18691000" />
       <workItem from="1678214610842" duration="30219000" />
       <workItem from="1679661205040" duration="124251000" />
+      <workItem from="1681999550787" duration="3506000" />
     </task>
     <task id="LOCAL-00001" summary="unversioned">
       <created>1677618862208</created>
@@ -302,7 +303,21 @@
       <option name="project" value="LOCAL" />
       <updated>1681996699125</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="changing length calculation position">
+      <created>1681999297198</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1681999297198</updated>
+    </task>
+    <task id="LOCAL-00024" summary="changing length calculation position">
+      <created>1681999308341</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1681999308341</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -350,10 +365,11 @@
     <MESSAGE value="after introducing edge contour to detect intersecting bbox" />
     <MESSAGE value="adding time measurements" />
     <MESSAGE value="changing elapsed time for prep" />
-    <option name="LAST_COMMIT_MESSAGE" value="changing elapsed time for prep" />
+    <MESSAGE value="changing length calculation position" />
+    <option name="LAST_COMMIT_MESSAGE" value="changing length calculation position" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Masters_Project_2023$with_skeleton.coverage" NAME="with skeleton Coverage Results" MODIFIED="1681997954687" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
+    <SUITE FILE_PATH="coverage/Masters_Project_2023$with_skeleton.coverage" NAME="with skeleton Coverage Results" MODIFIED="1682009092083" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
     <SUITE FILE_PATH="coverage/Masters_Project_2023$copy_content.coverage" NAME="copy content Coverage Results" MODIFIED="1678217175984" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
     <SUITE FILE_PATH="coverage/Masters_Project_2023$deleting_files.coverage" NAME="deleting_files Coverage Results" MODIFIED="1680436269032" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
   </component>
