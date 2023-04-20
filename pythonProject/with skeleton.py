@@ -24,7 +24,7 @@ def rle_decode(mask_rle, shape):
 
 with open('training_done.json') as f:
     data = load(f)
-    img_no = 172
+    img_no = 0
     data1 = data['images'][img_no]  # selecting the image
     img_name = data1['image_name']
     img_name = img_name.replace('.png', '')
@@ -286,8 +286,12 @@ with open('training_done.json') as f:
         img_temp_5 = np.zeros(img_temp_shape, dtype=np.uint8)
         img_temp_4 = np.zeros(img_temp_shape, dtype=np.uint8)
 
-# function => seperation of line segments from the image(def acq_line_seg)
+    end_time_prep = timer()
+    elapsed_time_prep = (end_time_prep - start_time_prep) * 1000
+    print("elapsed_time_prep", elapsed_time_prep)
 
+# function => seperation of line segments from the image(def acq_line_seg)
+    start_time_sing_line = timer()
     to_time_excel = []
 
     for list_of_keys_t5_ind in range(len(list_of_keys_t5)):
@@ -380,12 +384,10 @@ with open('training_done.json') as f:
 
         # print("row_indexes", row_indexes, "col_indexes", col_indexes)
 
-        end_time_prep = timer()
-        elapsed_time_prep = (end_time_prep - start_time_prep)*1000
-        print("elapsed_time_prep", elapsed_time_prep)
+
 
 # function => checking for clustering (def check_clust)
-        start_time_sing_line = timer()
+
 
         clustering_list = []
         clustering_len_list = []
@@ -513,7 +515,7 @@ with open('training_done.json') as f:
 
                     # print("Part of the plant", key_for_clus[1])
 
-                    class_name_from_list_8 = list_of_keys[key_for_clus[0]]  # change unit
+                    class_name_from_list_8 = list_of_keys[key_for_clus[1]]  # change unit
                     selected_list_8 = dic_for_selection[class_name_from_list_8]
 
                     result_with_one_8 = np.where(selected_list_8 == 1)
