@@ -506,96 +506,6 @@ with open('training_done.json') as f:
                     # print("clusters_3_size_list", clusters_3_size_list)
 
 
-                    dis_lin_pix_to_contu_list = []
-
-                    # now select the one unit of the plant
-
-
-                    key_for_clus = intersected_masks_list_final[list_of_keys_t5_ind]
-
-                    # print("Part of the plant", key_for_clus[1])
-
-                    class_name_from_list_8 = list_of_keys[key_for_clus[1]]  # change unit
-                    selected_list_8 = dic_for_selection[class_name_from_list_8]
-
-                    result_with_one_8 = np.where(selected_list_8 == 1)
-                    listOfCoordinates_8 = list(zip(result_with_one_8[0], result_with_one_8[1]))
-
-                    for cord_8 in listOfCoordinates_8:
-                        img_temp_8[cord_8] = 1
-
-                    img_for_cv_temp_7 = img_temp_8.astype(np.uint8) * 255
-
-                    lsd_unit_1 = cv2.createLineSegmentDetector(refine=1, scale=0.5, sigma_scale=0.6, quant=0.5,
-                                                               ang_th=5.5, log_eps=0, density_th=0.1)
-
-                    lines_unit_1 = lsd_unit_1.detect(img_for_cv_temp_7)[0]
-
-                    copy_selected_list_units_7 = img_for_cv_temp_7 * 0
-
-                    drawn_img_unit_7 = lsd_unit_1.drawSegments(copy_selected_list_units_7, lines_unit_1)
-
-                    # Create the kernel
-                    kernel = np.ones((7, 7), dtype=np.uint8)
-
-                    # Perform dilation
-                    drawn_img_unit_7_dil = cv2.dilate(drawn_img_unit_7, kernel, iterations=2)
-                    drawn_img_unit_7_dil = cv2.erode(drawn_img_unit_7_dil, kernel, iterations=2)
-
-                    drawn_img_unit_gray_7 = cv2.cvtColor(drawn_img_unit_7, cv2.COLOR_BGR2GRAY)
-
-                    # img_for_cv_temp_7_RGB = cv2.cvtColor(img_for_cv_temp_7, cv2.COLOR_GRAY2BGR)
-
-                    binary_image_line_unit_7 = cv2.adaptiveThreshold(drawn_img_unit_gray_7, 255,
-                                                                     cv2.ADAPTIVE_THRESH_MEAN_C, \
-                                                                     cv2.THRESH_BINARY, 15, -2)
-
-                    substracted_img = drawn_img_unit_7_dil - drawn_img_unit_7
-
-                    substracted_img = cv2.medianBlur(substracted_img, 7)
-
-                    kernel_sub = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 5)) # dilation has done to connect pieces of stem
-
-                    substracted_img = cv2.morphologyEx(substracted_img, cv2.MORPH_DILATE, kernel, iterations=3)
-
-
-                    substracted_img = cv2.cvtColor(substracted_img, cv2.COLOR_BGR2GRAY)
-
-                    # substracted_img_2 = substracted_img
-
-
-                    # Find contours
-                    contours, hierarchy = cv2.findContours(substracted_img, cv2.RETR_LIST,
-                                                           cv2.CHAIN_APPROX_SIMPLE)
-
-                    single_contour = max(contours, key=cv2.contourArea)
-
-
-                    # Calculate the moments of the contour and centre point
-                    moments = cv2.moments(single_contour)
-
-                    # Calculate the center of mass of the contour
-                    center_x = int(moments['m10'] / moments['m00'])
-                    center_y = int(moments['m01'] / moments['m00'])
-
-                    min_dis_lin_pix_to_contu_list = []
-
-                    for clus_elem in clusters:
-
-                        # print("clus_elem", clus_elem)
-
-                        for cluster_coor_list_elem in clus_elem:
-
-                            dis_lin_pix_to_contu_list = []
-                            pix_to_contu_ang_list = []
-
-                            dis_lin_pix_to_contu = round(np.sqrt((center_y - cluster_coor_list_elem[0][1]) ** 2 + (center_x - cluster_coor_list_elem[0][0]) ** 2), 3)
-
-                            dis_lin_pix_to_contu_list.append(dis_lin_pix_to_contu)
-                            # pix_to_contu_ang_list.append(pix_to_contu_ang)
-
-                        min_dis_lin_pix_to_contu_list.append(min(dis_lin_pix_to_contu_list))
-
 
                     # considering the size of the contour then considering the distance
 
@@ -633,6 +543,94 @@ with open('training_done.json') as f:
                         time_val = elapsed_time_size
 
                     else:
+
+                        dis_lin_pix_to_contu_list = []
+
+                        # now select the one unit of the plant
+
+                        key_for_clus = intersected_masks_list_final[list_of_keys_t5_ind]
+
+                        # print("Part of the plant", key_for_clus[1])
+
+                        class_name_from_list_8 = list_of_keys[key_for_clus[1]]  # change unit
+                        selected_list_8 = dic_for_selection[class_name_from_list_8]
+
+                        result_with_one_8 = np.where(selected_list_8 == 1)
+                        listOfCoordinates_8 = list(zip(result_with_one_8[0], result_with_one_8[1]))
+
+                        for cord_8 in listOfCoordinates_8:
+                            img_temp_8[cord_8] = 1
+
+                        img_for_cv_temp_7 = img_temp_8.astype(np.uint8) * 255
+
+                        lsd_unit_1 = cv2.createLineSegmentDetector(refine=1, scale=0.5, sigma_scale=0.6, quant=0.5,
+                                                                   ang_th=5.5, log_eps=0, density_th=0.1)
+
+                        lines_unit_1 = lsd_unit_1.detect(img_for_cv_temp_7)[0]
+
+                        copy_selected_list_units_7 = img_for_cv_temp_7 * 0
+
+                        drawn_img_unit_7 = lsd_unit_1.drawSegments(copy_selected_list_units_7, lines_unit_1)
+
+                        # Create the kernel
+                        kernel = np.ones((7, 7), dtype=np.uint8)
+
+                        # Perform dilation
+                        drawn_img_unit_7_dil = cv2.dilate(drawn_img_unit_7, kernel, iterations=2)
+                        drawn_img_unit_7_dil = cv2.erode(drawn_img_unit_7_dil, kernel, iterations=2)
+
+                        drawn_img_unit_gray_7 = cv2.cvtColor(drawn_img_unit_7, cv2.COLOR_BGR2GRAY)
+
+                        # img_for_cv_temp_7_RGB = cv2.cvtColor(img_for_cv_temp_7, cv2.COLOR_GRAY2BGR)
+
+                        binary_image_line_unit_7 = cv2.adaptiveThreshold(drawn_img_unit_gray_7, 255,
+                                                                         cv2.ADAPTIVE_THRESH_MEAN_C, \
+                                                                         cv2.THRESH_BINARY, 15, -2)
+
+                        substracted_img = drawn_img_unit_7_dil - drawn_img_unit_7
+
+                        substracted_img = cv2.medianBlur(substracted_img, 7)
+
+                        kernel_sub = cv2.getStructuringElement(cv2.MORPH_RECT,
+                                                               (3, 5))  # dilation has done to connect pieces of stem
+
+                        substracted_img = cv2.morphologyEx(substracted_img, cv2.MORPH_DILATE, kernel, iterations=3)
+
+                        substracted_img = cv2.cvtColor(substracted_img, cv2.COLOR_BGR2GRAY)
+
+                        # substracted_img_2 = substracted_img
+
+                        # Find contours
+                        contours, hierarchy = cv2.findContours(substracted_img, cv2.RETR_LIST,
+                                                               cv2.CHAIN_APPROX_SIMPLE)
+
+                        single_contour = max(contours, key=cv2.contourArea)
+
+                        # Calculate the moments of the contour and centre point
+                        moments = cv2.moments(single_contour)
+
+                        # Calculate the center of mass of the contour
+                        center_x = int(moments['m10'] / moments['m00'])
+                        center_y = int(moments['m01'] / moments['m00'])
+
+                        min_dis_lin_pix_to_contu_list = []
+
+                        for clus_elem in clusters:
+
+                            # print("clus_elem", clus_elem)
+
+                            for cluster_coor_list_elem in clus_elem:
+                                dis_lin_pix_to_contu_list = []
+                                pix_to_contu_ang_list = []
+
+                                dis_lin_pix_to_contu = round(np.sqrt((center_y - cluster_coor_list_elem[0][1]) ** 2 + (
+                                            center_x - cluster_coor_list_elem[0][0]) ** 2), 3)
+
+                                dis_lin_pix_to_contu_list.append(dis_lin_pix_to_contu)
+                                # pix_to_contu_ang_list.append(pix_to_contu_ang)
+
+                            min_dis_lin_pix_to_contu_list.append(min(dis_lin_pix_to_contu_list))
+
                         # print("minimum index from distance")
                         min_dis_for_dupli_ind = min_dis_lin_pix_to_contu_list.index(min(min_dis_lin_pix_to_contu_list))
 
@@ -641,8 +639,6 @@ with open('training_done.json') as f:
                         line_type = "Using Distance"
                         time_val = elapsed_time_dis
                         print("elapsed_time_dis", elapsed_time_dis)
-
-
 
 
                     temp_clus_coord_list =[]
@@ -768,7 +764,7 @@ print("to_time_excel", to_time_excel)
 from openpyxl import load_workbook
 
 # Load the Excel workbook
-workbook = load_workbook('D:/Academic/MSc/Masters Project 2023/Masters-Project-2023/pythonProject/Results_2/time_results.xlsx')
+workbook = load_workbook('D:/Academic/MSc/Masters Project 2023/Masters-Project-2023/pythonProject/Results_2/time_results_2.xlsx')
 sheet = workbook.active
 
 # Define the columns in the sheet
@@ -807,4 +803,4 @@ for row in to_time_excel:
     row_num += 1
 
 # Save the changes to the workbook
-workbook.save('D:/Academic/MSc/Masters Project 2023/Masters-Project-2023/pythonProject/Results_2/time_results.xlsx')
+workbook.save('D:/Academic/MSc/Masters Project 2023/Masters-Project-2023/pythonProject/Results_2/time_results_2.xlsx')
