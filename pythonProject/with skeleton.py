@@ -24,7 +24,7 @@ def rle_decode(mask_rle, shape):
 
 with open('training_done.json') as f:
     data = load(f)
-    img_no = 30
+    img_no = 8
     data1 = data['images'][img_no]  # selecting the image
     img_name = data1['image_name']
     img_name = img_name.replace('.png', '')
@@ -552,7 +552,7 @@ with open('training_done.json') as f:
 
                         # print("Part of the plant", key_for_clus[1])
 
-                        class_name_from_list_8 = list_of_keys[key_for_clus[1]]  # change unit
+                        class_name_from_list_8 = list_of_keys[key_for_clus[0]]  # change unit
 
                         selected_list_8 = dic_for_selection[class_name_from_list_8]
                         result_with_one_8 = np.where(selected_list_8 == 1)
@@ -568,22 +568,22 @@ with open('training_done.json') as f:
 
                         lines_unit_1 = lsd_unit_1.detect(img_for_cv_temp_7)[0]
 
-                        if not lines_unit_1: # no line segments to detect then use the other part of the unit
-                            class_name_from_list_8 = list_of_keys[key_for_clus[0]]  # change unit
-
-                            selected_list_8 = dic_for_selection[class_name_from_list_8]
-                            result_with_one_8 = np.where(selected_list_8 == 1)
-                            listOfCoordinates_8 = list(zip(result_with_one_8[0], result_with_one_8[1]))
-
-                            for cord_8 in listOfCoordinates_8:
-                                img_temp_8[cord_8] = 1
-
-                            img_for_cv_temp_7 = img_temp_8.astype(np.uint8) * 255
-
-                            lsd_unit_1 = cv2.createLineSegmentDetector(refine=1, scale=0.5, sigma_scale=0.6, quant=0.5,
-                                                                       ang_th=5.5, log_eps=0, density_th=0.1)
-
-                            lines_unit_1 = lsd_unit_1.detect(img_for_cv_temp_7)[0]
+                        # if (len(lines_unit_1) == 0): # no line segments to detect then use the other part of the unit
+                        #     class_name_from_list_8 = list_of_keys[key_for_clus[0]]  # change unit
+                        #
+                        #     selected_list_8 = dic_for_selection[class_name_from_list_8]
+                        #     result_with_one_8 = np.where(selected_list_8 == 1)
+                        #     listOfCoordinates_8 = list(zip(result_with_one_8[0], result_with_one_8[1]))
+                        #
+                        #     for cord_8 in listOfCoordinates_8:
+                        #         img_temp_8[cord_8] = 1
+                        #
+                        #     img_for_cv_temp_7 = img_temp_8.astype(np.uint8) * 255
+                        #
+                        #     lsd_unit_1 = cv2.createLineSegmentDetector(refine=1, scale=0.5, sigma_scale=0.6, quant=0.5,
+                        #                                                ang_th=5.5, log_eps=0, density_th=0.1)
+                        #
+                        #     lines_unit_1 = lsd_unit_1.detect(img_for_cv_temp_7)[0]
 
 
                         copy_selected_list_units_7 = img_for_cv_temp_7 * 0
