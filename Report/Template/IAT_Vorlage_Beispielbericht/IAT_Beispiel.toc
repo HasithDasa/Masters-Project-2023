@@ -1,0 +1,13 @@
+\babel@toc {ngerman}{}\relax 
+\babel@toc {ngerman}{}\relax 
+\contentsline {chapter}{\numberline {1}Einleitung / Introduction}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Voraussetzungen / Prequisites}{1}{section.1.1}%
+\contentsline {chapter}{\numberline {2}Basisbefehle im Textsatz / Basic Controls for Textset}{2}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Strukturieren von Dokumenten / Structure of Documents}{2}{section.2.1}%
+\contentsline {paragraph}{\nonumberline Absatz / Paragraph}{2}{paragraph*.9}%
+\contentsline {section}{\numberline {2.2}Gleichungen / Equations}{2}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Grafiken / Graphics}{3}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Tabellen / Tables}{4}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Zitate / Citation}{5}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Kompilieren / Compilation}{5}{section.2.6}%
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
