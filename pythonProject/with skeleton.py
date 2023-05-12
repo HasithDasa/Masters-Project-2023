@@ -320,7 +320,6 @@ with open('training_done.json') as f:
 
         and_edges_t4_t5 = cv2.bitwise_and(edges_canny_temp_5, edges_canny_temp_4)
 
-
         row_indexes, col_indexes = np.nonzero(and_edges_t4_t5)
 
         # Sobel Try
