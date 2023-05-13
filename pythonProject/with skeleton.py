@@ -479,15 +479,11 @@ with open('training_done.json') as f:
                     # Initialize the current cluster id
 
                     clusters = []
-                    clusters_3_list = []
                     clusters_3_size_list = []
-
-                    and_edges_t4_t5_3 = and_edges_t4_t5
 
                     # Find contours
                     contours_3, hierarchy_3 = cv2.findContours(and_edges_t4_t5, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
 
-                    cv2.cvtColor(and_edges_t4_t5_3, cv2.COLOR_GRAY2BGR)
                     # Iterate through contours and check if they are closed
                     contour_3_ID = 0
 
@@ -496,14 +492,13 @@ with open('training_done.json') as f:
                         if not cv2.isContourConvex(contour_3):
                             length_3 = cv2.arcLength(contour_3, closed=False)
                             # print("Cluster_ID", contour_3_ID, ":", contour_3.tolist())
-                            clusters_3_list.append(contour_3.tolist())
+
                             clusters_3_size_list.append(length_3)
 
                         contour_3_ID = contour_3_ID + 1
 
-                    clusters = clusters_3_list
-                    # print("clusters_3_size_list", clusters_3_size_list)
 
+                    # print("clusters_3_size_list", clusters_3_size_list)
 
 
                     # considering the size of the contour then considering the distance
@@ -526,7 +521,6 @@ with open('training_done.json') as f:
                     else: #if list has zero then ignore it
                         temp_list_without_zero = [temp_elem for temp_elem in clusters_3_size_list if temp_elem != 0]
                         min_val_except_zero = min(temp_list_without_zero)
-
 
                     # print("min_val_except_zero", min_val_except_zero)
 
@@ -566,24 +560,6 @@ with open('training_done.json') as f:
                                                                    ang_th=5.5, log_eps=0, density_th=0.1)
 
                         lines_unit_1 = lsd_unit_1.detect(img_for_cv_temp_7)[0]
-
-                        # if (len(lines_unit_1) == 0): # no line segments to detect then use the other part of the unit
-                        #     class_name_from_list_8 = list_of_keys[key_for_clus[0]]  # change unit
-                        #
-                        #     selected_list_8 = dic_for_selection[class_name_from_list_8]
-                        #     result_with_one_8 = np.where(selected_list_8 == 1)
-                        #     listOfCoordinates_8 = list(zip(result_with_one_8[0], result_with_one_8[1]))
-                        #
-                        #     for cord_8 in listOfCoordinates_8:
-                        #         img_temp_8[cord_8] = 1
-                        #
-                        #     img_for_cv_temp_7 = img_temp_8.astype(np.uint8) * 255
-                        #
-                        #     lsd_unit_1 = cv2.createLineSegmentDetector(refine=1, scale=0.5, sigma_scale=0.6, quant=0.5,
-                        #                                                ang_th=5.5, log_eps=0, density_th=0.1)
-                        #
-                        #     lines_unit_1 = lsd_unit_1.detect(img_for_cv_temp_7)[0]
-
 
                         copy_selected_list_units_7 = img_for_cv_temp_7 * 0
 
