@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5de9661a-ff48-4cf2-90c7-3211cbaa6d8d" name="Changes" comment="Report Writing update">
-      <change afterPath="$PROJECT_DIR$/Report/Documentation/~$Report.docx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Report/Documentation/~WRL1323.tmp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Report/Documentation/Report.docx" beforeDir="false" afterPath="$PROJECT_DIR$/Report/Documentation/Report.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/Results_2/Results_Accuracy_Precision.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/Results_2/Results_Accuracy_Precision.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/Results_2/time_results.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/Results_2/time_results.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/Results_2/time_results_2.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/Results_2/time_results_2.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/with skeleton.py" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/with skeleton.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

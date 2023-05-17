@@ -480,6 +480,7 @@ with open('training_done.json') as f:
 
                     clusters = []
                     clusters_3_size_list = []
+                    clusters_3_list = []
 
                     # Find contours
                     contours_3, hierarchy_3 = cv2.findContours(and_edges_t4_t5, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
@@ -492,12 +493,12 @@ with open('training_done.json') as f:
                         if not cv2.isContourConvex(contour_3):
                             length_3 = cv2.arcLength(contour_3, closed=False)
                             # print("Cluster_ID", contour_3_ID, ":", contour_3.tolist())
-
+                            clusters_3_list.append(contour_3.tolist())
                             clusters_3_size_list.append(length_3)
 
                         contour_3_ID = contour_3_ID + 1
 
-
+                    clusters = clusters_3_list
                     # print("clusters_3_size_list", clusters_3_size_list)
 
 
