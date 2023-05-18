@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5de9661a-ff48-4cf2-90c7-3211cbaa6d8d" name="Changes" comment="Report Writing update">
+    <list default="true" id="5de9661a-ff48-4cf2-90c7-3211cbaa6d8d" name="Changes" comment="problem fixed in mistakenly deleted">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pythonProject/with skeleton.py" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/with skeleton.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Report/Documentation/Report.docx" beforeDir="false" afterPath="$PROJECT_DIR$/Report/Documentation/Report.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/Results_2/BBvsTime.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/Results_2/BBvsTime.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/Results_2/time_results - Copy.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/Results_2/time_results.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pythonProject/Results_2/time_results_2.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/pythonProject/Results_2/time_results_2.xlsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,28 +43,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Git.Branch.Popup.ShowAllRemotes&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Hasith Dasanayake/Desktop&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Git.Branch.Popup.ShowAllRemotes": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Hasith Dasanayake/Desktop/python testing/main.py",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
-      &quot;Python&quot;
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "Python"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Hasith Dasanayake\Desktop" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.with skeleton">
+  <component name="RunManager" selected="Python.main">
     <configuration name="copy content" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Masters-Project-2023" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -105,6 +109,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Masters-Project-2023" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Desktop/python testing" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$USER_HOME$/Desktop/python testing/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="with skeleton" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Masters-Project-2023" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -129,11 +155,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.with skeleton" />
         <item itemvalue="Python.deleting_files" />
         <item itemvalue="Python.copy content" />
         <item itemvalue="Python.with skeleton" />
-        <item itemvalue="Python.deleting_files" />
       </list>
     </recent_temporary>
   </component>
@@ -362,7 +388,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684194461396</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="problem fixed in mistakenly deleted">
+      <created>1684338770614</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1684338770614</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -414,12 +447,14 @@
     <MESSAGE value="in distance detection case,check if the relavent unit of the plant can do LSD operation, if not select the other part of the plant" />
     <MESSAGE value="Report Writing" />
     <MESSAGE value="Report Writing update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Report Writing update" />
+    <MESSAGE value="problem fixed in mistakenly deleted" />
+    <option name="LAST_COMMIT_MESSAGE" value="problem fixed in mistakenly deleted" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Masters_Project_2023$with_skeleton.coverage" NAME="with skeleton Coverage Results" MODIFIED="1683377184653" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
     <SUITE FILE_PATH="coverage/Masters_Project_2023$MULTIPROCESSING.coverage" NAME="MULTIPROCESSING Coverage Results" MODIFIED="1682801153245" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
     <SUITE FILE_PATH="coverage/Masters_Project_2023$copy_content.coverage" NAME="copy content Coverage Results" MODIFIED="1678217175984" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
     <SUITE FILE_PATH="coverage/Masters_Project_2023$deleting_files.coverage" NAME="deleting_files Coverage Results" MODIFIED="1680436269032" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
+    <SUITE FILE_PATH="coverage/Masters_Project_2023$main.coverage" NAME="main Coverage Results" MODIFIED="1684357113842" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Desktop/python testing" />
   </component>
 </project>
