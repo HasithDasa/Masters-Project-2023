@@ -44,7 +44,7 @@ def rle_decode(mask_rle, shape):
 
 with open('training_done.json') as f:
     data = json.load(f)
-    data1 = data['images'][313]  # selecting the image
+    data1 = data['images'][15]  # selecting the image
     img_name = data1['image_name']
     img_name = img_name.replace('.png', '')
     img_width = data1['width']
@@ -776,6 +776,7 @@ with open('training_done.json') as f:
     resized_image_ori_rgb = cv2.resize(image_ori_rgb, dim, interpolation=cv2.INTER_AREA)
 
     cv2.imshow('original', resized_image_ori_rgb)
+    cv2.imwrite("original.jpg", image_ori_rgb)
     cv2.waitKey(0)
     cv2.destroyWindow('i')
 
