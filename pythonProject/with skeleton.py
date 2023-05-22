@@ -44,7 +44,7 @@ def rle_decode(mask_rle, shape):
 
 with open('training_done.json') as f:
     data = json.load(f)
-    data1 = data['images'][15]  # selecting the image
+    data1 = data['images'][38]  # selecting the image
     img_name = data1['image_name']
     img_name = img_name.replace('.png', '')
     img_width = data1['width']
@@ -374,6 +374,9 @@ with open('training_done.json') as f:
 
         clustering_list = []
         clustering_len_list = []
+        clustering_list_row = []
+        clustering_list_col = []
+
 
         clustering_needed = False
         check_difference_in_btwn_clus_lst = False
