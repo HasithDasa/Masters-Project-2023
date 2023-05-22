@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5de9661a-ff48-4cf2-90c7-3211cbaa6d8d" name="Changes" comment="finishing methodology and results">
-      <change afterPath="$PROJECT_DIR$/Report/Documentation/Images/New folder/fig4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg004_0_1077_rep_0_1_0.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg004_0_1077_rep_1_2_1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_0_1_0.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_1_2_1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pythonProject/original.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="5de9661a-ff48-4cf2-90c7-3211cbaa6d8d" name="Changes" comment="making presentation images">
+      <change afterPath="$PROJECT_DIR$/Report/Documentation/Images/Fig4.eps" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Documentation/Images/Fig5.eps" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Documentation/Images/Fig6.eps" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Documentation/Images/New folder/Picture10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Documentation/Images/New folder/Picture7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Documentation/Images/New folder/acc.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Documentation/Images/New folder/original screenshot.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Documentation/Images/figures.pptx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -403,7 +404,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684442784112</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="making presentation images">
+      <created>1684655723940</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1684655723940</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -457,7 +465,8 @@
     <MESSAGE value="Report Writing update" />
     <MESSAGE value="problem fixed in mistakenly deleted" />
     <MESSAGE value="finishing methodology and results" />
-    <option name="LAST_COMMIT_MESSAGE" value="finishing methodology and results" />
+    <MESSAGE value="making presentation images" />
+    <option name="LAST_COMMIT_MESSAGE" value="making presentation images" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Masters_Project_2023$with_skeleton.coverage" NAME="with skeleton Coverage Results" MODIFIED="1684604618210" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
