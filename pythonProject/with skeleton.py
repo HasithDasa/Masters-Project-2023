@@ -6,7 +6,7 @@ import os
 
 
 parent_dir = "D:/Academic/MSc/Masters Project 2023/Masters-Project-2023/pythonProject"
-folder_names = ["final_images_lines", "final_images", "final_images_2", "final_images_3", "final_images_4", "final_images_5"]
+folder_names = ["final_images_lines", "final_images", "final_images_2", "final_images_3", "final_images_4", "final_images_5", "final_images_6"]
 
 for folder_name in folder_names:
     folder_path = os.path.join(parent_dir, folder_name)
@@ -44,7 +44,7 @@ def rle_decode(mask_rle, shape):
 
 with open('training_done.json') as f:
     data = json.load(f)
-    data1 = data['images'][38]  # selecting the image
+    data1 = data['images'][1]  # selecting the image
     img_name = data1['image_name']
     img_name = img_name.replace('.png', '')
     img_width = data1['width']
@@ -506,7 +506,7 @@ with open('training_done.json') as f:
 
                     print("Part of the plant", key_for_clus[1])
 
-                    class_name_from_list_8 = list_of_keys[key_for_clus[1]]  # change unit
+                    class_name_from_list_8 = list_of_keys[key_for_clus[0]]  # change unit
                     selected_list_8 = dic_for_selection[class_name_from_list_8]
 
                     result_with_one_8 = np.where(selected_list_8 == 1)
@@ -531,11 +531,13 @@ with open('training_done.json') as f:
                     drawn_img_unit_7 = lsd_unit_1.drawSegments(copy_selected_list_units_7, lines_unit_1)
 
                     # Create the kernel
-                    kernel = np.ones((7, 7), np.uint8)
+                    kernel = np.ones((11, 11), np.uint8)
 
                     # Perform dilation
                     drawn_img_unit_7_dil = cv2.dilate(drawn_img_unit_7, kernel, iterations=2)
                     drawn_img_unit_7_dil = cv2.erode(drawn_img_unit_7_dil, kernel, iterations=2)
+
+
 
                     drawn_img_unit_gray_7 = cv2.cvtColor(drawn_img_unit_7, cv2.COLOR_BGR2GRAY)
 
@@ -547,11 +549,15 @@ with open('training_done.json') as f:
 
                     substracted_img = drawn_img_unit_7_dil - drawn_img_unit_7
 
+
                     substracted_img = cv2.medianBlur(substracted_img, 7)
 
-                    kernel_sub = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 5)) # dilation has done to connect pieces of stem
+                    img_name_lsdd = "final_images_6/immg_%d_%s.jpg" % (list_of_keys_t5_ind, class_name_from_list_of_keys_t5)
+                    cv2.imwrite(img_name_lsdd, substracted_img)
 
-                    substracted_img = cv2.morphologyEx(substracted_img, cv2.MORPH_DILATE, kernel, iterations=3)
+                    kernel_sub = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (11, 11)) # dilation has done to connect pieces of stem
+
+                    substracted_img = cv2.morphologyEx(substracted_img, cv2.MORPH_CLOSE, kernel_sub, iterations=3)
 
 
                     substracted_img = cv2.cvtColor(substracted_img, cv2.COLOR_BGR2GRAY)
@@ -566,15 +572,24 @@ with open('training_done.json') as f:
                     single_contour = max(contours, key=cv2.contourArea)
 
 
-                    # Calculate the moments of the contour and centre point
-                    moments = cv2.moments(single_contour)
+                    # # Calculate the moments of the contour and centre point
+                    # moments = cv2.moments(single_contour)
+                    #
+                    # # Calculate the center of mass of the contour
+                    # center_x = int(moments['m10'] / moments['m00'])
+                    # center_y = int(moments['m01'] / moments['m00'])
 
-                    # Calculate the center of mass of the contour
-                    center_x = int(moments['m10'] / moments['m00'])
-                    center_y = int(moments['m01'] / moments['m00'])
+                    # Additional code to find the bottom point
+                    bottom_point_index = np.argmax(single_contour[:, 0, 1])  # Get the index of the maximum y-coordinate
+                    bottom_point = tuple(single_contour[bottom_point_index, 0])  # Get the point itself
 
+                    # Get the x and y coordinates separately
+                    center_x = bottom_point[0]
+                    center_y = bottom_point[1]
 
-                    cv2.drawContours(substracted_img_2, [single_contour], -1, (255, 255, 255), 3)
+                    substracted_img_2 = cv2.cvtColor(substracted_img_2, cv2.COLOR_GRAY2BGR)
+
+                    cv2.drawContours(substracted_img_2, [single_contour], -1, (255, 0, 0), 3)
                     cv2.circle(substracted_img_2, (int(center_x), int(center_y)), 2, (255, 255, 255), thickness=-1)
 
                     img_name_3 = "final_images_4/immg_%d_%s.jpg" % (list_of_keys_t5_ind, class_name_from_list_of_keys_t5)
@@ -594,6 +609,16 @@ with open('training_done.json') as f:
                             dis_lin_pix_to_contu = round(np.sqrt((center_y - cluster_coor_list_elem[0][1]) ** 2 + (center_x - cluster_coor_list_elem[0][0]) ** 2), 3)
                             # dis_lin_pix_to_contu = abs(center_x - cluster_coor_list_elem[0][0])
                             # pix_to_contu_ang = math.degrees(math.atan2((center_y - cluster_coor_list_elem[1]), (center_x - cluster_coor_list_elem[0])))
+
+                            # vector_1 = [point2[0] - point1[0], point2[1] - point1[1]]
+                            # vector_2 = [point3[0] - point2[0], point3[1] - point2[1]]
+                            #
+                            # # Calculating the angle
+                            # angle = math.atan2(vector_2[1], vector_2[0]) - math.atan2(vector_1[1], vector_1[0])
+                            # angle = math.degrees(angle)
+                            # angle = (angle + 360) % 360
+
+
 
                             dis_lin_pix_to_contu_list.append(dis_lin_pix_to_contu)
                             # pix_to_contu_ang_list.append(pix_to_contu_ang)
