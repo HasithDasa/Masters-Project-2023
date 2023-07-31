@@ -6,7 +6,7 @@ import os
 
 
 parent_dir = "D:/Academic/MSc/Masters Project 2023/Masters-Project-2023/pythonProject"
-folder_names = ["final_images_lines", "final_images", "final_images_2", "final_images_3", "final_images_4", "final_images_5", "final_images_6"]
+folder_names = ["final_images_lines", "final_images", "final_images_2", "final_images_3", "final_images_4", "final_images_5", "final_images_6", "final_images_7", "final_images_8"]
 
 for folder_name in folder_names:
     folder_path = os.path.join(parent_dir, folder_name)
@@ -44,7 +44,7 @@ def rle_decode(mask_rle, shape):
 
 with open('training_done.json') as f:
     data = json.load(f)
-    data1 = data['images'][1]  # selecting the image
+    data1 = data['images'][24]  # selecting the image
     img_name = data1['image_name']
     img_name = img_name.replace('.png', '')
     img_width = data1['width']
@@ -301,6 +301,12 @@ with open('training_done.json') as f:
         ## canny try
         edges_canny_temp_5 = cv2.Canny(selected_list_t5, 1, 250)
         edges_canny_temp_4 = cv2.Canny(selected_list_t4, 1, 250)
+
+        clus_name_33 = "final_images_7/seg_%d.jpg" % list_of_keys_t5_ind
+        cv2.imwrite(clus_name_33, edges_canny_temp_5)
+
+        clus_name_34 = "final_images_8/seg_%d.jpg" % list_of_keys_t5_ind
+        cv2.imwrite(clus_name_34, edges_canny_temp_4)
 
         and_edges_t4_t5 = cv2.bitwise_and(edges_canny_temp_5, edges_canny_temp_4)
 
