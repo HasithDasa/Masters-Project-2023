@@ -1,0 +1,612 @@
+\documentclass[]{iat}
+%Diese Beiden Pakete werden nur für das Beispieldokument benötigt und sollten von Ihnen gelöscht werden
+\usepackage{listings}
+\usepackage{scrhack}
+\usepackage{algorithm2e}
+\usepackage{placeins}
+\usepackage{amsmath}
+\usepackage{biblatex}
+\usepackage{appendix}
+\usepackage{chngcntr}
+
+%Hier können weitere benötigte Pakete Eingebunden werden
+
+
+%Namen eingeben / Insert Name
+\renewcommand{\author}{Dasanayake Mudiyanselage, Hasith Thilanka Dasanayake}
+%Art der Arbeit / Scope (Project, Thesis...)
+\providecommand{\scope}{Master's Project}
+%Thema der Arbeit / Theme of Thesis
+\renewcommand{\subject}{Cutting-Line Segment Detection of Plant Sections}
+%Schlagwörter / Keywords
+\providecommand{\keywords}{Key_1, Key_2}
+%Literaturliste *.bib / Bibliography
+%providecommand{\bibfile}{IAT_Beispiel_literature}
+%Matrikelnummer / Student ID
+\providecommand{\studentID}{6003143}
+%Betreuer /& Tutors
+\providecommand{\tutora}{Philip Tietjen}
+%Prüfer / Examiner
+\providecommand{\examinera}{Prof. Dr.-Ing. Kai Michels}
+\addbibresource{IAT_Beispiel_literature.bib}
+
+\hypersetup{%
+	pdftitle	={\subject -- \author -- \today},
+	pdfauthor	={\author},
+	pdfsubject	={\subject},
+	pdfkeywords ={\keywords}
+}
+
+
+\setlength{\footheight}{21pt}
+
+\begin{document}
+	\lstset{literate={ä}{{\"a}}1}
+%Pfad zu Grafiken:
+	\graphicspath{{./project_graphics/}}
+% Sprachauswahl /Language Selection (ngerman/english)
+	\selectlanguage{english}
+\pagenumbering{roman}
+\input{iat_title}
+%Urherberrechtserklärung / Confirmation of Conformity Comment if not needed, Select correct Language
+\input{declaration_conformity_en}
+\pagestyle{iat}
+\tableofcontents
+\chapter{Introduction}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\par
+In some agricultural industries, plant shoots are commonly exported to other countries today for preprocessing, specifically involving the cutting of the shoots into several sections. This process is time-consuming, relies on human intervention, and incurs high costs due to the subsequent need to reimport the processed plants for further processing. However, by employing the "GreenAI" system, which utilizes precise laser cutters, parallel robots, and a computer vision system, the cutting process of the plants can be executed with precision, cost-effectiveness, and efficiency \cite{greenai}.
+\par
+In order to divide the plant into multiple sections, it is necessary to find the accurate cutting line segment of the plant in less time. To achieve this, various techniques were trialed. A significant challenge encountered during the process was the accurate selection of the cutting line when one or more line segments appeared in two neighboring sections of the plant. Consequently, the following objectives were established:
+\par
+
+\begin{itemize}
+    \item Identification of correct cutting line segments situated on the stem of the plant
+    \item  Analyzing the performance and efficiency of the cutting-line segment detection algorithm
+    \item Optimizing the performance and efficiency of the cutting-line segment detection algorithm
+\end{itemize}
+
+\par
+Previous research on image preprocessing and feature extraction stages showed the importance of these processes in overall algorithm efficiency. For instance, S.D Gupta et al. emphasized the significance of preprocessing and feature extraction in the context of plant images, suggesting that these stages directly influence the analysis quality \cite{gupta2015}. Another study by S. Beucher and C. Lantuejoul depicted that these stages are integral for robust analysis, enhancing both the accuracy and efficiency of the detection algorithm \cite{beucher1979}.
+\par
+Edge detection is an important function of feature extraction in image processing. In order to achieve this various techniques were developed over the years. The Canny edge detection method, invented by Canny in 1986, remains a prominent approach \cite{Canny1986}. Which theoretically encompasses several steps: First, a Gaussian filter is utilized to smooth the image and reduce noise. Subsequently, the gradients of the image intensity are calculated using the Sobel operator. To thin the edges and keep only the maximum values, non-maximum suppression is applied. Pixels are classified as strong, weak, or non-edges through the utilization of double thresholding. Finally, weak edges that are connected to strong edges are retained as actual edges using a process called edge tracking by hysteresis. The Canny edge detection method has been successfully applied across different disciplines. In botany, J.P.M. SOSA et al. used Canny edge detector to extract plant leaf shapes from an image file. Then it was used to identify possible relationship or the family of the plant using a desktop application \cite{inproceedings}. J. G. Thanikkal and team further refined this approach by proposing an advanced plant leaf classification technique integrating image enhancement with the Canny method \cite{8748587}. Also, in the transportation field,  X. Yan et al. implemented a method of lane edge detection based on the Canny algorithm for a vision-based vehicle assisting system \cite{8243122}.
+
+\par
+When Canny failed, alternative techniques were considered. Consequently, the Sobel operator was used for edge detection based on the gradient magnitude of an image, highlighting areas of significant intensity changes \cite{duda2000pattern}. The edge detection of license plates and logo edges, etc, has been performed using the Sobel operator \cite{7755367,beeran2014evaluation}. Moreover, comparison analyses have been conducted to identify the most effective edge detection algorithm. Based on these studies, Sobel is deemed suitable for images afflicted with random noise. However, the Sobel operator's smoothing effect can remove important features from the image. But the main advantage of the Sobel operator is its ability to detect edges more quickly \cite{7938931,9232632}. 
+\par
+Another technique that can be considered is the Laplacian of Gaussian (LoG) method, which combines the Laplacian operator and Gaussian smoothing to emphasize areas of rapid intensity changes \cite{canny1980}. In a detailed discussion by P. Dubey et al., the LoG operator, Canny operator, and a hybrid version of these two operators were extensively analyzed using metrics such as Mean Square Error, Peak Signal-to-Noise Ratio, etc \cite{9170672}. 
+\par
+In order to address the complexity of the custom dataset which was used in this cutting-line segment detection project, it was determined that a sequential approach using the aforementioned operators would be suitable. Specifically, if one operator fails to detect any edges, the subsequent operators are applied in a cascaded manner to increase the detection. This approach ensures a stable edge detection process, improving the overall performance and reliability of the system.
+\par
+Line segment detection has been addressed through various methods in the computer vision domain. The Hough transform is a method initially introduced in the 1960s for line detection \cite{Hough_1962_2186}. Also to overcome the limitations of the Hough transform an alternative approach called the probabilistic Hough transform, has been developed. It utilizes a randomized subset of edge points instead of considering all edge points \cite{Matas2000}. This modified version of the original Hough transform significantly reduces computation time. These two methods have been widely applied in numerous applications involving line segment detection, such as lane tracking in autonomous vehicles \cite{10025098}, optical character recognition \cite{243184}, and power line tracking in the electric power industry \cite{10060117}, among others. 
+\par
+However, due to the presence of small line segments and non-linear segments, a requirement of designing a specific algorithm was concerned to find the correct line segments.
+\par
+The line segment detector (LSD) algorithm proposed by Von Gioi et al. provides a robust and accurate method for detecting line segments \cite{ipol.2012.gjmr-lsd}. One advantage of LSD is that it does not require tuning parameters, making it easier to use than the Hough transform. This method was used partially to detect the stem of the plant separately in subtopic 2.3. Also, very common computer vision operations like morphological operations which were used in many agricultural applications to detect plants \cite{7418873, 10051285} were used to fine-tune the results of plant stem detection. 
+\par
+The edge detection algorithm’s performance evaluation primarily focused on the use of various metrics, namely the confusion matrix, accuracy, precision, F1 score, and the receiver operating characteristic (ROC) curve \cite{powers2011evaluation}. These evaluation techniques have been mainly employed in numerous applications \cite{9734173, 10080076, 9537093, doi:10.1148/radiology.143.1.7063747}. Finally, 316 samples were used to analyze the performance of the algorithm based on the aforementioned metrics. It was broadly discussed in Chapter 3, 'Results and Analysis'.
+\par
+Big O notation is widely used in computer science to describe the performance of an algorithm as the input size increases. In this project, the efficiency of the algorithm was analyzed using this notation. The concept was initially explored by G. Brassard and P. Bratley in their work, wherein they emphasized its significance in comparing algorithm performance \cite{brassard1996fundamentals}. To discover the efficiency of Euler arithmetic's algorithm complexity, N. Samsudin employed Big O notation. This involved analyzing the algorithm's runtime to determine its efficiency. Furthermore, a comparison was made between the algorithm's complexity using O(1) and O(n) notations \cite{Samsudin2020}. The project adopted a similar approach in order to determine the appropriate Big O notation.
+\par
+Also, an additional improvement in efficiency was achieved through the implementation of parallel processing. The most popular two types of parallel processing methods are based on multiple threads and multiple processors. The use of multiple processors for parallel processing involves the distribution of the workload across  physical or logical processors. A thread is a lightweight unit of execution that can run concurrently with other threads, sharing the same memory space. According to Silberschatz et al, multithreading often demonstrates increased responsiveness due to the shared memory space and  high communication speed between threads compared to multiprocessing. Also, less resource usage is another advantage of using multithreading \cite{OSC}. Due to these reasons, multithreading was used to improve the efficiency of the algorithm. 
+\par
+
+\chapter{Methodology}
+
+The methodology of this project deploys the Line Segment Detector (LSD) for the precise identification of relevant segments, ensuring optimized processing efficiency of the algorithm throughout the process.
+\par
+In this study, a ground-truth custom dataset was obtained. This dataset consisted of plant images annotated with various labels based on the type of section cutting. After RLE data has been decoded into an image, preprocessing, and preparation steps were described in subtopic 2.1. Then in subtopic 2.2, the feature extraction step was described.  In the final step, (subtopic 2.3) correct cutting-line segments between two neighboring plant sections were identified on the stem of  the plants. \autoref{fig:fig1} shows the methodology in a flow chart.
+\FloatBarrier
+\begin{figure}[h]
+    
+	\includegraphics[width=\textwidth]{project_graphics/Fig1.eps}
+	\caption{Flow Chart of the Overall Algorithm }
+	\label{fig:fig1}
+\end{figure}
+\newpage
+
+\section{Preprocessing and Preparation}
+
+In the initial phase of the algorithm, this encoded RLE data was decoded into a two-dimensional numpy array to achieve the decoded image for further image processing. Also, image dimensions, bounding box details, and selected object classes (First Section Cutting, Redundant Top End, Redundant Bottom End, Tip Cutting, Non-Viable Part, Second Section Cutting, Third Section Cutting, Fourth Section Cutting) which are useful for the line segment detection were gathered in this stage.
+\par
+Upon decoding, the received binary images from the custom dataset, each containing one or more plants, were processed using the algorithm. This algorithm enabled the generation of two Python lists for recording bounding box coordinates. One list captured coordinates of small bounding boxes, each associated with specific plant components (sections), while the other list documented coordinates of large bounding boxes, each encapsulating an entire plant.  As depicted in the  \autoref{fig:fig2}  a single large bounding box is composed of several smaller bounding boxes namely "4", "7" and "6".  The indexing method was selected for the algorithm instead of using a larger section-name string because it made identifying quicker and processing more efficient by the program.
+
+\par
+\FloatBarrier
+\begin{figure}[h]
+    
+	\includegraphics[width=\textwidth]{project_graphics/Fig2.eps}
+	\caption{Small and Large Bounding Boxes}
+	\label{fig:fig2}
+\end{figure}
+
+
+In the next stage of the algorithm, the list of adjacent sections of the plants is created. The adjacency  between these elements is established according to the closeness of the stems of the plant sections. Initial identification of any potential adjacency relied on the coordinates of small bounding boxes and the outer contour of each plant section (see  \autoref{alg:algo1} in the Appendix). Initially,  the adjacency of stems, leaves, and all are considered. After that, large bounding boxes are used to refine the list, filtering for adjacency solely on the basis of stem proximity as can be seen in \autoref{alg:algo2} in the Appendix.
+\par
+Notably, significant processing speed improvements are realized during the optimization stage of the algorithm when the outer contour is used instead of the entire solid section of the plant. OpenCV functions: cv2.findContours() and cv2.RETR\_EXTERNAL, served to detect only the external contours of the plant sections. A more detailed discussion of this process can be found in Chapter 3, 'Results and Analysis'.
+\par
+As shown in the \autoref{alg:algo3}, parallel processing method multi-threading was used with the help of "concurrent.futures" module in Python to improve the efficiency of the algorithm. Then in the next step of the  algorithm, ensured that each unique plant section combination was presented only once, regardless of order. As an example, a combination of "First Section Cutting" and "Redundant Bottom End Cutting" of a plant is saved only once in the list of adjacent sections irrespective of sequence.
+
+\par
+\FloatBarrier
+
+
+\section{Feature Extraction}
+
+The feature extraction step is the most important step in this project because the cutting line segment of two neighboring sections is situated on the edge. Therefore, several edge detection methods were tested.
+\par
+The initial detection method employed in this study was the Canny edge detection method (by using OpenCV based algorithm (cv2.Canny)).
+\par
+During the analysis of the results, certain line segments were not identified. Therefore, an alternative method was deployed to identify these missing line segments. In this study, the Sobel operator (cv2.Sobel) was applied in both the x and y directions, and the results were merged. Usually, the Sobel operator is used to compute the gradient magnitude and direction of an image, facilitating the detection of regions exhibiting substantial changes in intensity. 
+\par
+Moreover, the identification of edges was performed using the Laplacian of Gaussian (LoG) method. The regions of rapid intensity changes were highlighted by applying a combination of the Laplacian operator (cv2.Laplacian) and Gaussian smoothing (cv2.GaussianBlur) with a kernel size of 3x3. After that, the results obtained from two neighboring plant sections were subjected to an AND operator. 
+\par
+
+
+\section{Detection of Exact Cutting Line Segment (Classification)}
+
+After the feature extraction step, various types of line segments were revealed. As shown in the \autoref{tab:tab1}, over 43\%  of the line segment detection incidents were noticed on the stem, and the rest of the incidents were observed in the area where two leaves intersected with each other or with the stems.
+
+\FloatBarrier
+\begin{table}[h]
+\begin{tabular}{cc}
+\hline
+Location of the Line Segment & No. of Detection Incidents \\\hline
+On the Stem & 970 \\
+Other Areas & 1274 \\\hline
+\end{tabular}
+\caption{No. of Detection Incidents of the Line Segments}
+\label{tab:tab1}
+\end{table}
+ Therefore, the detection of the exact line segment was performed based on three categories. In the first category, a combination of adjacent plant sections with single-line segments was considered. Subsequently, identified the multiple line segments, which were further categorized. (These line segments arise primarily from the intersection of two leaves or the intersection of a portion of the leaves and stems as depicted in the \autoref{fig:fig3}). The second categorization was conducted based on the length of the line segments as shown in \autoref{tab:tab2}. Also revealed that 448 line segments were nearly similar in length. For this type of segments, the third categorization is employed using the distance of the line segments to the stem. 
+
+\FloatBarrier
+\begin{table}[h]
+\begin{tabular}{ccc}
+\hline
+Categorization & Name & Total No. of Line Segments \\\hline
+First Categorization & Only Single Lines & 970 \\
+Second Categorization & Using Length & 826 \\
+Third Categorization & Using Distance & 448 \\\hline
+\end{tabular}
+\caption{Categorization of the Line Segments}
+\label{tab:tab2}
+\end{table}
+ 
+\FloatBarrier
+\newpage
+\begin{figure}[h]
+    
+	\includegraphics[width=\textwidth]{project_graphics/Fig3.eps}
+	\caption{Intersection of Two Leaves and Leaf and Stem in Two Neighboring Sections}
+	\label{fig:fig3}
+\end{figure}
+\par
+These categories were identified by the algorithm, based on the clusterization principle. In accordance with the operations of this algorithm, the non-zero pixels of the image are initially identified. Subsequently, any significant changes in the index of the column, the row, or both column and row are identified, with a focus on the starting and ending index. This process is exemplified in \autoref{fig:fig3-1} and \autoref{tab:tab3}. Finally, each cluster of pixels is recognized as a line segment by the algorithm. The data corresponding to these coordinates is then stored separately in a list.  As demonstrated in the example, five unique line segments have been detected. In the event that the aforementioned list comprises solely one element, the algorithm designates it as a single line segment.  
+
+\FloatBarrier
+
+\begin{figure}[h]
+    
+	\includegraphics[width=\textwidth]{project_graphics/Fig3-1.eps}
+	\caption{Example Representation of Adjacent Pixels in an Image}
+	\label{fig:fig3-1}
+\end{figure}
+
+\FloatBarrier
+\begin{table}[h]
+\begin{tabular}{ccc}
+\hline
+Noticeable Change in & Starting Coordinate & Ending Coordinate \\\hline
+Column & (5,0) & (5,2) \\
+Column & (3,4) & (3,7) \\
+Column & (7,5) & (7,8) \\
+Row & (0,9) & (3,9) \\
+Both Column \& Row & (0,0) & (2,2) \\\hline
+\end{tabular}
+\caption{Summary of the Clustering Example}
+\label{tab:tab3}
+\end{table}
+
+\par
+When multiple line segments are detected, the "cv2.findContours()" method is used to detect all available common line segments in two adjacent plant sections. The length of each line segment is measured using "cv2.arcLength()" to identify the range of lengths typically observed on the stem, as the cutting line. Based on this range, the correct line segment is detected.
+\par
+If the size of the line segment falls outside the length range or if there are line segments with similar lengths. In this scenario, several methods were attempted to identify the stem of the plant.
+\par
+Initially, a Python library called "PlantCV," designed for image analysis in the field of plant research and based on OpenCV, was utilized to detect the stem\cite{PlantCV}. The "plantcv.morphology.skeletonize()" function is applied on images of plant sections to obtain the skeletonized images, extracting the skeleton while preserving the plant structure's connectivity. After applying skeletonization function, the algorithm misidentified leaves as stems and skeletonized them as well(see \autoref{fig:fig3-2}). 
+\par
+Application of the "plantcv.morphology.find\_branch\_pts()" function on a skeletonized image, the detection of the branch points can be observed. But in here, branch points were observed everywhere on the stem. Also in some instances, branch points were appeared on the leaves as shown in \autoref{fig:fig3-2} (branch points are marked in pink). Typically, the visibility of these branch points is expected at the commencement of a branch. Therefore, the desired separate classification of stems and leaves was not achieved.
+
+\FloatBarrier
+\begin{figure}[h]
+    
+	\includegraphics[width=\textwidth]{project_graphics/Fig3-2.eps}
+	\caption{Example Representation of Skeletonization and Branch Point identifying Function}
+	\label{fig:fig3-2}
+\end{figure}
+
+For the same purpose of identification of the stem, the next approach involved segmenting the edge of the stem into multiple fragments of lines by using "cv2.createLineSegmentDetector()" function. Based on the outcomes, parallel or nearly close fragments of lines were observed on either side of the stem. As illustrated in the........ initially the single plant section is chosen for this application from the combination of plant sections.
+
+\FloatBarrier
+\begin{figure}[h]
+    
+	\includegraphics[width=\textwidth]{project_graphics/Fig3-3.eps}
+	\caption{Application of OpenCV Line Segment Detector Function}
+	\label{fig:fig3-3}
+\end{figure}
+
+\par
+If two or more parallel/close fragments of lines are sufficiently thickened, there is a possibility of creating a single line or solid object. This technique was utilized to detect stems separately. Therefore, these line fragments were dilated using the "cv2.dilate()" function with a 7x7 kernel (numpy.ones((7, 7), dtype=np.uint8)) and two iterations. As depicted in the........ only the line fragments on the stem underwent thickening. To remove unwanted parts, an erosion operation was applied using the OpenCV erosion function with the same configurations as the dilation function.
+
+\FloatBarrier
+\begin{figure}[h]
+    
+	\includegraphics[width=\textwidth]{project_graphics/Fig3-4.eps}
+	\caption{Line Fragment Thickening \& Erosion }
+	\label{fig:fig3-4}
+\end{figure}
+
+\par
+Consequently, the difference between the image which was applied OpenCV line segment detector function and the resulted eroded image subjected to a median blur operation with a kernel size of 7 to reduce noise and outliers. As shown in the.....the resulting image consisted of disconnected parts of the stem because algorithm couldn't identify the areas where the stem and some leaves intersect. Therefore, another morphological dilation operation was performed to connect those areas as much as possible. Therefore, the closed and largest solid contour was assumed to represent the stem, while other small, closed contours were disregarded. 
+
+\FloatBarrier
+\begin{figure}[h]
+    
+	\includegraphics[width=\textwidth]{project_graphics/Fig3-5.eps}
+	\caption{Identification of the Stem Based on the Closed \& Largest Solid Contour }
+	\label{fig:fig3-5}
+\end{figure}
+
+
+\par
+ Finally the Euclidean distance from the stem's lowest/highest point (selection of either highest or lowest point is decided by the location of the other plant section of the combination) to the line segments' centre point is calculated, and all the distance values are stored in a list. Finally, by using the list the line segment with the shortest distance is selected as the correct cutting line segment. According to the ............ lowest point of the stem is selected and Euclidean distances are checked for three line segments and correct cutting line segment is detected.
+
+\FloatBarrier
+\begin{figure}[h]
+    
+	\includegraphics[width=\textwidth]{project_graphics/Fig3-6.eps}
+	\caption{Identification of the Correct Cutting Line Segment }
+	\label{fig:fig3-6}
+\end{figure}
+
+
+
+
+
+
+\chapter{Results and Analysis}
+
+In this section, the results of the algorithm for detecting accurate cutting line segments are presented under several subtopics. A JSON file was used, containing a total of 316 images along with varying numbers of plants captured in each image. As an example, in some images, 21 section cuttings were available, while in others, only one or two were available. 
+\par
+In subtopic 3.1, a selected sample image was considered, and it served as an illustrative example, displaying all the algorithm steps employed. In subtopic 3.2, the accuracy and precision of the algorithm had been evaluated. Furthermore, the efficiency of the algorithm had been considered a critical factor to measure the quality of the algorithm. This aspect has been thoroughly described in subtopic 3.3
+\par
+
+\section{Visualization of the Algorithm Steps}
+
+As shown in the \autoref{fig:fig4} , all the steps of the algorithm were visualized with the help of an illustrative example(stn2\_pkg004\_0\_1077\_rep). In the feature extraction stage, of the \autoref{fig:fig4} detected line segments were circled in yellow. The details of the  classification stage were summarized in the \autoref{tab:tab1}. For the index [0, 1] (or [Redundant Bottom End, First Section Cutting]), coordinates were received as (887, 1076), (888, 1076), (889, 1077), (890, 1077), (892, 1079), (893, 1079), (892, 1078), (891, 1078), (890, 1077), (889, 1077), (888, 1076). Then for the index [1,2] (or [First Section Cutting, Raw Cutting]), coordinates were received as (935, 787), (936, 787), (937, 788), (936, 787). 
+
+\par
+\FloatBarrier
+\begin{figure}[h]
+    
+	\includegraphics[width=\textwidth]{project_graphics/Fig4.eps}
+	\caption{Visualization of Algorithm Steps}
+	\label{fig:fig4}
+\end{figure}
+
+\FloatBarrier
+\begin{table}[h]
+\begin{tabular}{ccc}
+\hline
+Neighboring Sections & Index & Classification\\\hline
+1st Section and Redundant Bottom End & [0, 1] & Using Size \\
+1st Section and Raw Cutting & [1, 2] & Using Size \\\hline
+\end{tabular}
+\caption{Line Segment Coordinates}
+\label{tab:tab4}
+\end{table}
+\section{Evaluation of Algorithm’s Performance }
+
+As mentioned in the introduction, an evaluation of this algorithm's performance was done by using 316 samples. Through the analysis of various evaluation metrics and the visualization of results, insights can be gained into how well positive and negative instances are accurately identified by the algorithm. In this project, a fundamental tool for summarizing classification results called a confusion matrix was used. Moreover, the calculation and interpretation of key evaluation metrics such as accuracy, precision, and the F1 score were examined. Furthermore, the Receiver Operating Characteristic (ROC) curve and its significance in assessing the algorithm's performance in terms of Recall and false positive rates were investigated. 
+\par
+The confusion matrix is a tabular representation of the performance of the algorithm by the counts of true positive (TP), true negative (TN), false positive (FP), and false negative (FN) instances. Then it was used as the basis or the foundation of finding other evaluation metrics. 
+\par
+As shown in the \autoref{fig:fig5}, the actual classes of “correct line segment available and correct line segment not available” are represented by the columns, while it’s detected(predicted) or not detected are represented by the rows. The number of instances falling into each category is correspondingly indicated by the values in the cells. 
+\par
+\FloatBarrier
+\begin{figure}[h]
+    
+	\includegraphics[width=0.5\textwidth]{project_graphics/Fig5.eps}
+	\caption{Confusion Matrix}
+	\label{fig:fig5}
+\end{figure}
+
+The evaluation metrics were computed using the values derived from the confusion matrix. These metrics provide an overall assessment of the algorithm's performance. 
+\par
+The following formula was used to calculate the accuracy, which measures the overall correctness of the algorithm's predictions.
+\FloatBarrier
+\begin{align}
+Accuracy &=\frac{(TP+TN)}{(TP+TN+FP+FN)}
+\end{align}
+Initially, the accuracy of the algorithm was calculated with only two steps. Only the 1st step and 3rd detection step of the algorithm (see subtopic 2.4). Then the accuracy was detected as 0.8912(89.12\%). As shown in the \autoref{fig:fig6} after implementing all three detection steps (see subtopic 2.4) to the algorithm, the accuracy of all the samples was plotted, and the average accuracy was taken as 0.9616 (96.16\%). Therefore, an improvement of 0.0704(7.04\%) was achieved by expanding the detection step. 
+\par
+\FloatBarrier
+\begin{figure}[h]
+	\includegraphics[width=\textwidth]{project_graphics/Fig6.eps}
+	\caption{Accuracy vs Image Index Graph}
+	\label{fig:fig6}
+\end{figure}
+\par
+The classification algorithm's overall predictions were highly accurate, according to this accuracy score. Also, the algorithm demonstrates its effectiveness in distinguishing between positive and negative instances (detection and non-detection).
+\par
+However, a comprehensive analysis of other evaluation metrics is necessary to gain a proper understanding of the algorithm's performance, as well as its strengths and limitations. Therefore, precision and the F1 score were further calculated.
+\par
+The precision metric evaluates the algorithm's ability to avoid false positive predictions by measuring the proportion of correct positive predictions out of all instances predicted as positive. The following formula represented the precision in terms of the confusion matrix.
+\FloatBarrier
+\begin{align}
+Precision &=\frac{TP}{(TP+FP)}
+\end{align}
+\par
+\FloatBarrier
+\begin{figure}[h]
+    
+	\includegraphics[width=\textwidth]{project_graphics/Fig7.eps}
+	\caption{Precision vs Image Index Graph}
+	\label{fig:fig7}
+\end{figure}
+\par
+As shown in the \autoref{fig:fig7}. after implementing all three detection steps, the precision of all the samples was plotted and the average precision was taken as 0.9608 (96.08\%). As a result, the occurrence of false positives was minimized and making it reliable in distinguishing positive instances from negative ones.
+\par
+The F1 score, which is determined using the equation provided, represents a balanced measure of the algorithm's performance as it combines both precision and recall in a harmonic mean. These two metrics offer an overall assessment of the algorithm's ability to correctly identify positive instances while minimizing false positives and false negatives.
+\par
+\FloatBarrier
+\begin{align}
+F1\_score &=\frac{2*(Precision*Recall)}{(Precision+Recall)}
+\end{align}
+
+The average F1 score was achieved as (0.9785) 97.85\%, which indicates that the algorithm achieves a high balance between precision and recall. Here, recall for all the samples was calculated as one because there were zero instances in which the correct line segment was not detected. (Unless it was not passed from the feature extraction section to the classification section of the algorithm.)
+\par
+As depicted in the \autoref{fig:fig8} higher F1 score was shown. It shows that the algorithm is performing well in terms of correctly identifying positive instances (exhibiting high precision) and minimizing false negatives (demonstrating high recall). 
+\par
+\FloatBarrier
+\begin{figure}[h]
+    
+	\includegraphics[width=\textwidth]{project_graphics/Fig8.eps}
+	\caption{F1 Score vs Image Index Graph}
+	\label{fig:fig8}
+\end{figure}
+The Receiver Operating Characteristic (ROC) curve was constructed by plotting the true positive rate (Recall) against the false positive rate (FPR) at various classification thresholds. For best-performing algorithms, the top-left corner of the graph would be touched by a ROC curve.
+Here it was achieved as shown in \autoref{fig:fig9}
+\par
+\FloatBarrier
+\begin{figure}[h]
+	\includegraphics[width=\textwidth]{project_graphics/Fig9.eps}
+	\caption{ROC Curve}
+	\label{fig:fig9}
+\end{figure}
+\newpage
+\par
+In summary, the algorithm's reliability and effectiveness in classification tasks are signified by the high F1 score, accuracy, and precision values. Furthermore, the perfect sensitivity suggested by the straight line in the ROC curve and the absence of false negatives further affirms the strong performance of the algorithm.
+\par
+\section{Efficiency Analysis of the Algorithm}
+
+The efficiency analysis of the algorithm is based on the processing time of the algorithm. As mentioned in the methodology, there are main three sections in this algorithm. But for the efficiency analysis, time spent on preprocessing and the feature extraction were combined into one single section and called “initial preparation time”. The time spent for the classification step was divided into three sections “single line detection”, “detection based on the size” and “detection based on the distance”. To measure the processing time, the Python library “timeit” was used.
+\par
+Based on the results, the most time-consuming area in the algorithm was identified as the preprocessing and the feature extraction area. Initially, processing time was compared by changing the hardware configurations. For this, two completely different computers were used to run the program and capture the processing time as shown in the \autoref{tab:tab2}. 1st configuration was Intel Core i5 - 9300H CPU @ 2.40GHz Processor (9th Gen), 16.0 GB RAM, 512 GB SSD Harddisk, and 2nd configuration was Intel Core i5 - 4210U CPU @ 1.70GHz Processor (4th Gen), 8 GB RAM, 750 GB SATA Harddisk.
+\par
+\FloatBarrier
+\begin{table}[h]
+\begin{tabular}{ccc}
+\hline
+Configuration & Min Proc. Time (ms) & Max Proc. Time (ms)\\\hline
+1st configuration & 66.42  & 716.73 \\
+2nd configuration & 103.24 & 2078.21 \\\hline
+\end{tabular}
+\caption{Performance of the Algorithm}
+\label{tab:tab5}
+\end{table}
+According to the \autoref{tab:tab2}, a huge contrast in the processing time was noticed. Usually, the CPU is responsible for executing instructions and performing calculations. The 1st computer has a higher clock speed (2.40GHz) compared to the 2nd computer. A higher clock speed generally means faster processing, Therefore, one reason for the less processing time in the 1st computer is the performance of the CPU. In the computer architecture, RAM is used to store data that the CPU needs to access quickly. Having more RAM allows this kind of complex algorithm to be processed efficiently. The first computer has 16GB of RAM, which is twice the capacity of the second computer's 8GB. This means that the first computer can handle larger amounts of data in memory, potentially leading to faster algorithm execution. The storage drive, whether it's an SSD or an HDD, affects the algorithm's speed primarily during data read/write operations like loading JSON files, etc. SSDs are generally faster than traditional HDDs, offering quicker data access times. The first computer's 512GB SSD is likely to provide faster read/write speeds compared to the second computer's 750GB SATA drive. Therefore, the 1st computer was taken into further processing. 
+\par
+When further analyzing the preprocessing and feature extraction stages, a hypothesis was formulated to examine the impact of the number of neighboring plant section combinations (in a sample image) on the efficiency of the algorithm. The relationship between these two parameters was investigated using Big O notation, a mathematical notation commonly used in computer science. Big O notation, denoted as O(f(n)), where "O" represents the order of growth and "f(n)" denotes the algorithm's growth rate as a function of the input size "n," is used to analyze and compare algorithm performance as the input size increased. Typically, the function "f(n)" represents the worst-case time complexity of the algorithm, providing a clear indication of its efficiency with increasing input size.
+\par
+Based on the algorithm's performance behavior in relation to the input size, various types of Big O notations have been defined. For instance, O(1) represents constant performance, O(log n) denotes logarithmic performance, and O(n) signifies linear performance. Considering the processing structure of this algorithm, it was theoretically assumed that the algorithm's Big O notation complexity should be linear (O(n)). To validate this assumption, a graph was plotted, as depicted in \autoref{fig:fig10}, representing the algorithm's processing time against the number of neighboring plant section combinations. Then the graph was examined to identify patterns in the growth of the processing time. Additionally, to compare the algorithm's performance, a processing time reduction technique (refer to subtopic 2.2) utilizing the external contour detection method(this is called "Optimized" graph in the \autoref{fig:fig10})instead of the internal contour detection method (utilizing the whole solid section of the plant) was used as shown in the \autoref{fig:fig10}.
+\par
+\FloatBarrier
+\begin{figure}[h]
+	\includegraphics[width=\textwidth]{project_graphics/Fig10.eps}
+	\caption{Process Time vs No. of Neighboring Plant Section Combinations }
+	\label{fig:fig10}
+\end{figure}
+
+Observing \autoref{fig:fig10}, significant differences in the growth rate of the processing time (gradient) were noticed as the number of combinations increased. The relevant Big O notation or the relationship between the number of combinations and the processing time was summarized in the \autoref{tab:tab3}. This finding is explained by the fact that the number of combinations increases in an image, the size of the plant, the plant's section size, and the size of the outside contour decreases. Therefore, less time is required for processing the contours. This is further explained in the following graph. (See \autoref{fig:fig11}). 
+\par
+\FloatBarrier
+\begin{table}[h]
+\begin{tabular}{cc}
+\hline
+Range of Combinations & Relationship\\\hline
+1 to 4 Not Optimized & O(n) = 182.76n + 1952.4 \\
+5 to 9 Not Optimized & O(n) = 195.1n + 1644.7 \\
+10 to 21 Not Optimized & O(n) = 52.115n + 2779.2 \\
+1 to 4 Optimized & O(n) = 47.496n + 629.27 \\
+5 to 9 Optimized & O(n) = 62.597n + 495.79 \\
+10 to 21 Optimized & O(n) = 16.404n + 935.39 \\\hline
+\end{tabular}
+\caption{Big O Notation ("O(n)" represents processing time and "n" represents No. of combinations)}
+\label{tab:tab6}
+\end{table}
+\par
+\FloatBarrier
+\begin{figure}[h]
+	\includegraphics[width=\textwidth]{project_graphics/Fig11.eps}
+	\caption{Average Time per Combination vs No. of Neighboring Plant Section Combinations }
+	\label{fig:fig11}
+\end{figure}
+Also, a logarithmic relationship was found in the average time per combination vs No. of combinations.
+\par
+"T" represents the average time per combination and "N" represents the number of combinations(N>0)
+\begin{align}
+T &=-167.2ln(N)+504.12
+\end{align}
+Also based on the optimized algorithm utilizing the external contour detection method, roughly 3 times the processing time reduction was achieved due to less amount of pixels available on the external contour compared to the whole solid section of the plant.
+\par
+ A visual representation of single-line detection is provided in \autoref{fig:fig12}, where the histogram illustrates a left-skewed distribution. This signifies that the range of time dedicated to detecting a single line is from 39ms to 239ms.
+\par
+\FloatBarrier
+\begin{figure}[h]
+	\includegraphics[width=\textwidth]{project_graphics/Fig12.eps}
+	\caption{Histogram - Detection using Only Single Line  }
+	\label{fig:fig12}
+\end{figure}
+\par
+With respect to the detection based on size, as depicted in \autoref{fig:fig13}, the time distribution follows a similar left-skewed pattern. Comparable to the previous instance, the duration for this type of detection also lies in a similar range, that is, between 41ms to 241ms.
+\par
+\FloatBarrier
+\begin{figure}[h]
+	\includegraphics[width=\textwidth]{project_graphics/Fig13.eps}
+	\caption{Histogram - Detection using Size  }
+	\label{fig:fig13}
+\end{figure}
+\par
+However, a deviation can be observed when we examine the time spent for detection based on distance, as represented in \autoref{fig:fig14}. In this particular scenario, the duration is slightly increased, ranging from 286ms to 486ms, which is higher than the time required for the other two forms of detection.
+\par
+\FloatBarrier
+\begin{figure}[h]
+	\includegraphics[width=\textwidth]{project_graphics/Fig14.eps}
+	\caption{Histogram - Detection using Distance  }
+	\label{fig:fig14}
+\end{figure}
+\newpage
+\par
+Therefore, it can be interpreted from the histograms that while the time distributions for single-line detection and size-based detection are quite similar and relatively lower, the time required for distance-based detection is marginally greater.
+\par
+It may be worth considering whether the increased time for distance-based detection is due to the complexity of the algorithm, or whether it could be optimized further. Understanding all of these factors could help to determine which detection method has to be improved in the future. 
+\par
+\chapter{Conclusion and Discussion}
+The comprehensive exploration and analysis conducted on detecting accurate cutting line segments algorithm have led to significant insights regarding its performance, reliability, and efficiency. A performance evaluation was conducted, focusing on key metrics such as accuracy, precision, and the F1 score. These metrics revealed the performance of the algorithm, with an average accuracy and precision of 96.16\% and 96.08\% respectively. The algorithm further demonstrated an exceptional F1 score of 97.85\%. The findings were corroborated by the ROC curve analysis.
+\par
+An examination of the efficiency of the algorithm was conducted based on the processing time of the algorithm. It was noticed that the most time-consuming area in the algorithm was the pre-processing and feature extraction area. Also based on the comparative analysis of processing time under different hardware configurations highlighted the significant impact on the algorithm's efficiency.
+\par
+In the subsequent section, the algorithm's time complexity was deeply investigated. A hypothesis was formulated regarding a linear relationship (O(n)) between the algorithm's efficiency and the number of neighboring plant section combinations. This hypothesis was validated by plotting a graph depicting the algorithm's processing time against the number of neighboring plant section combinations.
+\par
+Further, an optimized algorithm utilizing an external contour detection method led to a reduction in processing time and an improvement in efficiency due to the implementation of parallel processing are highlighted the requirement of adopting optimization strategies to the algorithm. Moreover, a comparative analysis of the time distributions for single-line detection, size-based detection, and distance-based detection revealed potential areas for further optimization in the algorithm. 
+\par
+Specifically in the distance-based detection method, the advent of technologies such as Convolutional Neural Networks (CNNs), Support Vector Machines (SVMs), and Random Forests (RFs) can be used in the successful identification and localization of plant stems. Furthermore, the combination of deep learning with classical image processing techniques has significantly enhanced the robustness of the approach. However, when using these advanced technologies, certain challenges remain. These include issues like overfitting, the complexity of algorithms,  the need for large labeled training datasets, hardware performance, and plant diversity. As future work, it will be essential to implement hybrid techniques, which leverage the benefits of both artificial intelligence and traditional computer vision.
+\par
+The extensive analysis, methodologies, and results presented in this project serve as a significant contribution to accurate cutting-line segment detection algorithms in practical applications.
+\par
+
+\printbibliography
+
+\newpage
+\chapter{Appendix}
+
+\appendices
+\renewcommand{\thesection}{Appendix \Alph{section}:}
+
+% Redefine the format of the section title
+\makeatletter
+\def\@seccntformat#1{\csname the#1\endcsname\quad}
+\makeatother
+
+\section{Adjacent Plant Section Finding Algorithm}
+
+\begin{algorithm}[htbp]
+    \SetAlgoLined
+    \caption{Finding Neighboring Sections}
+    \label{alg:algo1}
+    \SetKwInOut{Input}{Input}
+    \SetKwInOut{Output}{Output}
+
+    \Input{small\_bbox\_list, edge\_only\_list}
+    \Output{neighboring\_sections\_list, intersected\_area\_list}
+
+    \BlankLine
+    Initialize an empty list neighboring\_sections\_list; Initialize an empty list intersected\_area\_list\;
+
+    \BlankLine
+    \ForEach{mask\_index in small\_bbox\_list}{
+        \ForEach{mask\_index\_checked in edge\_only\_list}{
+            \ForEach{ones\_index in edge\_only\_list[mask\_index\_checked]}{
+                \If{(\(small\_bbox\_list[mask\_index][0] \leq edge\_only\_list[mask\_index\_checked][ones\_index][1] < small\_bbox\_list[mask\_index][1]\)) \textbf{and} (\(small\_bbox\_list[mask\_index][2] \leq edge\_only\_list[mask\_index\_checked][ones\_index][0] < small\_bbox\_list[mask\_index][3]\))}{
+                    \If{mask\_index $\neq$ mask\_index\_checked}{
+                        Append [mask\_index, mask\_index\_checked] to neighboring\_sections\_list; Append [(edge\_only\_list[mask\_index\_checked][ones\_index][0], edge\_only\_list[mask\_index\_checked][ones\_index][1]), mask\_index, mask\_index\_checked] to intersected\_area\_list\;
+                    }
+                }
+            }
+        }
+    }
+
+    \BlankLine
+    \Return(neighboring\_sections\_list, intersected\_area\_list)\;
+\end{algorithm}
+
+\FloatBarrier
+
+\begin{algorithm}[htbp]
+    \SetAlgoLined
+    \caption{Finding Small Bounding Boxes Inside Large Bounding Box}
+     \label{alg:algo2}
+    \SetKwInOut{Input}{Input}
+    \SetKwInOut{Output}{Output}
+
+    \Input{large\_bbox\_list, edge\_only\_list}
+    \Output{mask\_inside\_large\_bbox\_list}
+
+    \BlankLine
+    Initialize an empty list mask\_inside\_large\_bbox\_list\;
+
+    \BlankLine
+    \ForEach{lg\_bb\_ind and lg\_bb\_ele in large\_bbox\_list}{
+        \ForEach{mask\_index\_2 and mask\_ele\_2 in edge\_only\_list}{
+            Initialize ones\_count as 0\;
+
+            \ForEach{co\_with\_ones\_ele2 in mask\_ele\_2}{
+                \If{(\(lg\_bb\_ele[0] \leq co\_with\_ones\_ele2[1] < lg\_bb\_ele[1]\)) \textbf{and} (\(lg\_bb\_ele[2] \leq co\_with\_ones\_ele2[0] < lg\_bb\_ele[3]\))}{
+                    Increment ones\_count by 1\;
+                }
+            }
+
+            \If{ones\_count is equal to the length of mask\_ele\_2}{
+                Append [lg\_bb\_ind, mask\_index\_2] to mask\_inside\_large\_bbox\_list\;
+            }
+        }
+    }
+
+    \BlankLine
+    \Return(mask\_inside\_large\_bbox\_list)\;
+\end{algorithm}
+
+\FloatBarrier
+\begin{algorithm}[htbp]
+    \SetAlgoLined
+    \caption{Parallel Processing}
+    \label{alg:algo3}
+    \SetKwInOut{Input}{Input}
+    \SetKwInOut{Output}{Output}
+
+    \Input{small\_bbox\_list, large\_bbox\_list, edge\_only\_list}
+    \Output{results}
+
+    \BlankLine
+    Create an executor using ThreadPoolExecutor\;
+
+    \BlankLine
+    Submit the first for loop as a task\;
+    task1 = executor.submit(finding\_neighbors, small\_bbox\_list, edge\_only\_list)\;
+
+    \BlankLine
+    Submit the second for loop as a task\;
+    task2 = executor.submit(finding\_sections, large\_bbox\_list, edge\_only\_list)\;
+
+    \BlankLine
+    Wait for both tasks to complete\;
+    results = [task1.result(), task2.result()]\;
+
+    \BlankLine
+    Combine the results from both tasks and return them\;
+    \Return(results)\;
+\end{algorithm}
+
+\end {document}

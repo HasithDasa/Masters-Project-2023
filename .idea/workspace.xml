@@ -1,8 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5de9661a-ff48-4cf2-90c7-3211cbaa6d8d" name="Changes" comment="submitted to philip">
+    <list default="true" id="5de9661a-ff48-4cf2-90c7-3211cbaa6d8d" name="Changes" comment="creating folders for canny">
+      <change afterPath="$PROJECT_DIR$/Plantcv test/abcc.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Plantcv test/abcd.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Documentation/Images/Fig3-3.eps" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Documentation/Images/Fig3-4.eps" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Documentation/Images/Fig3-5.eps" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Documentation/Images/Fig3-6.eps" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Documentation/Images/Fig3-7.eps" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Documentation/Images/New folder (2)/Fig3-3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Documentation/Images/New folder (2)/Fig3-4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Documentation/Images/New folder (2)/Fig3-5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Documentation/Images/New folder (2)/Fig3-6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Documentation/Images/New folder (2)/Fig3-7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Documentation/Images/New folder/based on length/stn2_pkg050_0_0411_rep_2_13_4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Documentation/Images/New folder/based on length/stn2_pkg050_0_0411_rep_6_11_2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Documentation/Report_final_2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report/Documentation/Report_final_3.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/Results_2/excel data filtering/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/Results_2/excel data filtering/.idea/excel data filtering.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/Results_2/excel data filtering/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/Results_2/excel data filtering/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/Results_2/excel data filtering/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/Results_2/excel data filtering/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/Results_2/excel data filtering/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/Results_2/excel data filtering/Book1 - Copy - Copy.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/Results_2/excel data filtering/Book1.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/Results_2/excel data filtering/data.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg091_0_0104_uqe_0_10_3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg091_0_0104_uqe_1_2_1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg091_0_0104_uqe_2_5_7.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg091_0_0104_uqe_3_6_5.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg091_0_0104_uqe_4_14_4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg091_0_0104_uqe_6_12_0.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg091_0_0104_uqe_7_14_9.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg091_0_0104_uqe_8_11_8.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg091_0_0104_uqe_9_11_6.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images/stn2_pkg091_0_0104_uqe_9_13_2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_7/seg_0.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_7/seg_1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_7/seg_2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_7/seg_3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_7/seg_4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_7/seg_5.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_7/seg_6.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_7/seg_7.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_7/seg_8.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_7/seg_9.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_8/seg_0.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_8/seg_1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_8/seg_2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_8/seg_3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_8/seg_4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_8/seg_5.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_8/seg_6.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_8/seg_7.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_8/seg_8.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_8/seg_9.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_0_10_3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_2_5_7.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_3_6_5.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_4_14_4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_6_12_0.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_7_14_9.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_8_11_8.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_9_11_6.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pythonProject/final_images_lines/Intersected_line_mask_9_13_2.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Report/Documentation/Images/figures.pptx" beforeDir="false" afterPath="$PROJECT_DIR$/Report/Documentation/Images/figures.pptx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,7 +85,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Proper_Time_Analysis_3" />
+        <entry key="$PROJECT_DIR$" value="complete_new_code" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -154,7 +220,7 @@
         <item itemvalue="Python.main" />
         <item itemvalue="Python.deleting_files" />
         <item itemvalue="Python.copy content" />
-        <item itemvalue="Python.main" />
+        <item itemvalue="Python.with skeleton" />
       </list>
     </recent_temporary>
   </component>
@@ -485,7 +551,7 @@
     <option name="LAST_COMMIT_MESSAGE" value="submitted to philip" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Masters_Project_2023$with_skeleton.coverage" NAME="with skeleton Coverage Results" MODIFIED="1690757640795" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
+    <SUITE FILE_PATH="coverage/Masters_Project_2023$with_skeleton.coverage" NAME="with skeleton Coverage Results" MODIFIED="1690833543598" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
     <SUITE FILE_PATH="coverage/Masters_Project_2023$MULTIPROCESSING.coverage" NAME="MULTIPROCESSING Coverage Results" MODIFIED="1682801153245" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
     <SUITE FILE_PATH="coverage/Masters_Project_2023$copy_content.coverage" NAME="copy content Coverage Results" MODIFIED="1678217175984" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
     <SUITE FILE_PATH="coverage/Masters_Project_2023$deleting_files.coverage" NAME="deleting_files Coverage Results" MODIFIED="1680436269032" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject" />
